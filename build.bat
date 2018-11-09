@@ -1,2 +1,2 @@
-javac -d bin/server src/server/*.java
-javac -d bin/client src/client/*.java
+javac -d bin src/server/*.java
+rem javac -d bin src/client/*.java

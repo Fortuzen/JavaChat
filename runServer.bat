@@ -1,1 +1,1 @@
-java -cp bin/server Main
+java -cp bin server.ChatServer
