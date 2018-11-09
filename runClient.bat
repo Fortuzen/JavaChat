@@ -1,0 +1,1 @@
+java -cp bin/client client.Main
