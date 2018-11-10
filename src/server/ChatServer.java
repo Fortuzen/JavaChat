@@ -19,18 +19,20 @@ public class ChatServer {
      * Main method. 
      */
     public static void main(String[] args) {
-        initSettings();
-        initCommands();
+        initServer();
 
     }
     /**
      * Load settings and create rooms
      */
-    static void initSettings() {
+    static void initServer() {
         // Load server settings
         serverSettings = new ServerSettings();
         System.out.println("Loading settings");
         serverSettings.load();
+        //Create rooms
+
+        //Create commands
     }
     /**
      * 
