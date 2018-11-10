@@ -30,6 +30,7 @@ public class ServerSettings {
     //From bans.txt
     ArrayList<String> bannedAddresses;
 
+    // TODO: Fix paths
     private String configFilePath = "bin/server/config.ini";
     private String banListPath = "bin/server/bans.txt";
 
@@ -61,10 +62,10 @@ public class ServerSettings {
 
                 String[] splitted = line.split("=");
                 if(splitted.length==1) {
-                    System.out.println(splitted[0]+"="+"");
+                    //System.out.println(splitted[0]+"="+"");
                     settings.put(splitted[0],"");   
                 } else {
-                    System.out.println(splitted[0]+"="+splitted[1]);
+                    //System.out.println(splitted[0]+"="+splitted[1]);
                     settings.put(splitted[0],splitted[1]);   
                 }          
             }
