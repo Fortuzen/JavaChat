@@ -11,7 +11,7 @@ import java.lang.Integer;
 public class RoomSettings {
 
     //From config.ini
-    String name;
+    public String name;
     String description;
     String roomPassword;
     String roomModeratorPassword;
