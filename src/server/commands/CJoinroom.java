@@ -16,7 +16,7 @@ public class CJoinroom implements server.ICommand {
         r.users.add(chatServerThread.user);
         chatServerThread.user.currentRoom = r;
 
-        chatServerThread.sendMessage(chatServerThread.user.name + " joined room "+r.roomSettings.name);
+        chatServerThread.sendMessageToCurrentRoom(chatServerThread.user.name + " joined room "+r.roomSettings.name);
 
     }
 }

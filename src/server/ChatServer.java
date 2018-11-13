@@ -11,6 +11,8 @@ import java.io.InputStreamReader;
 
 import server.commands.*;
 
+import shared.ICommunication;
+import shared.DefaultCommunication;
 /**
  * ChatServer. Main class.
  * @author Antti Neuvonen
@@ -86,49 +88,38 @@ public class ChatServer {
 
         public ChatServerThread(Socket socket) {
             user = new User(socket);
-            //TODO: Refactor?
-            try {
-                user.output = new PrintWriter(socket.getOutputStream(), true);
-                user.input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            } catch (Exception e) {
-                //TODO: handle exception
-            }
-
-
         }
 
         public void run() {
             try {
                 authenticate();
                 while(true) {
-                    String msg = user.input.readLine();
+                    String msg = user.communication.receiveMessage();
                     if(msg.isEmpty() || msg.equals("\n")) {
                         continue;
                     }
                     //Handle possible command
                     ICommand cmd = null;
                     String msgbody = "";
-                    String[] splitMsg = msg.split(" ");
-                    int index = msg.indexOf(' ');
-                    if(index!=-1) {
-                        cmd = commands.get(msg.substring(0,index));
-                        msgbody = msg.substring(index+1);
-                        System.out.println(cmd);
-                        System.out.println(msgbody);
+
+                    
+                    if(msg.charAt(0) == '/') {                     
+                        String[] splittedMsg = msg.split(" ");
+                        cmd = commands.get(splittedMsg[0]);  
+                        int index = msg.indexOf(' ');
+                        msgbody = msg.substring(index+1);                     
+                    } else {
+                        msgbody = msg;
                     }
+                                     
                     if(cmd!=null) {
                         cmd.execute(this,msgbody);
                         continue;
                     }
                     System.out.println("Commands done");
-                    if(user.currentRoom == null) {
-                        continue;
-                    } 
-
-                    sendMessage(msg);
-
+                    //Default command
+                    sendMessageToCurrentRoom(msgbody);
                 }
-                
             } catch (Exception e) {
                 System.out.println(e);
             }
@@ -136,9 +127,9 @@ public class ChatServer {
 
         public void authenticate() {
             try {
-                String msg = user.input.readLine();
+                String msg = user.communication.receiveMessage();
                 if(msg.isEmpty()) {
-                    user.output.println("Error");
+                    user.communication.sendMessage("Error");
                     user.socket.close();
                 }
                 //Username
@@ -150,25 +141,26 @@ public class ChatServer {
                     if(pass.equals(serverSettings.serverPassword)) {
     
                     } else {
-                        user.output.println("Error");
+                        user.communication.sendMessage("Error");
                         user.socket.close();
                     }
                 }
                 //Success, welcome
-                user.output.println(serverSettings.motd);
+                users.add(user);
+                user.communication.sendMessage(serverSettings.motd);
                 System.out.println(user.name +" joined the server");                
             } catch (Exception e) {
                 System.out.println(e);
             }
         }
 
-        public void sendMessage(String msg) {
-            try {
-                for(User u : user.currentRoom.users) {
-                    u.output.println(user.name+": "+msg);
-                }
-            } catch (Exception e) {
-                //TODO: handle exception
+        public void sendMessageToCurrentRoom(String msg) {
+            if(user.currentRoom == null) {
+                return;
+            } 
+            System.out.println("Message to be sent: "+msg);
+            for(User u : user.currentRoom.users) {
+                u.communication.sendMessage(user.name+": "+msg);
             }
         }
     }
