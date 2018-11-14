@@ -1,6 +1,5 @@
 package client;
 
-import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
@@ -12,10 +11,13 @@ public class ChatClient {
 	public static ICommunication communication = null;
 	
 	public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
 		String ip = "localhost";
 		int port = 8000;
 		Socket socket;
-		
+//		System.out.print("Port: ");
+//		port = scanner.nextInt();
         try {
             socket = new Socket(ip, port);
             System.out.println("Connected to " + ip + " " + port);
@@ -27,7 +29,6 @@ public class ChatClient {
             System.out.println("Could not connect to " + ip + " " + port);
         }
 
-        Scanner scanner = new Scanner(System.in);
         
         System.out.print("Insert nickname: ");
         String nick = scanner.next();
@@ -35,8 +36,7 @@ public class ChatClient {
         
         String msg = "";
         while (!(msg.contains("quit"))) {
-            System.out.print(nick + ": ");
-        	msg = scanner.next();
+        	msg = scanner.nextLine();
             communication.sendMessage(msg);
         }
         
