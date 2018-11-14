@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -44,9 +46,12 @@ public class ChatClient extends Application {
         menu1.getItems().add(menuItem2);
         
         MenuItem menu2Item = new MenuItem("Help");
+        MenuItem menu2Item2 = new MenuItem("About");
         menu2.getItems().add(menu2Item);
+        menu2.getItems().add(menu2Item2);
+        
 
-        taMessages = new TextArea();
+        taMessages = new TextArea("\nPlease connect to a server to start chatting with other people. Press help for more info.");
         taMessages.setEditable(false);
         taMessages.setWrapText(true);
 
@@ -59,7 +64,7 @@ public class ChatClient extends Application {
         
         Scene mainFrame = new Scene(border, 800,600);
 
-        primaryStage.setTitle("Chat Client");
+        primaryStage.setTitle("Chat");
         primaryStage.setScene(mainFrame);
         primaryStage.centerOnScreen();
         primaryStage.show();
@@ -73,11 +78,15 @@ public class ChatClient extends Application {
                 communication = new DefaultCommunication(socket);
                 MsgRec rec = new MsgRec();
                 rec.start(); // Listen to server
+                taMessages.setText("");
 
             } catch (Exception error) {
-                System.out.println("Could not connect to " + ip + " " + port);
+            	Alert alert = new Alert(AlertType.INFORMATION);
+            	alert.setTitle("Error");
+            	alert.setHeaderText(null);
+            	alert.setContentText("Could not connect to " + ip + " " + port);
+            	alert.showAndWait();
             }
-
         });
         
 
@@ -98,15 +107,29 @@ public class ChatClient extends Application {
                     communication = new DefaultCommunication(socket);
                     MsgRec rec = new MsgRec();
                     rec.start(); // Listen to server
+                    taMessages.setText("");
 
                 } catch (Exception error) {
-                    System.out.println("Could not connect to " + ip + " " + port);
+                	Alert alert = new Alert(AlertType.INFORMATION);
+                	alert.setTitle("Error");
+                	alert.setHeaderText(null);
+                	alert.setContentText("Could not connect to " + ip + " " + port);
+                	alert.showAndWait();
                 }
         	}
         });
         
         menu2Item.setOnAction(e-> {
-        	//TODO: display helpful stuff
+        	//TODO: Display helpful stuff
+        });
+        
+        menu2Item2.setOnAction(e-> {
+        	Alert alert = new Alert(AlertType.INFORMATION);
+        	alert.setTitle("About");
+        	alert.setHeaderText("The Chat");
+        	alert.setContentText("Made by some people. Copyright 2018");
+
+        	alert.showAndWait();
         });
 
         taInput.setOnKeyPressed(e -> {
@@ -116,7 +139,11 @@ public class ChatClient extends Application {
             try {
                 communication.sendMessage(msg); // Send message to server
             } catch (Exception er) {
-            	System.out.println("ERROR: Could not send a message");
+            	Alert alert = new Alert(AlertType.INFORMATION);
+            	alert.setTitle("Error");
+            	alert.setHeaderText(null);
+            	alert.setContentText("Could not send a message to server");
+            	alert.showAndWait();
             } 
             taInput.setText("");
         });

@@ -118,7 +118,7 @@ public class ChatServer {
                     }
                     System.out.println("Commands done");
                     //Default command
-                    sendMessageToCurrentRoom(msgbody);
+                    sendMessageToCurrentRoom(msgbody, user.name);
                 }
             } catch (Exception e) {
                 System.out.println(e);
@@ -154,13 +154,20 @@ public class ChatServer {
             }
         }
 
-        public void sendMessageToCurrentRoom(String msg) {
+        public void sendMessageToCurrentRoom(String msg, String MsgSender) {
             if(user.currentRoom == null) {
                 return;
             } 
-            System.out.println("Message to be sent: "+msg);
-            for(User u : user.currentRoom.users) {
-                u.communication.sendMessage(user.name+": "+msg);
+            if ((MsgSender.equals("SERVER"))) { // TODO: Prevent users from claiming the username "SERVER"
+	            System.out.println("Message to be sent: "+msg);
+	            for(User u : user.currentRoom.users) {
+	                u.communication.sendMessage("** " + msg + " **");
+	            }
+            } else {
+	            System.out.println("Message to be sent: "+msg);
+	            for(User u : user.currentRoom.users) {
+	                u.communication.sendMessage(MsgSender + ": " + msg);
+	            }
             }
         }
     }
