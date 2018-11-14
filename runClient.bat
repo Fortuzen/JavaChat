@@ -1,1 +1,1 @@
-java -cp bin/client client.Main
+java -cp bin client.ChatClient
