@@ -1,0 +1,1 @@
+javac -d bin src/client/*.java src/shared/*.java
