@@ -20,7 +20,7 @@ public class ChatClient {
             socket = new Socket(ip, port);
             System.out.println("Connected to " + ip + " " + port);
             communication = new DefaultCommunication(socket);
-            MsgRec rec = new MsgRec(socket);
+            MsgRec rec = new MsgRec();
             rec.start();
 
         } catch (Exception error) {
