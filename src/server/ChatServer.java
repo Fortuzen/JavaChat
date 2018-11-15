@@ -53,6 +53,8 @@ public class ChatServer {
     static void initCommands() {
         // All commands here
         commands.put("/joinroom",new CJoinroom());
+        commands.put("/leaveroom", new CLeaveroom());
+        commands.put("/help",  new CHelp());
     }
     /**
      * Main method. 
@@ -130,11 +132,15 @@ public class ChatServer {
                 String msg = user.communication.receiveMessage();
                 if(msg.isEmpty()) {
                     user.communication.sendMessage("Error");
-                    user.socket.close();
+                    user.socket.close(); // TODO: Fix
                 }
                 //Username
                 String[] s_msg = msg.split(" ");
                 user.name = s_msg[0];
+                if(user.name.equals("SERVER")) {
+                    user.communication.sendMessage("Error");
+                    user.socket.close(); // TODO: Fix
+                }
                 //Server password if any
                 if(s_msg.length > 1 && serverSettings.serverPassword != "") {
                     String pass = s_msg[1];
@@ -158,7 +164,7 @@ public class ChatServer {
             if(user.currentRoom == null) {
                 return;
             } 
-            if ((MsgSender.equals("SERVER"))) { // TODO: Prevent users from claiming the username "SERVER"
+            if ((MsgSender.equals("SERVER"))) {
 	            System.out.println("Message to be sent: "+msg);
 	            for(User u : user.currentRoom.users) {
 	                u.communication.sendMessage("** " + msg + " **");
@@ -169,6 +175,9 @@ public class ChatServer {
 	                u.communication.sendMessage(MsgSender + ": " + msg);
 	            }
             }
+        }
+        public void sendMessageToUser(String msg) {
+        	user.communication.sendMessage(msg);
         }
     }
 

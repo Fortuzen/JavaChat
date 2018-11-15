@@ -34,6 +34,7 @@ public class ChatClient extends Application {
     public void start(Stage primaryStage) {
 		
         MenuBar menu = new MenuBar();
+        MsgRec rec = new MsgRec();
 
         Menu menu1 = new Menu("Connect...");
         Menu menu2 = new Menu("Help");
@@ -42,8 +43,10 @@ public class ChatClient extends Application {
 
         MenuItem menuItem = new MenuItem("Quick connect");
         MenuItem menuItem2 = new MenuItem("Connect to a server");
+        MenuItem menuItem3 = new MenuItem("Disconnect");
         menu1.getItems().add(menuItem);
         menu1.getItems().add(menuItem2);
+        menu1.getItems().add(menuItem3);
         
         MenuItem menu2Item = new MenuItem("Help");
         MenuItem menu2Item2 = new MenuItem("About");
@@ -76,7 +79,6 @@ public class ChatClient extends Application {
                 socket = new Socket(ip, port);
                 System.out.println("Connected to " + ip + " " + port);
                 communication = new DefaultCommunication(socket);
-                MsgRec rec = new MsgRec();
                 rec.start(); // Listen to server
                 taMessages.setText("");
 
@@ -105,7 +107,7 @@ public class ChatClient extends Application {
                     socket = new Socket(ip, port);
                     System.out.println("Connected to " + ip + " " + port);
                     communication = new DefaultCommunication(socket);
-                    MsgRec rec = new MsgRec();
+
                     rec.start(); // Listen to server
                     taMessages.setText("");
 
@@ -121,6 +123,10 @@ public class ChatClient extends Application {
         
         menu2Item.setOnAction(e-> {
         	//TODO: Display helpful stuff
+        });
+        
+        menuItem3.setOnAction(e-> { // Disconnect
+        	
         });
         
         menu2Item2.setOnAction(e-> {
