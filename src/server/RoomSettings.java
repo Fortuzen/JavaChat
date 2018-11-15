@@ -12,18 +12,19 @@ public class RoomSettings {
 
     //From config.ini
     public String name;
-    String description;
-    String roomPassword;
-    String roomModeratorPassword;
-    String roomAdminPassword;
-    String rules;
-    String motd;
+    public String description;
+    public String roomPassword;
+    public String roomModeratorPassword;
+    public String roomAdminPassword;
+    public String rules;
+    public String motd;
 
-    int maxUsers;
+    public int maxUsers;
     
     //From bans.txt
-    ArrayList<String> bannedAddresses;
-    ArrayList<String> mutedAddresses;
+    public ArrayList<String> bannedAddresses;
+    //From mutes.txt
+    public ArrayList<String> mutedAddresses;
 
     // TODO: Fix paths
     private String path = "bin/server/";

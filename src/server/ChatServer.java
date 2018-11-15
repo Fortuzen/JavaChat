@@ -18,13 +18,13 @@ import shared.DefaultCommunication;
  * @author Antti Neuvonen
  */
 public class ChatServer {
-    //List of users in the server
+    // List of users in the server
     public static ArrayList<User> users;
-    //All available commands
+    // All available commands
     public static HashMap<String,ICommand> commands;
-    //Map of all rooms
+    // Map of all rooms
     public static HashMap<String, Room> rooms;
-
+    //
     public static ServerSettings serverSettings;
 
     /**
@@ -52,10 +52,17 @@ public class ChatServer {
      */
     static void initCommands() {
         // All commands here
+        //User level commands
         commands.put("/joinroom",new CJoinroom());
         commands.put("/leaveroom", new CLeaveroom());
         commands.put("/help",  new CHelp());
         commands.put("/privmsg", new CPrivmsg());
+
+        //Moderator
+
+        //Room admin
+
+        //Server admin
     }
     /**
      * Main method. 
@@ -72,7 +79,6 @@ public class ChatServer {
     }
     public void listen() {
         ServerSocket server = null;
-
         try {
             server = new ServerSocket(serverSettings.port);
             while(true) {
@@ -167,7 +173,10 @@ public class ChatServer {
         public void sendMessageToCurrentRoom(String msg, String MsgSender) {
             if(user.currentRoom == null) {
                 return;
-            } 
+            }
+            if(user.currentRoom.roomSettings.mutedAddresses.contains(user.socket.getInetAddress().getHostAddress())) {
+                return;
+            }
             try {
                 if ((MsgSender.equals("SERVER"))) {
                     System.out.println("Message to be sent: "+msg);

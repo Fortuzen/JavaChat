@@ -9,11 +9,11 @@ import shared.ICommunication;
 import shared.DefaultCommunication;
 
 public class User {
-    Socket socket;
+    public Socket socket;
     public String name;
     public Room currentRoom;
     public ICommunication communication;
-    int mode;
+    public int mode; // 0=user, 1=room moderator, 2=room admin, 3=server admin
 
     public User(Socket s) {
         this.socket = s;
