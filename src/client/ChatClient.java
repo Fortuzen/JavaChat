@@ -1,5 +1,6 @@
 package client;
 
+import java.io.IOException;
 import java.net.Socket;
 import java.util.Optional;
 
@@ -126,7 +127,10 @@ public class ChatClient extends Application {
         });
         
         menuItem3.setOnAction(e-> { // Disconnect
-        	
+        	try {
+				socket.close();
+			} catch (IOException e1) {
+			}
         });
         
         menu2Item2.setOnAction(e-> {

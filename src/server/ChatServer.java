@@ -128,6 +128,7 @@ public class ChatServer {
         }
 
         public void authenticate() {
+        	user.communication.sendMessage("Please give your nickname and the server password (if any) in the message area below");
             try {
                 String msg = user.communication.receiveMessage();
                 if(msg.isEmpty()) {
