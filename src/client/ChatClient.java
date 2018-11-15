@@ -5,6 +5,7 @@ import java.net.Socket;
 import java.util.Optional;
 
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -48,13 +49,11 @@ public class ChatClient extends Application {
         menu1.getItems().add(menuItem);
         menu1.getItems().add(menuItem2);
         menu1.getItems().add(menuItem3);
-        
         MenuItem menu2Item = new MenuItem("Help");
         MenuItem menu2Item2 = new MenuItem("About");
         menu2.getItems().add(menu2Item);
         menu2.getItems().add(menu2Item2);
         
-
         taMessages = new TextArea("\nPlease connect to a server to start chatting with other people. Press help for more info.");
         taMessages.setEditable(false);
         taMessages.setWrapText(true);
@@ -65,6 +64,7 @@ public class ChatClient extends Application {
         border.setTop(menu);
         border.setCenter(taMessages);
         border.setBottom(taInput);
+        BorderPane.setMargin(taInput, new Insets(12,12,12,12));
         
         Scene mainFrame = new Scene(border, 800,600);
 
@@ -108,10 +108,8 @@ public class ChatClient extends Application {
                     socket = new Socket(ip, port);
                     System.out.println("Connected to " + ip + " " + port);
                     communication = new DefaultCommunication(socket);
-
                     rec.start(); // Listen to server
                     taMessages.setText("");
-
                 } catch (Exception error) {
                 	Alert alert = new Alert(AlertType.INFORMATION);
                 	alert.setTitle("Error");
@@ -128,7 +126,7 @@ public class ChatClient extends Application {
         
         menuItem3.setOnAction(e-> { // Disconnect
         	try {
-				socket.close();
+				socket.close(); // TODO: Crashes server
 			} catch (IOException e1) {
 			}
         });
@@ -138,7 +136,6 @@ public class ChatClient extends Application {
         	alert.setTitle("About");
         	alert.setHeaderText("The Chat");
         	alert.setContentText("Made by some people. Copyright 2018");
-
         	alert.showAndWait();
         });
 

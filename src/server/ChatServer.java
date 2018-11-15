@@ -55,6 +55,7 @@ public class ChatServer {
         commands.put("/joinroom",new CJoinroom());
         commands.put("/leaveroom", new CLeaveroom());
         commands.put("/help",  new CHelp());
+        commands.put("/privmsg", new CPrivmsg());
     }
     /**
      * Main method. 
