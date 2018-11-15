@@ -18,7 +18,7 @@ public class ServerSettings {
     String serverPassword;
     String serverAdminPassword;
     String rules;
-    String motd;
+    public String motd; // TODO: getterit ja setterit vai
 
     String[] roomNames;
 
