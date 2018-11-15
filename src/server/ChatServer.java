@@ -57,12 +57,15 @@ public class ChatServer {
         commands.put("/leaveroom", new CLeaveroom());
         commands.put("/help",  new CHelp());
         commands.put("/privmsg", new CPrivmsg());
-
+        commands.put("/username", new CUsername());
+        commands.put("/users",  new CUsers());
+        commands.put("/motd",  new CMotd());
         //Moderator
 
         //Room admin
 
         //Server admin
+ 
     }
     /**
      * Main method. 

@@ -144,7 +144,13 @@ public class ChatClient extends Application {
             if(taInput.getText().isEmpty()) return;
             String msg = taInput.getText();   
             try {
-                communication.sendMessage(msg); // Send message to server
+            	System.out.println(msg);
+            	if (msg.contains("/quit")) {
+            		System.exit(0); // close connections before quitting
+            	} else {
+                    communication.sendMessage(msg); // Send message to server
+            	}
+
             } catch (Exception er) {
             	Alert alert = new Alert(AlertType.INFORMATION);
             	alert.setTitle("Error");
