@@ -129,9 +129,9 @@ public class ChatServer {
             }
         }
 
-        public void authenticate() {
-        	user.communication.sendMessage("Please give your nickname and the server password (if any) in the message area below");
+        public void authenticate() {       	
             try {
+                user.communication.sendMessage("Please give your nickname and the server password (if any) in the message area below");
                 String msg = user.communication.receiveMessage();
                 if(msg.isEmpty()) {
                     user.communication.sendMessage("Error");
@@ -167,20 +167,30 @@ public class ChatServer {
             if(user.currentRoom == null) {
                 return;
             } 
-            if ((MsgSender.equals("SERVER"))) {
-	            System.out.println("Message to be sent: "+msg);
-	            for(User u : user.currentRoom.users) {
-	                u.communication.sendMessage("** " + msg + " **");
-	            }
-            } else {
-	            System.out.println("Message to be sent: "+msg);
-	            for(User u : user.currentRoom.users) {
-	                u.communication.sendMessage(MsgSender + ": " + msg);
-	            }
+            try {
+                if ((MsgSender.equals("SERVER"))) {
+                    System.out.println("Message to be sent: "+msg);
+                    for(User u : user.currentRoom.users) {
+                        u.communication.sendMessage("** " + msg + " **");
+                    }
+                } else {
+                    System.out.println("Message to be sent: "+msg);
+                    for(User u : user.currentRoom.users) {
+                        u.communication.sendMessage(MsgSender + ": " + msg);
+                    }
+                }
+            } catch (Exception e) {
+                //TODO: handle exception
             }
+
         }
         public void sendMessageToUser(String msg) {
-        	user.communication.sendMessage(msg);
+            try {
+                user.communication.sendMessage(msg);
+            } catch (Exception e) {
+                //TODO: handle exception
+            }
+        	
         }
     }
 

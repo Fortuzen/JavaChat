@@ -20,21 +20,21 @@ public class DefaultCommunication implements ICommunication {
     }
 
     @Override
-    public void sendMessage(String msg) {
+    public void sendMessage(String msg) throws Exception {
         try {
             output.println(msg);
         } catch (Exception e) {
-            //TODO: handle exception
+            throw new Exception("Exception occurred in sendMessage");
         }
         
     }
 
     @Override
-    public String receiveMessage() {
+    public String receiveMessage() throws Exception {
         try {
             return input.readLine();
         } catch (Exception e) {
-            return e.toString();
+            throw new Exception("Exception occurred in receiveMessage");
         }
         
     } 
