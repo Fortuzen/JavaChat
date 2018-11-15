@@ -60,6 +60,7 @@ public class ChatServer {
         commands.put("/username", new CUsername());
         commands.put("/users",  new CUsers());
         commands.put("/motd",  new CMotd());
+        commands.put("/quit", new CQuit());
         //Moderator
 
         //Room admin
@@ -106,6 +107,9 @@ public class ChatServer {
             try {
                 authenticate();
                 while(true) {
+                    if(user.socket.isClosed()) {
+                        break;
+                    }
                     String msg = user.communication.receiveMessage();
                     if(msg.isEmpty() || msg.equals("\n")) {
                         continue;
