@@ -124,6 +124,8 @@ public class ChatServer {
                 }
             } catch (Exception e) {
                 System.out.println(e);
+            } finally {
+                users.remove(user);
             }
         }
 
