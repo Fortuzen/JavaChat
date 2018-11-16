@@ -10,7 +10,7 @@ public class MsgRec extends Thread {
         try {
             while(true) {
             	String msg = ChatClient.communication.receiveMessage();
-                ChatClient.taMessages.appendText("[" + new Timestamp(System.currentTimeMillis()).toLocalDateTime() + "] " + msg+"\n"); //TODO: Timestamp too precise
+                ChatClient.taMessages.appendText(msg+"\n");
                 ChatClient.taMessages.setScrollTop(Double.MAX_VALUE);
             }
             

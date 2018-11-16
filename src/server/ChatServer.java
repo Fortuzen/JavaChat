@@ -4,6 +4,7 @@ import java.util.Map;
 
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Collections;
@@ -15,6 +16,9 @@ import server.commands.*;
 
 import shared.ICommunication;
 import shared.DefaultCommunication;
+
+import java.time.LocalDateTime;
+import java.sql.Timestamp;
 /**
  * ChatServer. Main class.
  * @author Antti Neuvonen
@@ -193,9 +197,11 @@ public class ChatServer {
                         u.communication.sendMessage("** " + msg + " **");
                     }
                 } else {
+                    LocalDateTime date = new Timestamp(System.currentTimeMillis()).toLocalDateTime();
+                    String timestr = "["+String.valueOf(date.getHour()) + ":" + String.valueOf(date.getMinute()) + ":"+String.valueOf(date.getSecond())+"] ";
                     System.out.println("Message to be sent: "+msg);
                     for(User u : user.currentRoom.users) {
-                        u.communication.sendMessage(MsgSender + ": " + msg);
+                        u.communication.sendMessage(timestr + MsgSender + ": " + msg);
                     }
                 }
             } catch (Exception e) {
