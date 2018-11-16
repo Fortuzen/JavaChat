@@ -19,7 +19,7 @@ public class CPrivmsg implements server.ICommand {
         String[] splittedMsg = msg.split(" ");
         String msgReciever = splittedMsg[0];
         int index = msg.indexOf(' ');
-        msgbody = msg.substring(index+1);      
+        msgbody = msg.substring(index+1);
         
         for(User u : r.users) {
         	if (u.getName().equals(msgReciever)) {
@@ -27,6 +27,7 @@ public class CPrivmsg implements server.ICommand {
                 	u.getCommunication().sendMessage(chatServerThread.user.getName() + " whispers: " + msgbody);
                 	chatServerThread.user.getCommunication().sendMessage("You whispered to " + u.getName() + ": " + msgbody);
                 } catch (Exception e) {
+            		System.out.println("Could not send message");
                 }
         	}
         }
