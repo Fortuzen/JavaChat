@@ -11,6 +11,7 @@ public class CAdmins implements server.ICommand {
     @Override
     public void execute(ChatServerThread chatServerThread, String msg) {
     	User user = chatServerThread.user;
+    	ChatServerThread ct = chatServerThread;
     	Room r = user.getCurrentRoom();
         if(r==null) {
             return;
@@ -19,45 +20,33 @@ public class CAdmins implements server.ICommand {
     	int i = 0;
         for(User u : r.users) {
         	if (u.getMode() == 3) {
-                try {
                 	i++;
                 	if (i == 1) {
-                		user.getCommunication().sendMessage("** Server administrators in current room **");
+                		ct.sendMessageToUser("** Server administrators in current room **");
                 	}
-                	user.getCommunication().sendMessage(u.getName());
-                } catch (Exception e) {
-            		System.out.println("Could not send message");
-                }
+                	ct.sendMessageToUser(u.getName());
         	}
         }
         
         i = 0;
         for(User u : r.users) {
         	if (u.getMode() == 2) {
-                try {
                 	i++;
                 	if (i == 1) {
-                		user.getCommunication().sendMessage("** Room administrators in current room **");
+                		ct.sendMessageToUser("** Room administrators in current room **");
                 	}
-                	user.getCommunication().sendMessage(u.getName());
-                } catch (Exception e) {
-            		System.out.println("Could not send message");
-                }
+                	ct.sendMessageToUser(u.getName());
         	}
         }
         
         i = 0;
         for(User u : r.users) {
         	if (u.getMode() == 1) {
-                try {
                 	i++;
                 	if (i == 1) {
-                		user.getCommunication().sendMessage("** Room moderators in current room **");
+                		ct.sendMessageToUser("** Room moderators in current room **");
                 	}
-                	user.getCommunication().sendMessage(u.getName());
-                } catch (Exception e) {
-            		System.out.println("Could not send message");
-                }
+                	ct.sendMessageToUser(u.getName());
         	}
         }
         

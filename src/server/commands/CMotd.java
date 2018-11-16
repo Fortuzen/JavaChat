@@ -11,14 +11,12 @@ public class CMotd implements server.ICommand {
     @Override
     public void execute(ChatServerThread chatServerThread, String msg) {
     	User user = chatServerThread.user;
+    	ChatServerThread ct = chatServerThread;
     	Room r = user.getCurrentRoom();
 
     	if(r==null) {
             return;
         }
-    	try {
-        	user.getCommunication().sendMessage("Message of the day: " + ChatServer.serverSettings.motd);
-        } catch (Exception e) {
-        }
+    		ct.sendMessageToUser("Message of the day: " + ChatServer.serverSettings.motd);
     }
 }

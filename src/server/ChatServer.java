@@ -82,6 +82,7 @@ public class ChatServer {
         commands.put("/kick", new CKick());
         //Room admin
         commands.put("/roommode", new CRoommode());
+        commands.put("/roompassword", new CRoompassword());
         //Server admin
         commands.put("/mode", new CMode());
     }

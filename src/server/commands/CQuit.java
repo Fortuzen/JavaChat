@@ -6,7 +6,7 @@ import server.Room;
 import server.User;
 
 import java.util.ArrayList;
-
+// TODO: Crashes client (sometimes)
 public class CQuit implements server.ICommand {
     @Override
     public void execute(ChatServerThread chatServerThread, String msg) {

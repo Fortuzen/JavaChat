@@ -6,7 +6,7 @@ import server.Room;
 import server.User;
 
 import java.util.ArrayList;
-// TODO: DOES NOT WORK
+// TODO: DOES NOT WORK, kicks the kicker (sometimes)
 public class CKick implements server.ICommand {
     @Override
     public void execute(ChatServerThread chatServerThread, String msg) {

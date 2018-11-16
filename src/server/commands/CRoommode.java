@@ -11,16 +11,13 @@ public class CRoommode implements server.ICommand {
     @Override
     public void execute(ChatServerThread chatServerThread, String msg) {
     	User user = chatServerThread.user;
+    	ChatServerThread ct = chatServerThread;
     	Room r = user.getCurrentRoom();
         if(r==null) {
             return;
         }
         if ((user.getMode() < 2)) {
-        	try {
-        		user.getCommunication().sendMessage("You do not have the permission to use this command.");
-        	} catch (Exception ex) {
-        		System.out.println("Could not send message.");
-        	}
+       		ct.sendMessageToUser("You do not have the permission to use this command.");
         	return;
         }
         	
@@ -31,11 +28,7 @@ public class CRoommode implements server.ICommand {
         try {
         	modelevel = Integer.parseInt(msg.substring(index+1));
         } catch (Exception e) {
-        	try {
-        		user.getCommunication().sendMessage("Not valid number.");
-        	} catch (Exception ex) {
-        		System.out.println("Could not send message.");
-        	}
+       		ct.sendMessageToUser("Not valid number.");
         }
         if ((modelevel == 1) || (modelevel == 0)) {
         	boolean found = false;
@@ -58,18 +51,10 @@ public class CRoommode implements server.ICommand {
             	}
             }
             if (!(found)) {
-            	try {
-            		user.getCommunication().sendMessage("Could not find that user.");
-            	} catch (Exception ex) {
-            		System.out.println("Could not send message.");
-            	}
+           		ct.sendMessageToUser("Could not find that user.");
             }
         } else {
-        	try {
-        		user.getCommunication().sendMessage("Not valid number.");
-        	} catch (Exception e) {
-        		System.out.println("Could not send message.");
-        	}
+       		ct.sendMessageToUser("Not valid number.");
         }
     }
 }
