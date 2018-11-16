@@ -81,6 +81,8 @@ public class ChatClient extends Application {
                 System.out.println("Connected to " + ip + " " + port);
                 communication = new DefaultCommunication(socket);
                 rec.start(); // Listen to server
+                communication.sendMessage("Defaultname");
+                communication.sendMessage("/joinroom room1"); // TODO: remove later
                 taMessages.setText("");
 
             } catch (Exception error) {
@@ -144,13 +146,7 @@ public class ChatClient extends Application {
             if(taInput.getText().isEmpty()) return;
             String msg = taInput.getText();   
             try {
-            	System.out.println(msg);
-            	if (msg.contains("/quit")) {
-            		System.exit(0); // close connections before quitting
-            	} else {
-                    communication.sendMessage(msg); // Send message to server
-            	}
-
+                communication.sendMessage(msg); // Send message to server
             } catch (Exception er) {
             	Alert alert = new Alert(AlertType.INFORMATION);
             	alert.setTitle("Error");
