@@ -26,14 +26,8 @@ public class CJoinroom implements server.ICommand {
                 return;
             }
         }
-        // Check if user/username is banned from the room
-        // Doesn't work if client connects using localhost
-        if(room.isBanned(chatServerThread.user.getSocket().getInetAddress().getHostAddress(), chatServerThread.user.getName())) {            
-            chatServerThread.sendMessageToUser("You are banned from this room!");
-            return;
-        }
-        // Check mode
-        
+
+        // Check mode       
         if(splitMsg.length > 1) {
             System.out.println(splitMsg[1]+":"+room.roomSettings.roomModeratorPassword);
             String password = splitMsg[1];
@@ -45,7 +39,16 @@ public class CJoinroom implements server.ICommand {
                 chatServerThread.sendMessageToUser("You are room admin!");
             }
         }
-
+        // Check if user/username is banned from the room
+        // Doesn't work if client connects using localhost
+        // Can't ban room admin
+        String address = chatServerThread.user.getSocket().getInetAddress().getHostAddress();
+        if(room.isBanned(address, chatServerThread.user.getName()) && chatServerThread.user.getMode() < 2 ) {            
+            chatServerThread.sendMessageToUser("You are banned from this room!");
+            // Bad
+            chatServerThread.user.setMode(0);
+            return;
+        }
         room.users.add(chatServerThread.user);
         chatServerThread.user.setCurrentRoom(room);
         chatServerThread.sendMessageToCurrentRoom((chatServerThread.user.getName() + " joined room " + room.roomSettings.name), "SERVER");

@@ -7,7 +7,7 @@ import server.User;
 
 import java.util.ArrayList;
 
-public class CBanroom implements server.ICommand {
+public class CRoomban implements server.ICommand {
     @Override
     public void execute(ChatServerThread chatServerThread, String msg) {
         Room room = chatServerThread.user.getCurrentRoom();
@@ -16,7 +16,6 @@ public class CBanroom implements server.ICommand {
             return;
         }
         
-        //TODO: check who can ban who
         int index = msg.indexOf(" ");
         String address;
         String username;
@@ -39,11 +38,12 @@ public class CBanroom implements server.ICommand {
         }
         String ban = address +":"+username+":"+reason;
         System.out.println(ban);
+        chatServerThread.sendMessageToCurrentRoom(toBeBanned.getName()+" was banned from the server! Reason: "+reason, "SERVER");
+        
         room.roomSettings.bannedAddresses.add(ban);
         room.roomSettings.saveBannedUsers();
         room.users.remove(toBeBanned);
 
-        chatServerThread.sendMessageToCurrentRoom(toBeBanned.getName()+" was banned from the server! Reason: "+reason, "SERVER");
         toBeBanned.setCurrentRoom(null);
         toBeBanned.setMode(0);
         
