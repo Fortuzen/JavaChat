@@ -71,6 +71,9 @@ public class ChatServer {
         commands.put("/users",  new CUsers());
         commands.put("/motd",  new CMotd());
         commands.put("/quit", new CQuit());
+        commands.put("/admins", new CAdmins());
+        commands.put("/mode", new CMode());
+        commands.put("/roommode", new CRoommode());
         //Moderator
         commands.put("/roomban", new CRoomban());
         commands.put("/roomunban", new CRoomunban());
