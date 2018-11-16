@@ -75,12 +75,12 @@ public class ChatServer {
         commands.put("/mode", new CMode());
         commands.put("/roommode", new CRoommode());
         //Moderator
-
+        commands.put("/banroom", new CBanroom());
         //Room admin
 
         //Server admin
- 
     }
+    
     /**
      * Main method. 
      */
@@ -174,6 +174,11 @@ public class ChatServer {
                     user.getCommunication().sendMessage("Error");
                     user.getSocket().close();
                 }
+                // Check ban
+                if(isBanned(user.getSocket().getInetAddress().getHostAddress(), user.getName())) {
+                    user.getCommunication().sendMessage("You are banned from the server!");
+                    user.getSocket().close();
+                }
                 //Server password if any
                 if(s_msg.length > 1 && serverSettings.serverPassword != "") {
                     String pass = s_msg[1];
@@ -197,7 +202,8 @@ public class ChatServer {
             if(user.getCurrentRoom() == null) {
                 return;
             }
-            if(user.getCurrentRoom().roomSettings.mutedAddresses.contains(user.getSocket().getInetAddress().getHostAddress())) {
+            if(user.getCurrentRoom().isMuted(user.getSocket().getInetAddress().getHostAddress(), user.getName())) {
+                sendMessageToUser("You are muted");
                 return;
             }
             try {
@@ -224,8 +230,17 @@ public class ChatServer {
                 user.getCommunication().sendMessage(msg);
             } catch (Exception e) {
                 //TODO: handle exception
+            }       	
+        }
+            // Format address:username:(reason)
+        public boolean isBanned(String address, String username) {
+            for(String ba : ChatServer.serverSettings.bannedAddresses) {
+                String[] splitted = ba.split(":");
+                if(splitted[0].equals(address)) {
+                    return true;
+                }
             }
-        	
+            return false;
         }
     }
 
