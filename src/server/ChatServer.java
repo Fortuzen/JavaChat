@@ -149,7 +149,7 @@ public class ChatServer {
             }
         }
 
-        public void authenticate() {       	
+        private void authenticate() {       	
             try {
                 user.getCommunication().sendMessage("Please give your nickname and the server password (if any) in the message area below");
                 String msg = user.getCommunication().receiveMessage();

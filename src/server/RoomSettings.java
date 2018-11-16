@@ -154,4 +154,31 @@ public class RoomSettings {
             }
         }
     }
+
+    synchronized public void saveBannedUsers() {
+        try {
+            File banFile = new File(banPath);
+            PrintWriter pw = new PrintWriter(banFile);
+            for(String addr : bannedAddresses) {
+                pw.println(addr);
+            }
+            pw.close();
+        } catch (Exception e) {
+            //TODO: handle exception
+        }
+    }
+
+    synchronized public void saveMutedUsers() {
+        try {
+            File muteFile = new File(mutePath);
+            PrintWriter pw = new PrintWriter(muteFile);
+            for(String addr : mutedAddresses) {
+                pw.println(addr);
+            }
+            pw.close();
+        } catch (Exception e) {
+            //TODO: handle exception
+        }
+    }   
+
 }
