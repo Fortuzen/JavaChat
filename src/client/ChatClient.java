@@ -32,11 +32,11 @@ public class ChatClient extends Application {
 	public static ICommunication communication = null;
     public static TextArea taMessages;
 	Socket socket;
+	MsgRec rec;
 	
     public void start(Stage primaryStage) {
 		
         MenuBar menu = new MenuBar();
-        MsgRec rec = new MsgRec();
 
         Menu menu1 = new Menu("Connect...");
         Menu menu2 = new Menu("Help");
@@ -77,12 +77,13 @@ public class ChatClient extends Application {
     		String ip = "localhost";
     		int port = 8000;
             try {
-                socket = new Socket(ip, port);
+            	rec = new MsgRec();
+            	socket = new Socket(ip, port);
                 System.out.println("Connected to " + ip + " " + port);
                 communication = new DefaultCommunication(socket);
                 rec.start(); // Listen to server
                 communication.sendMessage("Defaultname");
-                communication.sendMessage("/joinroom room1"); // TODO: remove later
+                communication.sendMessage("/joinroom room1 admin"); // TODO: remove later
                 taMessages.setText("");
 
             } catch (Exception error) {
@@ -107,6 +108,7 @@ public class ChatClient extends Application {
         		String ip = result.get();
         		int port = 8000; // TODO: Change to multiple field dialog
                 try {
+                	rec = new MsgRec();
                     socket = new Socket(ip, port);
                     System.out.println("Connected to " + ip + " " + port);
                     communication = new DefaultCommunication(socket);
@@ -128,8 +130,10 @@ public class ChatClient extends Application {
         
         menuItem3.setOnAction(e-> { // Disconnect
         	try {
-				socket.close(); // TODO: Crashes server
-			} catch (IOException e1) {
+				communication.sendMessage("/quit");
+        		socket.close();
+        		taMessages.setText("\nPlease connect to a server to start chatting with other people. Press help for more info.");
+			} catch (Exception e1) {
 			}
         });
         
