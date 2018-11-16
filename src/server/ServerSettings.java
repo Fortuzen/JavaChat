@@ -1,6 +1,8 @@
 package server;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.io.File;
@@ -28,7 +30,7 @@ public class ServerSettings {
     boolean logging;
 
     //From bans.txt
-    ArrayList<String> bannedAddresses;
+    List<String> bannedAddresses;
 
     // TODO: Fix paths
     private String configFilePath = "bin/server/config.ini";
@@ -44,7 +46,7 @@ public class ServerSettings {
 
         Scanner reader = null;
         HashMap<String,String> settings = new HashMap();
-        bannedAddresses = new ArrayList<String>();
+        bannedAddresses = Collections.synchronizedList(new ArrayList<String>());
 
         try {
             configFile.createNewFile();
