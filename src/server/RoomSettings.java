@@ -1,6 +1,8 @@
 package server;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.io.File;
@@ -22,9 +24,9 @@ public class RoomSettings {
     public int maxUsers;
     
     //From bans.txt
-    public ArrayList<String> bannedAddresses;
+    public List<String> bannedAddresses;
     //From mutes.txt
-    public ArrayList<String> mutedAddresses;
+    public List<String> mutedAddresses;
 
     // TODO: Fix paths
     private String path = "bin/server/";
@@ -47,8 +49,8 @@ public class RoomSettings {
 
         Scanner reader = null;
         HashMap<String,String> settings = new HashMap();
-        bannedAddresses = new ArrayList<String>();
-        mutedAddresses = new ArrayList<String>();
+        bannedAddresses = Collections.synchronizedList(new ArrayList<String>());
+        mutedAddresses = Collections.synchronizedList(new ArrayList<String>());
 
         try {
             if(!folder.exists()) {
