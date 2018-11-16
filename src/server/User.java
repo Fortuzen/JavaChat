@@ -21,5 +21,5 @@ public class User {
         this.currentRoom = null;
         this.communication = new DefaultCommunication(s);
         this.mode = 0;      
-    }
+    }   
 }
