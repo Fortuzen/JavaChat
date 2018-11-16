@@ -24,10 +24,10 @@ public class CJoinroom implements server.ICommand {
                 return;
             }
         }
-        // Check if user is banned from the room
+        // Check if user/username is banned from the room
         // Doesn't work if client connects using localhost
-        if(room.roomSettings.bannedAddresses.contains(chatServerThread.user.getSocket().getInetAddress().getHostAddress())) {
-            chatServerThread.sendMessageToUser("You are banned from this room!");
+        if(room.isBanned(chatServerThread.user.getSocket().getInetAddress().getHostAddress(), chatServerThread.user.getName())) {            
+            chatServerThread.sendMessageToUser("You are/Your username is banned from this room!");
             return;
         }
         // Check mode

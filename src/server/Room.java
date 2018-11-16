@@ -18,4 +18,16 @@ public class Room {
 
         users = Collections.synchronizedList(new ArrayList<User>());
     }
+    // Ban format:  address:username
+    public boolean isBanned(String address, String username) {
+        for(String ba : roomSettings.bannedAddresses) {
+            String[] splitted = ba.split(":");
+            if(splitted[0].equals(address)) {
+                return true;
+            } else if(splitted[1].equals(username)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
