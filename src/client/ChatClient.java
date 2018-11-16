@@ -25,8 +25,10 @@ import javafx.stage.Stage;
 
 import shared.ICommunication;
 import shared.DefaultCommunication;
-
-
+/**
+ * ChatClient
+ * @author Toni Luukkonen
+ */
 public class ChatClient extends Application {
 	
 	public static ICommunication communication = null;
@@ -36,22 +38,23 @@ public class ChatClient extends Application {
 	
     public void start(Stage primaryStage) {
 		
-        MenuBar menu = new MenuBar();
+        MenuBar menu = new MenuBar(); // Toolbar
 
-        Menu menu1 = new Menu("Connect...");
-        Menu menu2 = new Menu("Help");
+        Menu menu1 = new Menu("Connect..."); // First menu on toolbar
         menu.getMenus().add(menu1);
+        Menu menu2 = new Menu("Help"); // Second menu on toolbar
         menu.getMenus().add(menu2);
-
+        
         MenuItem menuItem = new MenuItem("Quick connect");
         MenuItem menuItem2 = new MenuItem("Connect to a server");
         MenuItem menuItem3 = new MenuItem("Disconnect");
         menu1.getItems().add(menuItem);
         menu1.getItems().add(menuItem2);
-        menu1.getItems().add(menuItem3);
-        MenuItem menu2Item = new MenuItem("Help");
+        menu1.getItems().add(menuItem3);   
+
+//        MenuItem menu2Item = new MenuItem("Help");
         MenuItem menu2Item2 = new MenuItem("About");
-        menu2.getItems().add(menu2Item);
+//        menu2.getItems().add(menu2Item);
         menu2.getItems().add(menu2Item2);
         
         taMessages = new TextArea("\nPlease connect to a server to start chatting with other people. Press help for more info.");
@@ -73,7 +76,7 @@ public class ChatClient extends Application {
         primaryStage.centerOnScreen();
         primaryStage.show();
         
-        menuItem.setOnAction(e->{
+        menuItem.setOnAction(e->{ // Quick connect
     		String ip = "localhost";
     		int port = 8000;
             try {
@@ -81,7 +84,7 @@ public class ChatClient extends Application {
             	socket = new Socket(ip, port);
                 System.out.println("Connected to " + ip + " " + port);
                 communication = new DefaultCommunication(socket);
-                rec.start(); // Listen to server
+                rec.start();
                 communication.sendMessage("Defaultname");
                 communication.sendMessage("/joinroom room1 admin"); // TODO: remove later
                 taMessages.setText("");
@@ -97,7 +100,7 @@ public class ChatClient extends Application {
         
 
         
-        menuItem2.setOnAction(e->{
+        menuItem2.setOnAction(e->{ // Normal connect
         	TextInputDialog dialog = new TextInputDialog("localhost");
         	dialog.setTitle("Connect to a server");
         	dialog.setHeaderText("Enter server IP address");
@@ -112,7 +115,7 @@ public class ChatClient extends Application {
                     socket = new Socket(ip, port);
                     System.out.println("Connected to " + ip + " " + port);
                     communication = new DefaultCommunication(socket);
-                    rec.start(); // Listen to server
+                    rec.start();
                     taMessages.setText("");
                 } catch (Exception error) {
                 	Alert alert = new Alert(AlertType.INFORMATION);
@@ -124,9 +127,9 @@ public class ChatClient extends Application {
         	}
         });
         
-        menu2Item.setOnAction(e-> {
-        	//TODO: Display helpful stuff
-        });
+//        menu2Item.setOnAction(e-> { // Help
+//        		communication.sendMessage("/help");   Crashes client if done three times
+//        });
         
         menuItem3.setOnAction(e-> { // Disconnect
         	try {
@@ -137,7 +140,7 @@ public class ChatClient extends Application {
 			}
         });
         
-        menu2Item2.setOnAction(e-> {
+        menu2Item2.setOnAction(e-> { // About
         	Alert alert = new Alert(AlertType.INFORMATION);
         	alert.setTitle("About");
         	alert.setHeaderText("The Chat");
@@ -145,7 +148,7 @@ public class ChatClient extends Application {
         	alert.showAndWait();
         });
 
-        taInput.setOnKeyPressed(e -> {
+        taInput.setOnKeyPressed(e -> { // Input text field
             if(!e.getCode().equals(KeyCode.ENTER)) return;
             if(taInput.getText().isEmpty()) return;
             String msg = taInput.getText();   
@@ -161,7 +164,9 @@ public class ChatClient extends Application {
             taInput.setText("");
         });
 	}
-	
+    /**
+     * Main method.
+     */
 	public static void main(String[] args) {
 		Application.launch(args);
     }

@@ -78,6 +78,8 @@ public class ChatServer {
         commands.put("/roomban", new CRoomban());
         commands.put("/roomunban", new CRoomunban());
         commands.put("/bans", new CBans());
+        commands.put("/roomnotice",  new CRoomnotice());
+        commands.put("/kick", new CKick());
         //Room admin
         commands.put("/roommode", new CRoommode());
         //Server admin
