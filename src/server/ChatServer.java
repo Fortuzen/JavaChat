@@ -1,10 +1,12 @@
 package server;
 import java.util.HashMap;
+import java.util.Map;
 
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-
+import java.util.List;
+import java.util.Collections;
 import java.io.PrintWriter;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -19,11 +21,11 @@ import shared.DefaultCommunication;
  */
 public class ChatServer {
     // List of users in the server
-    public static ArrayList<User> users;
+    public static List<User> users;
     // All available commands
-    public static HashMap<String,ICommand> commands;
+    public static Map<String,ICommand> commands;
     // Map of all rooms
-    public static HashMap<String, Room> rooms;
+    public static Map<String, Room> rooms;
     //
     public static ServerSettings serverSettings;
 
@@ -31,6 +33,10 @@ public class ChatServer {
      * Load settings and create rooms
      */
     static void initServer() {
+        users = Collections.synchronizedList(new ArrayList<User>());
+        // ConcurrentHashMap another option.
+        commands = Collections.synchronizedMap(new HashMap<String, ICommand>());
+        rooms = Collections.synchronizedMap(new HashMap<String,Room>());
         // Load server settings
         serverSettings = new ServerSettings();
         System.out.println("Loading settings");
@@ -72,12 +78,8 @@ public class ChatServer {
      * Main method. 
      */
     public static void main(String[] args) {
-        users = new ArrayList<User>();
-        commands = new HashMap<String, ICommand>();
-        rooms = new HashMap<String,Room>();
         initServer();
         initCommands();
-
         ChatServer cs = new ChatServer();
         cs.listen();
     }
@@ -169,7 +171,7 @@ public class ChatServer {
                     }
                 }
                 //Success, welcome
-                users.add(user);
+                users.add(user);                    
                 user.communication.sendMessage(serverSettings.motd);
                 System.out.println(user.name +" joined the server");                
             } catch (Exception e) {

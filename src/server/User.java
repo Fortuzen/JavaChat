@@ -20,8 +20,6 @@ public class User {
         this.name = "Default";
         this.currentRoom = null;
         this.communication = new DefaultCommunication(s);
-        this.mode = 0;
-        
-        
+        this.mode = 0;      
     }
 }
