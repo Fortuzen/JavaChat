@@ -30,7 +30,7 @@ public class ServerSettings {
     boolean logging;
 
     //From bans.txt
-    List<String> bannedAddresses;
+    public List<String> bannedAddresses;
 
     // TODO: Fix paths
     private String configFilePath = "bin/server/config.ini";

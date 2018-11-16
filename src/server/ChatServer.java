@@ -72,14 +72,16 @@ public class ChatServer {
         commands.put("/motd",  new CMotd());
         commands.put("/quit", new CQuit());
         commands.put("/admins", new CAdmins());
-        commands.put("/mode", new CMode());
-        commands.put("/roommode", new CRoommode());
+        
+        
         //Moderator
         commands.put("/roomban", new CRoomban());
         commands.put("/roomunban", new CRoomunban());
+        commands.put("/bans", new CBans());
         //Room admin
-
+        commands.put("/roommode", new CRoommode());
         //Server admin
+        commands.put("/mode", new CMode());
     }
     
     /**
@@ -232,6 +234,17 @@ public class ChatServer {
             } catch (Exception e) {
                 //TODO: handle exception
             }       	
+        }
+
+        public void sendMessageToMode(String msg, int minMode) {
+            try {
+                for(User u : user.getCurrentRoom().users) {
+                    if(u.getMode() >= minMode)
+                        u.getCommunication().sendMessage(msg);
+                }                
+            } catch (Exception e) {
+                //TODO: handle exception
+            } 
         }
             // Format address:username:(reason)
         public boolean isBanned(String address, String username) {
