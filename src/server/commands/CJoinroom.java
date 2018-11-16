@@ -18,15 +18,15 @@ public class CJoinroom implements server.ICommand {
         }
         // Check for same names
         for(User u : room.users) {
-            String name = u.name;
-            if(chatServerThread.user.name.equals(name)) {
-                chatServerThread.sendMessageToUser(chatServerThread.user.name+" already taken! Change your username!");
+            String name = u.getName();
+            if(chatServerThread.user.getName().equals(name)) {
+                chatServerThread.sendMessageToUser(chatServerThread.user.getName()+" already taken! Change your username!");
                 return;
             }
         }
         // Check if user is banned from the room
         // Doesn't work if client connects using localhost
-        if(room.roomSettings.bannedAddresses.contains(chatServerThread.user.socket.getInetAddress().getHostAddress())) {
+        if(room.roomSettings.bannedAddresses.contains(chatServerThread.user.getSocket().getInetAddress().getHostAddress())) {
             chatServerThread.sendMessageToUser("You are banned from this room!");
             return;
         }
@@ -35,14 +35,14 @@ public class CJoinroom implements server.ICommand {
         if(splitMsg.length > 1) {
             String password = splitMsg[1];
             if(password.equals(room.roomSettings.roomModeratorPassword)) {
-                chatServerThread.user.mode = 1;
+                chatServerThread.user.setMode(1);
             } else if(password.equals(room.roomSettings.roomModeratorPassword)) {
-                chatServerThread.user.mode = 2;
+                chatServerThread.user.setMode(2);
             }
         }
 
         room.users.add(chatServerThread.user);
-        chatServerThread.user.currentRoom = room;
-        chatServerThread.sendMessageToCurrentRoom((chatServerThread.user.name + " joined room " + room.roomSettings.name), "SERVER");
+        chatServerThread.user.setCurrentRoom(room);
+        chatServerThread.sendMessageToCurrentRoom((chatServerThread.user.getName() + " joined room " + room.roomSettings.name), "SERVER");
     }
 }

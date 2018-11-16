@@ -113,10 +113,10 @@ public class ChatServer {
             try {
                 authenticate();
                 while(true) {
-                    if(user.socket.isClosed()) {
+                    if(user.getSocket().isClosed()) {
                         break;
                     }
-                    String msg = user.communication.receiveMessage();
+                    String msg = user.getCommunication().receiveMessage();
                     if(msg.isEmpty() || msg.equals("\n")) {
                         continue;
                     }
@@ -140,7 +140,7 @@ public class ChatServer {
                     }
                     System.out.println("Commands done");
                     //Default command
-                    sendMessageToCurrentRoom(msgbody, user.name);
+                    sendMessageToCurrentRoom(msgbody, user.getName());
                 }
             } catch (Exception e) {
                 System.out.println(e);
@@ -151,18 +151,18 @@ public class ChatServer {
 
         public void authenticate() {       	
             try {
-                user.communication.sendMessage("Please give your nickname and the server password (if any) in the message area below");
-                String msg = user.communication.receiveMessage();
+                user.getCommunication().sendMessage("Please give your nickname and the server password (if any) in the message area below");
+                String msg = user.getCommunication().receiveMessage();
                 if(msg.isEmpty()) {
-                    user.communication.sendMessage("Error");
-                    user.socket.close(); // TODO: Fix
+                    user.getCommunication().sendMessage("Error");
+                    user.getSocket().close();
                 }
                 //Username
                 String[] s_msg = msg.split(" ");
-                user.name = s_msg[0];
-                if(user.name.equals("SERVER")) {
-                    user.communication.sendMessage("Error");
-                    user.socket.close(); // TODO: Fix
+                user.setName(s_msg[0]);
+                if(user.getName().equals("SERVER")) {
+                    user.getCommunication().sendMessage("Error");
+                    user.getSocket().close();
                 }
                 //Server password if any
                 if(s_msg.length > 1 && serverSettings.serverPassword != "") {
@@ -170,38 +170,38 @@ public class ChatServer {
                     if(pass.equals(serverSettings.serverPassword)) {
     
                     } else {
-                        user.communication.sendMessage("Error");
-                        user.socket.close();
+                        user.getCommunication().sendMessage("Error");
+                        user.getSocket().close();
                     }
                 }
                 //Success, welcome
                 users.add(user);                    
-                user.communication.sendMessage(serverSettings.motd);
-                System.out.println(user.name +" joined the server");                
+                user.getCommunication().sendMessage(serverSettings.motd);
+                System.out.println(user.getName() +" joined the server");                
             } catch (Exception e) {
                 System.out.println(e);
             }
         }
 
         public void sendMessageToCurrentRoom(String msg, String MsgSender) {
-            if(user.currentRoom == null) {
+            if(user.getCurrentRoom() == null) {
                 return;
             }
-            if(user.currentRoom.roomSettings.mutedAddresses.contains(user.socket.getInetAddress().getHostAddress())) {
+            if(user.getCurrentRoom().roomSettings.mutedAddresses.contains(user.getSocket().getInetAddress().getHostAddress())) {
                 return;
             }
             try {
                 if ((MsgSender.equals("SERVER"))) {
                     System.out.println("Message to be sent: "+msg);
-                    for(User u : user.currentRoom.users) {
-                        u.communication.sendMessage("** " + msg + " **");
+                    for(User u : user.getCurrentRoom().users) {
+                        u.getCommunication().sendMessage("** " + msg + " **");
                     }
                 } else {
                     LocalDateTime date = new Timestamp(System.currentTimeMillis()).toLocalDateTime();
                     String timestr = "["+String.valueOf(date.getHour()) + ":" + String.valueOf(date.getMinute()) + ":"+String.valueOf(date.getSecond())+"] ";
                     System.out.println("Message to be sent: "+msg);
-                    for(User u : user.currentRoom.users) {
-                        u.communication.sendMessage(timestr + MsgSender + ": " + msg);
+                    for(User u : user.getCurrentRoom().users) {
+                        u.getCommunication().sendMessage(timestr + MsgSender + ": " + msg);
                     }
                 }
             } catch (Exception e) {
@@ -211,7 +211,7 @@ public class ChatServer {
         }
         public void sendMessageToUser(String msg) {
             try {
-                user.communication.sendMessage(msg);
+                user.getCommunication().sendMessage(msg);
             } catch (Exception e) {
                 //TODO: handle exception
             }

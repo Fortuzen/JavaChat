@@ -11,16 +11,16 @@ public class CQuit implements server.ICommand {
     @Override
     public void execute(ChatServerThread chatServerThread, String msg) {
         // Partially from CLeaveroom.java. 
-        Room room = chatServerThread.user.currentRoom;
+        Room room = chatServerThread.user.getCurrentRoom();
         if(room!=null) {
-            chatServerThread.sendMessageToCurrentRoom((chatServerThread.user.name + " left the room " + room.roomSettings.name), "SERVER");
+            chatServerThread.sendMessageToCurrentRoom((chatServerThread.user.getName() + " left the room " + room.roomSettings.name), "SERVER");
             room.users.remove(chatServerThread.user);
-            chatServerThread.user.currentRoom = null;
-            chatServerThread.user.mode = (chatServerThread.user.mode >= 3) ? chatServerThread.user.mode : 0;
+            chatServerThread.user.setCurrentRoom(null);
+            chatServerThread.user.setMode( (chatServerThread.user.getMode() >= 3) ? chatServerThread.user.getMode() : 0);
         }
 
         try {
-            chatServerThread.user.socket.close();
+            chatServerThread.user.getSocket().close();
         } catch (Exception e) {
             //TODO: handle exception
         }      

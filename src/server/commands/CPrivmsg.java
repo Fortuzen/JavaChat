@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class CPrivmsg implements server.ICommand {
     @Override
     public void execute(ChatServerThread chatServerThread, String msg) {
-    	Room r = chatServerThread.user.currentRoom;
+    	Room r = chatServerThread.user.getCurrentRoom();
         if(r==null) {
             return;
         }
@@ -22,10 +22,10 @@ public class CPrivmsg implements server.ICommand {
         msgbody = msg.substring(index+1);      
         
         for(User u : r.users) {
-        	if (u.name.equals(msgReciever)) {
+        	if (u.getName().equals(msgReciever)) {
                 try {
-                	u.communication.sendMessage(chatServerThread.user.name + " whispers: " + msgbody);
-                	chatServerThread.user.communication.sendMessage("You whispered to " + u.name + ": " + msgbody);
+                	u.getCommunication().sendMessage(chatServerThread.user.getName() + " whispers: " + msgbody);
+                	chatServerThread.user.getCommunication().sendMessage("You whispered to " + u.getName() + ": " + msgbody);
                 } catch (Exception e) {
                 }
         	}

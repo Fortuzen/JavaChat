@@ -11,15 +11,15 @@ public class CUsers implements server.ICommand {
     @Override
     public void execute(ChatServerThread chatServerThread, String msg) {
     	User user = chatServerThread.user;
-    	Room r = user.currentRoom;
+    	Room r = user.getCurrentRoom();
 
     	if(r==null) {
             return;
         }
     	try {
-        	user.communication.sendMessage("** Users currently in room **");
+        	user.getCommunication().sendMessage("** Users currently in room **");
 	        for(User u : r.users) {
-	        	user.communication.sendMessage("> " + u.name);
+	        	user.getCommunication().sendMessage("> " + u.getName());
 	        }
         } catch (Exception e) {
         }
