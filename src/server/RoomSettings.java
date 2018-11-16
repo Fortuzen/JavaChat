@@ -81,6 +81,7 @@ public class RoomSettings {
             }
             System.out.println("");
             reader.close(); // Is this safe?
+            // Load bans
             reader = new Scanner(banFile);
             while(reader.hasNextLine()) {
                 String line = reader.nextLine().trim();
@@ -90,6 +91,7 @@ public class RoomSettings {
             }
             System.out.println("");
             reader.close(); // Is this safe?
+            // Load muted
             reader = new Scanner(muteFile);
             while(reader.hasNextLine()) {
                 String line = reader.nextLine().trim();
@@ -118,7 +120,7 @@ public class RoomSettings {
         }       
     }
 
-    void saveSettings() {
+    synchronized public void saveSettings() {
         File configFile = new File(configPath);
         File banFile = new File(banPath);
         File muteFile = new File(mutePath);

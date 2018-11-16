@@ -38,4 +38,13 @@ public class Room {
         }
         return false;
     }
+
+    public User getUser(String name) {
+        for(User u : users) {
+            if(u.getName().equals(name)) {
+                return u;
+            }
+        }
+        return null;
+    }
 }
