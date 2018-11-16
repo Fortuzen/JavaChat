@@ -129,7 +129,8 @@ public class ChatServer {
                         String[] splittedMsg = msg.split(" ");
                         cmd = commands.get(splittedMsg[0]);  
                         int index = msg.indexOf(' ');
-                        msgbody = msg.substring(index+1);                     
+                        if(index != -1)
+                            msgbody = msg.substring(index+1);                     
                     } else {
                         msgbody = msg;
                     }
@@ -145,7 +146,13 @@ public class ChatServer {
             } catch (Exception e) {
                 System.out.println(e);
             } finally {
+                Room r = user.getCurrentRoom();
+                if(r != null) {
+                    r.users.remove(user);
+                    user.setCurrentRoom(null);
+                }
                 users.remove(user);
+                System.out.println(user.getName() + " left the server!");
             }
         }
 

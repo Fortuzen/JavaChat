@@ -14,14 +14,19 @@ public class CUsername implements server.ICommand {
     public void execute(ChatServerThread chatServerThread, String msg) {
     	Room r = chatServerThread.user.getCurrentRoom();
     	User u = chatServerThread.user;
-        if(r==null) {
-            return;
-        }
+        System.out.println(msg.length());
         try {
             if (msg.equals("SERVER")) {
-            	u.getCommunication().sendMessage("This name is not valid");
+                u.getCommunication().sendMessage("This name is not valid");
+            } else if(msg.trim().equals("")) {
+                chatServerThread.sendMessageToUser("Your username: "+u.getName());
             } else {
-                chatServerThread.sendMessageToCurrentRoom((u.getName() + " changed their name to " + msg), "SERVER");
+                
+                if(r != null) {
+                    chatServerThread.sendMessageToCurrentRoom((u.getName() + " changed their name to " + msg), "SERVER");
+                } else {
+                    chatServerThread.sendMessageToUser(u.getName() + " changed their name to " + msg);
+                }
                 u.setName(msg);
             }
         } catch (Exception e) {
