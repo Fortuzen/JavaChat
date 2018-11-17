@@ -89,6 +89,7 @@ public class ChatServer {
         //Server admin
         commands.put("/mode", new CMode());
         commands.put("/serverkick", new CServerkick());
+        commands.put("/servernotice", new CServernotice());
     }
     
     /**
@@ -267,6 +268,16 @@ public class ChatServer {
             } catch (Exception e) {
                 //TODO: handle exception
             } 
+        }
+
+        public void sendMessageToAll(String msg) {
+            try {
+                for(User u : ChatServer.users) {
+                    u.getCommunication().sendMessage(msg);
+                }
+            } catch (Exception e) {
+                //TODO: handle exception
+            }
         }
             // Format address:username:(reason)
         public boolean isBanned(String address) {
