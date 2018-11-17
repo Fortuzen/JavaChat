@@ -72,7 +72,7 @@ public class ChatServer {
         commands.put("/motd",  new CMotd());
         commands.put("/quit", new CQuit());
         commands.put("/admins", new CAdmins());
-        
+        commands.put("/rules", new CRules());
         
         //Moderator
         commands.put("/roomban", new CRoomban());
