@@ -6,7 +6,7 @@ import server.Room;
 import server.User;
 
 import java.util.ArrayList;
-
+// TODO: Add room password checking in CJoinroom
 public class CRoompassword implements server.ICommand {
     @Override
     public void execute(ChatServerThread chatServerThread, String msg) {

@@ -6,7 +6,7 @@ import server.Room;
 import server.User;
 
 import java.util.ArrayList;
-// TODO: DOES NOT WORK, kicks the kicker (sometimes)
+
 public class CKick implements server.ICommand {
     @Override
     public void execute(ChatServerThread chatServerThread, String msg) {
@@ -31,11 +31,12 @@ public class CKick implements server.ICommand {
         int index = msg.indexOf(' ');
         reason = msg.substring(index+1);
         
-        for(User u : room.users) {
+        for (int i = 0; i < room.users.size(); i++) {
+        	User u = room.users.get(i);
         	if (u.getName().equals(kickReciever)) {
-                	chatServerThread.sendMessageToCurrentRoom((u.getName() + " was kicked from the room for " + reason), "SERVER");
-        			room.users.remove(u);
-        			u.setCurrentRoom(null);
+            	chatServerThread.sendMessageToCurrentRoom((u.getName() + " was kicked from the room for " + reason), "SERVER");
+    			room.users.remove(u);
+    			u.setCurrentRoom(null);
         	}
         }
     }

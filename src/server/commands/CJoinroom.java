@@ -22,12 +22,12 @@ public class CJoinroom implements server.ICommand {
         for(User u : room.users) {
             String name = u.getName();
             if(chatServerThread.user.getName().equals(name)) {
-                chatServerThread.sendMessageToUser(chatServerThread.user.getName()+" already taken! Change your username!");
+                chatServerThread.sendMessageToUser(chatServerThread.user.getName()+" already taken! Change your username with /username");
                 return;
             }
         }
 
-        // Check mode       
+        // Check mode and room password
         if(splitMsg.length > 1) {
             System.out.println(splitMsg[1]+":"+room.roomSettings.roomModeratorPassword);
             String password = splitMsg[1];
@@ -37,7 +37,20 @@ public class CJoinroom implements server.ICommand {
             } else if(password.equals(room.roomSettings.roomAdminPassword)) {
                 chatServerThread.user.setMode(2);
                 chatServerThread.sendMessageToUser("You are room admin!");
+            } else if(password.equals(room.roomSettings.roomPassword)) {
+            	//pass
+            } else {
+            	chatServerThread.sendMessageToUser("Wrong password!");
+            	return;
             }
+        }
+        if (splitMsg.length == 1) {
+        	if (room.roomSettings.roomPassword.equals("")) {
+        		// pass
+        	} else {
+            	chatServerThread.sendMessageToUser("Wrong password!");
+            	return;
+        	}
         }
         // Check if user/username is banned from the room
         // Doesn't work if client connects using localhost
