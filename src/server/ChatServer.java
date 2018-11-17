@@ -46,13 +46,17 @@ public class ChatServer {
         System.out.println("Loading settings");
         serverSettings.load();
         //Create rooms
+        System.out.println("Init rooms");
         initRooms();
         //Create commands
+        System.out.println("Init commands");
         initCommands();
+        System.out.println("Server init done");
     }
     static void initRooms() {
         for(String roomName : serverSettings.getRoomNames()) {
             Room room = new Room();
+            System.out.println("Init room: "+roomName);
             room.initRoom(roomName);
             rooms.put(roomName,room);
         }

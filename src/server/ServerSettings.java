@@ -102,7 +102,8 @@ public class ServerSettings {
 
             // Save
             saveSettings();
-        }       
+        }
+        System.out.println("ServerSettings loaded!");
     }
 
     synchronized public void saveSettings() {
