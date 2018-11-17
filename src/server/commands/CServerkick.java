@@ -35,7 +35,8 @@ public class CServerkick implements server.ICommand {
     			room.users.remove(u);
     			u.setCurrentRoom(null);
     	        try {
-    	            chatServerThread.user.getSocket().close();
+    	            u.getSocket().close();
+    	            ChatServer.users.remove(u);
     	        } catch (Exception e) {
     	            //TODO: handle exception
     	        }      
