@@ -20,6 +20,6 @@ public class CHelp implements server.ICommand {
     }
     @Override
 	public String getInfo() {
-		return "";
+		return "/help - Prints all commands";
 	}
 }
