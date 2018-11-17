@@ -74,6 +74,7 @@ public class ChatServer {
         commands.put("/admins", new CAdmins());
         commands.put("/rules", new CRules());
         
+        
         //Moderator
         commands.put("/roomban", new CRoomban());
         commands.put("/roomunban", new CRoomunban());
@@ -86,6 +87,7 @@ public class ChatServer {
         //Room admin
         commands.put("/roommode", new CRoommode());
         commands.put("/roompassword", new CRoompassword());
+        commands.put("/roomdesc", new CRoomdesc());
         //Server admin
         commands.put("/mode", new CMode());
         commands.put("/serverkick", new CServerkick());
@@ -211,7 +213,7 @@ public class ChatServer {
                 }
                 //Success, welcome
                 users.add(user);                    
-                user.getCommunication().sendMessage(serverSettings.getMotd());
+                user.getCommunication().sendMessage("Server message of the day: " + serverSettings.getMotd());
                 System.out.println(user.getName() +" joined the server");                
             } catch (Exception e) {
                 System.out.println(e);
