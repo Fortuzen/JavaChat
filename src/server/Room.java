@@ -20,7 +20,7 @@ public class Room {
     }
     // Ban format:  address:username:(reason)
     public boolean isBanned(String address, String username) {
-        for(String ba : roomSettings.bannedAddresses) {
+        for(String ba : roomSettings.getBannedAddresses()) {
             String[] splitted = ba.split(":");
             if(splitted[0].equals(address)) {
                 return true;
@@ -32,7 +32,7 @@ public class Room {
         return false;
     }
     public boolean isAddressBanned(String address) {
-        for(String ba : roomSettings.bannedAddresses) {
+        for(String ba : roomSettings.getBannedAddresses()) {
             String[] splitted = ba.split(":");
             if(splitted[0].equals(address)) {
                 return true;
@@ -41,7 +41,7 @@ public class Room {
         return false;
     }
     public boolean isUsernameBanned(String username) {
-        for(String ba : roomSettings.bannedAddresses) {
+        for(String ba : roomSettings.getBannedAddresses()) {
             String[] splitted = ba.split(":");
             if(splitted[1].equals(username)) {
                 return true;
@@ -51,7 +51,7 @@ public class Room {
     }
 
     public boolean isMuted(String address, String username) {
-        for(String ba : roomSettings.mutedAddresses) {
+        for(String ba : roomSettings.getMutedAddresses()) {
             String[] splitted = ba.split(":");
             if(splitted[0].equals(address)) {
                 return true;

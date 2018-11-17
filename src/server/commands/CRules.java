@@ -11,7 +11,7 @@ public class CRules implements server.ICommand {
         String serverRules = ChatServer.serverSettings.getRules().replaceAll(":", "\n");
         chatServerThread.sendMessageToUser("**Server rules:\n"+serverRules);
         if(chatServerThread.user.getCurrentRoom() != null) {
-            String roomRules = chatServerThread.user.getCurrentRoom().roomSettings.rules.replaceAll(":", "\n");
+            String roomRules = chatServerThread.user.getCurrentRoom().roomSettings.getRules().replaceAll(":", "\n");
             chatServerThread.sendMessageToUser("**Room rules:\n"+roomRules);
         }
     }

@@ -38,7 +38,7 @@ public class CRoommute implements server.ICommand {
         System.out.println(mute);
         chatServerThread.sendMessageToCurrentRoom(toBeMuted.getName()+" was muted!", "SERVER");
         
-        room.roomSettings.mutedAddresses.add(mute);
+        room.roomSettings.getMutedAddresses().add(mute);
         room.roomSettings.saveMutedUsers();
 
     }

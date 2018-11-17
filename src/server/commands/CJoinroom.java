@@ -17,7 +17,7 @@ public class CJoinroom implements server.ICommand {
             chatServerThread.sendMessageToUser(msg+" room doesn't exist!");
             return;
         }
-        if(room.users.size() >= room.roomSettings.maxUsers) {
+        if(room.users.size() >= room.roomSettings.getMaxUsers()) {
             chatServerThread.sendMessageToUser("Room is full!");
             return;
         }
@@ -32,15 +32,15 @@ public class CJoinroom implements server.ICommand {
 
         // Check mode and room password
         if(splitMsg.length > 1) {
-            System.out.println(splitMsg[1]+":"+room.roomSettings.roomModeratorPassword);
+            System.out.println(splitMsg[1]+":"+room.roomSettings.getRoomModeratorPassword());
             String password = splitMsg[1];
-            if(password.equals(room.roomSettings.roomModeratorPassword)) {
+            if(password.equals(room.roomSettings.getRoomModeratorPassword())) {
                 chatServerThread.user.setMode(1);
                 chatServerThread.sendMessageToUser("You are room moderator!");
-            } else if(password.equals(room.roomSettings.roomAdminPassword)) {
+            } else if(password.equals(room.roomSettings.getRoomAdminPassword())) {
                 chatServerThread.user.setMode(2);
                 chatServerThread.sendMessageToUser("You are room admin!");
-            } else if(password.equals(room.roomSettings.roomPassword)) {
+            } else if(password.equals(room.roomSettings.getRoomPassword())) {
             	//pass
             } else {
             	chatServerThread.sendMessageToUser("Wrong password!");
@@ -48,7 +48,7 @@ public class CJoinroom implements server.ICommand {
             }
         }
         if (splitMsg.length == 1) {
-        	if (room.roomSettings.roomPassword.equals("")) {
+        	if (room.roomSettings.getRoomPassword().equals("")) {
         		// pass
         	} else {
             	chatServerThread.sendMessageToUser("Wrong password!");
@@ -67,6 +67,6 @@ public class CJoinroom implements server.ICommand {
         }
         room.users.add(chatServerThread.user);
         chatServerThread.user.setCurrentRoom(room);
-        chatServerThread.sendMessageToCurrentRoom((chatServerThread.user.getName() + " joined room " + room.roomSettings.name), "SERVER");
+        chatServerThread.sendMessageToCurrentRoom((chatServerThread.user.getName() + " joined room " + room.roomSettings.getName()), "SERVER");
     }
 }

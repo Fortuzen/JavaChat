@@ -21,7 +21,7 @@ public class CRoompassword implements server.ICommand {
        		ct.sendMessageToUser("You do not have the permission to use this command.");
         	return;
         }
-    	room.roomSettings.roomPassword = msg;
-    		ct.sendMessageToUser("Room password is now " + room.roomSettings.roomPassword);
+    	room.roomSettings.setRoomPassword(msg);
+    		ct.sendMessageToUser("Room password is now " + room.roomSettings.getRoomPassword());
     }
 }

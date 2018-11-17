@@ -13,20 +13,20 @@ import java.lang.Integer;
 public class RoomSettings {
 
     //From config.ini
-    public String name;
-    public String description;
-    public String roomPassword;
-    public String roomModeratorPassword;
-    public String roomAdminPassword;
-    public String rules;
-    public String motd;
+    private String name;
+    private String description;
+    private String roomPassword;
+    private String roomModeratorPassword;
+    private String roomAdminPassword;
+    private String rules;
+    private String motd;
 
-    public int maxUsers;
+    private int maxUsers;
     
     //From bans.txt
-    public List<String> bannedAddresses;
+    private List<String> bannedAddresses;
     //From mutes.txt
-    public List<String> mutedAddresses;
+    private List<String> mutedAddresses;
 
     // TODO: Fix paths
     private String path = "bin/server/";
@@ -184,5 +184,77 @@ public class RoomSettings {
             //TODO: handle exception
         }
     }   
+
+        // Getters and setters
+        synchronized public String getName() {
+            return this.name;
+        }
+        synchronized public void setName(String name) {
+            this.name = name;
+            saveSettings();
+        }   
+    
+        synchronized public String getDescription() {
+            return this.description;
+        }
+        synchronized public void setDescription(String desc) {
+            this.description = desc;
+            saveSettings();
+        }
+    
+        synchronized public String getRoomPassword() {
+            return this.roomPassword;
+        }
+        synchronized public void setRoomPassword(String pass) {
+            this.roomPassword = pass;
+            saveSettings();
+        }
+
+        synchronized public String getRoomModeratorPassword() {
+            return this.roomModeratorPassword;
+        }
+        synchronized public void setRoomModeratorPassword(String pass) {
+            this.roomModeratorPassword = pass;
+            saveSettings();
+        }  
+
+        synchronized public String getRoomAdminPassword() {
+            return this.roomAdminPassword;
+        }
+        synchronized public void setRoomAdminPassword(String pass) {
+            this.roomAdminPassword = pass;
+            saveSettings();
+        }
+    
+        synchronized public String getRules() {
+            return this.rules;
+        }
+        synchronized public void setRules(String text) {
+            this.rules = text;
+            saveSettings();
+        }
+    
+        synchronized public String getMotd() {
+            return this.motd;
+        }
+        synchronized public void setMotd(String text) {
+            this.motd = text;
+            saveSettings();
+        }
+            
+        synchronized public int getMaxUsers() {
+            return this.maxUsers;
+        }
+        synchronized public void set(int max) {
+            this.maxUsers = max;
+            saveSettings();
+        }
+      
+        synchronized public List<String> getBannedAddresses() {
+            return this.bannedAddresses;
+        }
+        synchronized public List<String> getMutedAddresses() {
+            return this.mutedAddresses;
+        }       
 
 }

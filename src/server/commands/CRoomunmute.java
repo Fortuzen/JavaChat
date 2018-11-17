@@ -20,10 +20,10 @@ public class CRoomunmute implements server.ICommand {
             return;
         }
         String username = "";
-        for(String muted : room.roomSettings.mutedAddresses) {
+        for(String muted : room.roomSettings.getMutedAddresses()) {
             String[] splitMuted = muted.split(":");
             if(splitMuted[0].equals(msg) || splitMuted[1].equals(msg)) {
-                room.roomSettings.mutedAddresses.remove(muted);
+                room.roomSettings.getMutedAddresses().remove(muted);
                 room.roomSettings.saveMutedUsers();
                 username = splitMuted[1];
                 break;

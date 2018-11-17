@@ -20,10 +20,10 @@ public class CRoomunban implements server.ICommand {
             return;
         }
         String username = "";
-        for(String banned : room.roomSettings.bannedAddresses) {
+        for(String banned : room.roomSettings.getBannedAddresses()) {
             String[] splitBanned = banned.split(":");
             if(splitBanned[0].equals(msg) || splitBanned[1].equals(msg)) {
-                room.roomSettings.bannedAddresses.remove(banned);
+                room.roomSettings.getBannedAddresses().remove(banned);
                 room.roomSettings.saveBannedUsers();
                 username = splitBanned[1];
                 break;

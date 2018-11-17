@@ -19,7 +19,7 @@ public class CMutes implements server.ICommand {
             return;             
         }
         String mutes = "";
-        for(String mute : room.roomSettings.mutedAddresses) {
+        for(String mute : room.roomSettings.getMutedAddresses()) {
             mutes += ">"+ mute + "\n";
         }
             

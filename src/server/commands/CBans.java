@@ -25,7 +25,7 @@ public class CBans implements server.ICommand {
             }
             
         } else {
-            for(String ban : room.roomSettings.bannedAddresses) {
+            for(String ban : room.roomSettings.getBannedAddresses()) {
                 bans += ">"+ ban + "\n";
             }
         }

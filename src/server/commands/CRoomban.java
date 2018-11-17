@@ -40,7 +40,7 @@ public class CRoomban implements server.ICommand {
         System.out.println(ban);
         chatServerThread.sendMessageToCurrentRoom(toBeBanned.getName()+" was banned from the server! Reason: "+reason, "SERVER");
         
-        room.roomSettings.bannedAddresses.add(ban);
+        room.roomSettings.getBannedAddresses().add(ban);
         room.roomSettings.saveBannedUsers();
         room.users.remove(toBeBanned);
 

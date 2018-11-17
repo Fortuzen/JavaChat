@@ -170,7 +170,7 @@ public class ServerSettings {
     synchronized public String getServerPassword() {
         return this.serverPassword;
     }
-    synchronized public void set(String pass) {
+    synchronized public void setServerPassword(String pass) {
         this.serverPassword = pass;
         saveSettings();
     }
