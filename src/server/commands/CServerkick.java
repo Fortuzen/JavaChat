@@ -6,8 +6,8 @@ import server.Room;
 import server.User;
 
 import java.util.ArrayList;
-
-public class CKick implements server.ICommand {
+// TODO: not tested
+public class CServerkick implements server.ICommand {
     @Override
     public void execute(ChatServerThread chatServerThread, String msg) {
     	User user = chatServerThread.user;
@@ -17,7 +17,7 @@ public class CKick implements server.ICommand {
         if(room==null) {
             return;
         }
-        if ((user.getMode() < 1)) {
+        if ((user.getMode() < 3)) {
        		ct.sendMessageToUser("You do not have the permission to use this command.");
         	return;
         }
@@ -31,9 +31,15 @@ public class CKick implements server.ICommand {
         for (int i = 0; i < room.users.size(); i++) {
         	User u = room.users.get(i);
         	if (u.getName().equals(kickReciever)) {
-            	chatServerThread.sendMessageToCurrentRoom((u.getName() + " was kicked from the room for " + reason), "SERVER");
+            	chatServerThread.sendMessageToCurrentRoom((u.getName() + " was kicked from the server for " + reason), "SERVER");
     			room.users.remove(u);
     			u.setCurrentRoom(null);
+    	        try {
+    	            u.getSocket().close();
+    	            ChatServer.users.remove(u);
+    	        } catch (Exception e) {
+    	            //TODO: handle exception
+    	        }      
         	}
         }
     }
