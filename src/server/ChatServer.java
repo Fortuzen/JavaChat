@@ -93,6 +93,7 @@ public class ChatServer {
         commands.put("/mode", new CMode());
         commands.put("/serverkick", new CServerkick());
         commands.put("/servernotice", new CServernotice());
+        commands.put("/serverpassword", new CServerpassword());
     }
     
     /**
@@ -198,7 +199,7 @@ public class ChatServer {
                 if(s_msg.length > 1 && serverSettings.getServerPassword() != "") {
                     String pass = s_msg[1];
                     if(pass.equals(serverSettings.getServerPassword())) {
-                        //Do nothing
+                        user.setMode(0);
                     } else if(pass.equals(serverSettings.getServerAdminPassword())) {
                         user.setMode(3);
                     } else {
@@ -262,8 +263,8 @@ public class ChatServer {
                 //TODO: handle exception
             }       	
         }
-
-        public void sendMessageToMode(String msg, int minMode) {
+        // Not moderator
+        public void sendMessageToModeRoom(String msg, int minMode) {
             try {
                 for(User u : user.getCurrentRoom().users) {
                     if(u.getMode() >= minMode)
@@ -273,7 +274,17 @@ public class ChatServer {
                 //TODO: handle exception
             } 
         }
-
+        // Not moderator
+        public void sendMessageToModeServer(String msg, int minMode) {
+            try {
+                for(User u : ChatServer.users) {
+                    if(u.getMode() >= minMode)
+                        u.getCommunication().sendMessage(msg);
+                }                
+            } catch (Exception e) {
+                //TODO: handle exception
+            } 
+        }
         public void sendMessageToAll(String msg) {
             try {
                 for(User u : ChatServer.users) {
