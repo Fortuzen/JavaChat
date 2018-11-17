@@ -73,7 +73,8 @@ public class ChatServer {
         commands.put("/quit", new CQuit());
         commands.put("/admins", new CAdmins());
         commands.put("/rules", new CRules());
-        
+        commands.put("/desc", new CDesc());
+        commands.put("/rooms", new CRooms());
         
         //Moderator
         commands.put("/roomban", new CRoomban());
@@ -91,6 +92,7 @@ public class ChatServer {
         //Server admin
         commands.put("/mode", new CMode());
         commands.put("/serverkick", new CServerkick());
+        commands.put("/servernotice", new CServernotice());
     }
     
     /**
@@ -270,6 +272,16 @@ public class ChatServer {
             } catch (Exception e) {
                 //TODO: handle exception
             } 
+        }
+
+        public void sendMessageToAll(String msg) {
+            try {
+                for(User u : ChatServer.users) {
+                    u.getCommunication().sendMessage(msg);
+                }
+            } catch (Exception e) {
+                //TODO: handle exception
+            }
         }
             // Format address:username:(reason)
         public boolean isBanned(String address) {
