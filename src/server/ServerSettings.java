@@ -19,7 +19,7 @@ public class ServerSettings {
     String description;
     String serverPassword;
     String serverAdminPassword;
-    String rules;
+    public String rules;
     public String motd; // TODO: getterit ja setterit vai
 
     String[] roomNames;
