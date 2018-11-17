@@ -14,14 +14,19 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontSmoothingType;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
-
 import shared.ICommunication;
 import shared.DefaultCommunication;
 /**
@@ -47,26 +52,28 @@ public class ChatClient extends Application {
         MenuItem menuItem = new MenuItem("Quick connect");
         MenuItem menuItem2 = new MenuItem("Connect to a server");
         MenuItem menuItem3 = new MenuItem("Disconnect");
+        MenuItem menuItem4 = new MenuItem("Exit");
         menu1.getItems().add(menuItem);
         menu1.getItems().add(menuItem2);
-        menu1.getItems().add(menuItem3);   
+        menu1.getItems().add(menuItem3);
+        menu1.getItems().add(menuItem4);
 
-//        MenuItem menu2Item = new MenuItem("Help");
         MenuItem menu2Item2 = new MenuItem("About");
-//        menu2.getItems().add(menu2Item);
         menu2.getItems().add(menu2Item2);
         
-        taMessages = new TextArea("\nPlease connect to a server to start chatting with other people. Press help for more info.");
+        taMessages = new TextArea("\nPlease connect to a server to start chatting with other people.");
         taMessages.setEditable(false);
         taMessages.setWrapText(true);
-
+        taMessages.setStyle("-fx-font-size: 14px;");
+        
         TextArea taInput = new TextArea();
-
+        taInput.setStyle("-fx-font-size: 14px; -fx-padding: 5 3 5 3;");
+        taInput.setPrefRowCount(5);
+        
         BorderPane border = new BorderPane();
         border.setTop(menu);
         border.setCenter(taMessages);
         border.setBottom(taInput);
-        BorderPane.setMargin(taInput, new Insets(12,12,12,12));
         
         Scene mainFrame = new Scene(border, 800,600);
 
@@ -84,8 +91,8 @@ public class ChatClient extends Application {
                 System.out.println("Connected to " + ip + " " + port);
                 communication = new DefaultCommunication(socket);
                 rec.start();
-                communication.sendMessage("Defaultname");
-                communication.sendMessage("/joinroom room1 admin"); // TODO: remove later
+                communication.sendMessage("Defaultname admin");
+                communication.sendMessage("/joinroom room1"); // TODO: remove later
                 taMessages.setText("");
 
             } catch (Exception error) {
@@ -100,16 +107,22 @@ public class ChatClient extends Application {
 
         
         menuItem2.setOnAction(e->{ // Normal connect
-        	TextInputDialog dialog = new TextInputDialog("localhost");
+        	TextInputDialog dialog = new TextInputDialog("localhost:8000");
         	dialog.setTitle("Connect to a server");
-        	dialog.setHeaderText("Enter server IP address");
-        	dialog.setContentText("IP address:");
+        	dialog.setHeaderText("Enter server IP address and port");
+        	dialog.setContentText("IP:Port");
 
         	Optional<String> result = dialog.showAndWait();
         	if (result.isPresent()){
-        		String ip = result.get();
-        		int port = 8000; // TODO: Change to multiple field dialog
+        		String ipport = result.get();
+                int port = 0;
+                String ip = "0";
                 try {
+                    String[] splittedIP = ipport.split(":");
+                    ip = splittedIP[0];
+                    int index = ipport.indexOf(':');
+                    port = Integer.parseInt(ipport.substring(index+1));
+                    
                 	rec = new MsgRec();
                     socket = new Socket(ip, port);
                     System.out.println("Connected to " + ip + " " + port);
@@ -126,15 +139,21 @@ public class ChatClient extends Application {
         	}
         });
         
-//        menu2Item.setOnAction(e-> { // Help
-//        		communication.sendMessage("/help");   Crashes client if done three times
-//        });
-        
+    
         menuItem3.setOnAction(e-> { // Disconnect
         	try {
 				communication.sendMessage("/quit");
         		socket.close();
-        		taMessages.setText("\nPlease connect to a server to start chatting with other people. Press help for more info.");
+        		taMessages.setText("\nPlease connect to a server to start chatting with other people.");
+			} catch (Exception e1) {
+			}
+        });
+        
+        menuItem4.setOnAction(e-> { // Exit
+        	try {
+				communication.sendMessage("/quit");
+        		socket.close();
+        		System.exit(0);
 			} catch (Exception e1) {
 			}
         });

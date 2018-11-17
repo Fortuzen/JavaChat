@@ -1,9 +1,6 @@
 package server;
 
 import java.net.Socket;
-import java.io.PrintWriter;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 
 import shared.ICommunication;
 import shared.DefaultCommunication;
