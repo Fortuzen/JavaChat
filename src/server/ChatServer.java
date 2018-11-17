@@ -216,6 +216,7 @@ public class ChatServer {
                 //Success, welcome
                 users.add(user);                    
                 user.getCommunication().sendMessage("Server message of the day: " + serverSettings.getMotd());
+                user.getCommunication().sendMessage("Type /help to see available commands.");
                 System.out.println(user.getName() +" joined the server");                
             } catch (Exception e) {
                 System.out.println(e);

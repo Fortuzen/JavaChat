@@ -4,6 +4,7 @@ import java.net.Socket;
 import java.util.Optional;
 
 import javafx.application.Application;
+import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -97,6 +98,8 @@ public class ChatClient extends Application {
 
             } catch (Exception error) {
             	Alert alert = new Alert(AlertType.INFORMATION);
+            	alert.setX(primaryStage.getX() + 260);
+            	alert.setY(primaryStage.getY() + 200);
             	alert.setTitle("Error");
             	alert.setHeaderText(null);
             	alert.setContentText("Could not connect to " + ip + " " + port);
@@ -107,7 +110,10 @@ public class ChatClient extends Application {
 
         
         menuItem2.setOnAction(e->{ // Normal connect
+
         	TextInputDialog dialog = new TextInputDialog("localhost:8000");
+        	dialog.setX(primaryStage.getX() + 260);
+        	dialog.setY(primaryStage.getY() + 200);
         	dialog.setTitle("Connect to a server");
         	dialog.setHeaderText("Enter server IP address and port");
         	dialog.setContentText("IP:Port");
@@ -131,6 +137,8 @@ public class ChatClient extends Application {
                     taMessages.setText("");
                 } catch (Exception error) {
                 	Alert alert = new Alert(AlertType.INFORMATION);
+                	alert.setX(primaryStage.getX() + 260);
+                	alert.setY(primaryStage.getY() + 200);
                 	alert.setTitle("Error");
                 	alert.setHeaderText(null);
                 	alert.setContentText("Could not connect to " + ip + " " + port);
@@ -153,13 +161,15 @@ public class ChatClient extends Application {
         	try {
 				communication.sendMessage("/quit");
         		socket.close();
-        		System.exit(0);
 			} catch (Exception e1) {
 			}
+    		System.exit(0);
         });
         
         menu2Item2.setOnAction(e-> { // About
         	Alert alert = new Alert(AlertType.INFORMATION);
+        	alert.setX(primaryStage.getX() + 260);
+        	alert.setY(primaryStage.getY() + 200);
         	alert.setTitle("About");
         	alert.setHeaderText("The Chat");
         	alert.setContentText("Made by some people. Copyright 2018");
