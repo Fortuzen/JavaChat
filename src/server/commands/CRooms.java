@@ -11,7 +11,6 @@ import java.util.ArrayList;
 public class CRooms implements server.ICommand {
     @Override
     public void execute(ChatServerThread chatServerThread, String msg) {
-        Room room = chatServerThread.user.getCurrentRoom();
         String rooms = "Available rooms in the server:\n";
         for(Room r : ChatServer.rooms.values()) {
             rooms += r.roomSettings.getName();
