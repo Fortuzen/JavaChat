@@ -15,7 +15,7 @@ public class CRoomunban implements server.ICommand {
         if(!(chatServerThread.user.getMode() > 0) || room == null) {
             return;
         }
-        
+        //Check if address/username is banned
         if(!room.isBanned(msg, msg)) {
             return;
         }

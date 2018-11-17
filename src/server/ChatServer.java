@@ -80,6 +80,9 @@ public class ChatServer {
         commands.put("/bans", new CBans());
         commands.put("/roomnotice",  new CRoomnotice());
         commands.put("/kick", new CKick());
+        commands.put("/roommute", new CRoommute());
+        commands.put("/roomunmute", new CRoomunmute());
+        commands.put("/mutes", new CMutes());
         //Room admin
         commands.put("/roommode", new CRoommode());
         commands.put("/roompassword", new CRoompassword());
@@ -181,18 +184,22 @@ public class ChatServer {
                     user.getCommunication().sendMessage("Error");
                     user.getSocket().close();
                 }
-                // Check ban
-                if(isBanned(user.getSocket().getInetAddress().getHostAddress(), user.getName())) {
-                    user.getCommunication().sendMessage("You are banned from the server!");
-                    user.getSocket().close();
-                }
                 //Server password if any
                 if(s_msg.length > 1 && serverSettings.serverPassword != "") {
                     String pass = s_msg[1];
                     if(pass.equals(serverSettings.serverPassword)) {
-    
+                        //Do nothing
+                    } else if(pass.equals(serverSettings.serverAdminPassword)) {
+                        user.setMode(3);
                     } else {
                         user.getCommunication().sendMessage("Error");
+                        user.getSocket().close();
+                    }
+                }
+                // Check ban
+                if(isBanned(user.getSocket().getInetAddress().getHostAddress())) {
+                    if(user.getMode() < 3) {
+                        user.getCommunication().sendMessage("You are banned from the server!");
                         user.getSocket().close();
                     }
                 }
@@ -209,10 +216,7 @@ public class ChatServer {
             if(user.getCurrentRoom() == null) {
                 return;
             }
-            if(user.getCurrentRoom().isMuted(user.getSocket().getInetAddress().getHostAddress(), user.getName())) {
-                sendMessageToUser("You are muted");
-                return;
-            }
+
             try {
                 if ((MsgSender.equals("SERVER"))) {
                     System.out.println("Message to be sent: "+msg);
@@ -220,6 +224,14 @@ public class ChatServer {
                         u.getCommunication().sendMessage("** " + msg + " **");
                     }
                 } else {
+                    // Check if user is muted
+                    if(user.getCurrentRoom().isMuted(user.getSocket().getInetAddress().getHostAddress(), user.getName())) {
+                        // Can't mute room admin
+                        if(user.getMode()<2) {
+                            sendMessageToUser("You are muted");
+                            return;
+                        }
+                    }
                     LocalDateTime date = new Timestamp(System.currentTimeMillis()).toLocalDateTime();
                     String timestr = "["+String.valueOf(date.getHour()) + ":" + String.valueOf(date.getMinute()) + ":"+String.valueOf(date.getSecond())+"] ";
                     System.out.println("Message to be sent: "+msg);
@@ -251,7 +263,7 @@ public class ChatServer {
             } 
         }
             // Format address:username:(reason)
-        public boolean isBanned(String address, String username) {
+        public boolean isBanned(String address) {
             for(String ba : ChatServer.serverSettings.bannedAddresses) {
                 String[] splitted = ba.split(":");
                 if(splitted[0].equals(address)) {

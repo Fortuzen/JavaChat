@@ -30,6 +30,6 @@ public class CBans implements server.ICommand {
             }
         }
       
-        chatServerThread.sendMessageToMode("Banned users:\n"+bans, 1);
+        chatServerThread.sendMessageToUser("Banned users:\n"+bans);
     }
 }

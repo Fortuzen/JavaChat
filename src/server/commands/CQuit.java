@@ -20,6 +20,7 @@ public class CQuit implements server.ICommand {
         }
 
         try {
+            chatServerThread.sendMessageToUser("You left the server!");
             chatServerThread.user.getSocket().close();
         } catch (Exception e) {
             //TODO: handle exception

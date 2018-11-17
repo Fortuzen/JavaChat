@@ -24,7 +24,28 @@ public class Room {
             String[] splitted = ba.split(":");
             if(splitted[0].equals(address)) {
                 return true;
-            } 
+            }
+            if(splitted[1].equals(username)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean isAddressBanned(String address) {
+        for(String ba : roomSettings.bannedAddresses) {
+            String[] splitted = ba.split(":");
+            if(splitted[0].equals(address)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean isUsernameBanned(String username) {
+        for(String ba : roomSettings.bannedAddresses) {
+            String[] splitted = ba.split(":");
+            if(splitted[1].equals(username)) {
+                return true;
+            }
         }
         return false;
     }
@@ -33,6 +54,9 @@ public class Room {
         for(String ba : roomSettings.mutedAddresses) {
             String[] splitted = ba.split(":");
             if(splitted[0].equals(address)) {
+                return true;
+            }
+            if(splitted[1].equals(username)) {
                 return true;
             } 
         }
