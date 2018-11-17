@@ -23,5 +23,9 @@ public class CUsers implements server.ICommand {
 	        }
         } catch (Exception e) {
         }
-    }
+	}
+	@Override
+	public String getInfo() {
+		return "";
+	}
 }

@@ -42,4 +42,8 @@ public class CRoommute implements server.ICommand {
         room.roomSettings.saveMutedUsers();
 
     }
+    @Override
+	public String getInfo() {
+		return "";
+	}
 }

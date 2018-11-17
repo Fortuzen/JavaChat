@@ -32,4 +32,8 @@ public class CPrivmsg implements server.ICommand {
         	}
         }
     }
+    @Override
+	public String getInfo() {
+		return "";
+	}
 }

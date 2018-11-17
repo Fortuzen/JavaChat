@@ -22,4 +22,8 @@ public class CRooms implements server.ICommand {
         chatServerThread.sendMessageToUser(rooms);
         
     }
+    @Override
+	public String getInfo() {
+		return "";
+	}
 }

@@ -33,4 +33,8 @@ public class CRoomunmute implements server.ICommand {
         chatServerThread.sendMessageToCurrentRoom(username + " was unmuted!", "SERVER");
 
     }
+    @Override
+	public String getInfo() {
+		return "";
+	}
 }

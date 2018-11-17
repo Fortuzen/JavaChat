@@ -70,4 +70,8 @@ public class CJoinroom implements server.ICommand {
         chatServerThread.sendMessageToCurrentRoom((chatServerThread.user.getName() + " joined room " + room.roomSettings.getName()), "SERVER");
         chatServerThread.sendMessageToUser("Room description: " + room.roomSettings.getDescription());
     }
+    @Override
+	public String getInfo() {
+		return "";
+	}
 }

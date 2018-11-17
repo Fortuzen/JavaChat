@@ -25,4 +25,8 @@ public class CMutes implements server.ICommand {
             
         chatServerThread.sendMessageToUser("Muted users:\n"+mutes);
     }
+    @Override
+	public String getInfo() {
+		return "";
+	}
 }

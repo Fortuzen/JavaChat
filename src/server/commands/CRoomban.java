@@ -48,4 +48,8 @@ public class CRoomban implements server.ICommand {
         toBeBanned.setMode(0);
         
     }
+    @Override
+	public String getInfo() {
+		return "";
+	}
 }

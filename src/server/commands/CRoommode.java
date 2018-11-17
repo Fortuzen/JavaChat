@@ -56,5 +56,9 @@ public class CRoommode implements server.ICommand {
         } else {
        		ct.sendMessageToUser("Not valid number.");
         }
-    }
+	}
+	@Override
+	public String getInfo() {
+		return "";
+	}
 }

@@ -17,4 +17,8 @@ public class CLeaveroom implements server.ICommand {
         chatServerThread.user.setCurrentRoom(null);
         chatServerThread.user.setMode((chatServerThread.user.getMode() >= 3) ? chatServerThread.user.getMode() : 0);
     }
+    @Override
+	public String getInfo() {
+		return "";
+	}
 }

@@ -20,4 +20,8 @@ public class CServerpassword implements server.ICommand {
         ChatServer.serverSettings.setServerPassword(msg);
         chatServerThread.sendMessageToModeServer("Server password is now: "+msg, 3);
     }
+    @Override
+	public String getInfo() {
+		return "";
+	}
 }

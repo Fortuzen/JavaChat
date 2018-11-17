@@ -32,4 +32,9 @@ public class CBans implements server.ICommand {
       
         chatServerThread.sendMessageToUser("Banned users:\n"+bans);
     }
+
+    @Override
+	public String getInfo() {
+		return "";
+	}
 }

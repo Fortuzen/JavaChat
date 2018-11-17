@@ -18,4 +18,8 @@ public class CDesc implements server.ICommand {
             chatServerThread.sendMessageToUser("Server's description:\n" + ChatServer.serverSettings.getDescription());
         }
     }
+    @Override
+	public String getInfo() {
+		return "";
+	}
 }

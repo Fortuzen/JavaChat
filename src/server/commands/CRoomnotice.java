@@ -19,4 +19,8 @@ public class CRoomnotice implements server.ICommand {
     	
     	chatServerThread.sendMessageToCurrentRoom("Room notice: " + msg, "SERVER");
     }
+    @Override
+	public String getInfo() {
+		return "";
+	}
 }

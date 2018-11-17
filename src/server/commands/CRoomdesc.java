@@ -24,4 +24,8 @@ public class CRoomdesc implements server.ICommand {
     	room.roomSettings.setDescription(msg);
     	ct.sendMessageToUser("Room description is now: " + room.roomSettings.getDescription());
     }
+    @Override
+	public String getInfo() {
+		return "";
+	}
 }

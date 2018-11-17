@@ -24,4 +24,8 @@ public class CRoompassword implements server.ICommand {
     	room.roomSettings.setRoomPassword(msg);
     		ct.sendMessageToUser("Room password is now " + room.roomSettings.getRoomPassword());
     }
+    @Override
+	public String getInfo() {
+		return "";
+	}
 }

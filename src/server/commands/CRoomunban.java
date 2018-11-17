@@ -33,4 +33,8 @@ public class CRoomunban implements server.ICommand {
         chatServerThread.sendMessageToCurrentRoom(username + " was unbanned from the room", "SERVER");
 
     }
+    @Override
+	public String getInfo() {
+		return "";
+	}
 }

@@ -42,5 +42,9 @@ public class CServerkick implements server.ICommand {
     	        }      
         	}
         }
-    }
+	}
+	@Override
+	public String getInfo() {
+		return "";
+	}
 }

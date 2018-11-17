@@ -15,4 +15,8 @@ public class CRules implements server.ICommand {
             chatServerThread.sendMessageToUser("**Room rules:\n"+roomRules);
         }
     }
+    @Override
+	public String getInfo() {
+		return "";
+	}
 }

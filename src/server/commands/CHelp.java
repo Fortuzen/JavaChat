@@ -16,4 +16,8 @@ public class CHelp implements server.ICommand {
             //TODO: handle exception
         }
     }
+    @Override
+	public String getInfo() {
+		return "";
+	}
 }

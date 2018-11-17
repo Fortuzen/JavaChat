@@ -37,4 +37,8 @@ public class CKick implements server.ICommand {
         	}
         }
     }
+    @Override
+	public String getInfo() {
+		return "";
+	}
 }

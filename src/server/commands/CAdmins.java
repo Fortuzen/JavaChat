@@ -49,7 +49,9 @@ public class CAdmins implements server.ICommand {
                 	ct.sendMessageToUser(u.getName());
         	}
         }
-        
-
-    }
+	}
+	@Override
+	public String getInfo() {
+		return "";
+	}
 }

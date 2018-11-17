@@ -26,4 +26,8 @@ public class CQuit implements server.ICommand {
             //TODO: handle exception
         }      
     }
+    @Override
+	public String getInfo() {
+		return "";
+	}
 }
