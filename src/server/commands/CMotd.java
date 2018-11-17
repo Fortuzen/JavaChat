@@ -17,6 +17,6 @@ public class CMotd implements server.ICommand {
     	if(r==null) {
             return;
         }
-    		ct.sendMessageToUser("Message of the day: " + ChatServer.serverSettings.motd);
+    		ct.sendMessageToUser("Message of the day: " + ChatServer.serverSettings.getMotd());
     }
 }

@@ -15,22 +15,22 @@ import java.lang.Integer;
  */
 public class ServerSettings {
     //From config.ini
-    String name;
-    String description;
-    String serverPassword;
-    String serverAdminPassword;
-    public String rules;
-    public String motd; // TODO: getterit ja setterit vai
+    private String name;
+    private String description;
+    private String serverPassword;
+    private String serverAdminPassword;
+    private String rules;
+    private String motd;
 
-    String[] roomNames;
+    private String[] roomNames;
 
-    int maxUsers;
-    int port;
+    private int maxUsers;
+    private int port;
     
-    boolean logging;
+    private boolean logging;
 
     //From bans.txt
-    public List<String> bannedAddresses;
+    private List<String> bannedAddresses;
 
     // TODO: Fix paths
     private String configFilePath = "bin/server/config.ini";
@@ -105,7 +105,7 @@ public class ServerSettings {
         }       
     }
 
-    void saveSettings() {
+    synchronized public void saveSettings() {
         File configFile = new File(configFilePath);
         File banFile = new File(banListPath);
         PrintWriter pw = null;
@@ -148,5 +148,74 @@ public class ServerSettings {
         } else {
             return out;
         }
+    }
+
+    // Getters and setters
+    synchronized public String getName() {
+        return this.name;
+    }
+    synchronized public void setName(String name) {
+        this.name = name;
+        saveSettings();
+    }   
+
+    synchronized public String getDescription() {
+        return this.description;
+    }
+    synchronized public void setDescription(String desc) {
+        this.description = desc;
+        saveSettings();
+    }
+
+    synchronized public String getServerPassword() {
+        return this.serverPassword;
+    }
+    synchronized public void set(String pass) {
+        this.serverPassword = pass;
+        saveSettings();
+    }
+
+    synchronized public String getServerAdminPassword() {
+        return this.serverAdminPassword;
+    }
+    synchronized public void setServerAdminPassword(String pass) {
+        this.serverAdminPassword = pass;
+        saveSettings();
+    }
+
+    synchronized public String getRules() {
+        return this.rules;
+    }
+    synchronized public void setRules(String text) {
+        this.rules = text;
+        saveSettings();
+    }
+
+    synchronized public String getMotd() {
+        return this.motd;
+    }
+    synchronized public void setMotd(String text) {
+        this.motd = text;
+        saveSettings();
+    }
+    
+    synchronized public String[] getRoomNames() {
+        return this.roomNames;
+    } // No setter
+
+    synchronized public int getMaxUsers() {
+        return this.maxUsers;
+    }
+    synchronized public void set(int max) {
+        this.maxUsers = max;
+        saveSettings();
+    }
+
+    synchronized public int getPort() {
+        return this.port;
+    }
+  
+    synchronized public List<String> getBannedAddresses() {
+        return this.bannedAddresses;
     }
 }

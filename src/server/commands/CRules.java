@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class CRules implements server.ICommand {
     @Override
     public void execute(ChatServerThread chatServerThread, String msg) {
-        String serverRules = ChatServer.serverSettings.rules.replaceAll(":", "\n");
+        String serverRules = ChatServer.serverSettings.getRules().replaceAll(":", "\n");
         chatServerThread.sendMessageToUser("**Server rules:\n"+serverRules);
         if(chatServerThread.user.getCurrentRoom() != null) {
             String roomRules = chatServerThread.user.getCurrentRoom().roomSettings.rules.replaceAll(":", "\n");

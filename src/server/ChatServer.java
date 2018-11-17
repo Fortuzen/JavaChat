@@ -51,7 +51,7 @@ public class ChatServer {
         initCommands();
     }
     static void initRooms() {
-        for(String roomName : serverSettings.roomNames) {
+        for(String roomName : serverSettings.getRoomNames()) {
             Room room = new Room();
             room.initRoom(roomName);
             rooms.put(roomName,room);
@@ -103,7 +103,7 @@ public class ChatServer {
     public void listen() {
         ServerSocket server = null;
         try {
-            server = new ServerSocket(serverSettings.port);
+            server = new ServerSocket(serverSettings.getPort());
             while(true) {
                 Socket clientSocket = server.accept();
                 new ChatServerThread(clientSocket).start();
@@ -172,7 +172,7 @@ public class ChatServer {
         private void authenticate() {       	
             try {
                 //Check if server is full
-                if(ChatServer.users.size() >= ChatServer.serverSettings.maxUsers) {
+                if(ChatServer.users.size() >= ChatServer.serverSettings.getMaxUsers()) {
                     user.getCommunication().sendMessage("Server is full!");
                     user.getSocket().close();
                 }
@@ -191,11 +191,11 @@ public class ChatServer {
                     user.getSocket().close();
                 }
                 //Server password if any
-                if(s_msg.length > 1 && serverSettings.serverPassword != "") {
+                if(s_msg.length > 1 && serverSettings.getServerPassword() != "") {
                     String pass = s_msg[1];
-                    if(pass.equals(serverSettings.serverPassword)) {
+                    if(pass.equals(serverSettings.getServerPassword())) {
                         //Do nothing
-                    } else if(pass.equals(serverSettings.serverAdminPassword)) {
+                    } else if(pass.equals(serverSettings.getServerAdminPassword())) {
                         user.setMode(3);
                     } else {
                         user.getCommunication().sendMessage("Error");
@@ -211,7 +211,7 @@ public class ChatServer {
                 }
                 //Success, welcome
                 users.add(user);                    
-                user.getCommunication().sendMessage(serverSettings.motd);
+                user.getCommunication().sendMessage(serverSettings.getMotd());
                 System.out.println(user.getName() +" joined the server");                
             } catch (Exception e) {
                 System.out.println(e);
@@ -270,7 +270,7 @@ public class ChatServer {
         }
             // Format address:username:(reason)
         public boolean isBanned(String address) {
-            for(String ba : ChatServer.serverSettings.bannedAddresses) {
+            for(String ba : ChatServer.serverSettings.getBannedAddresses()) {
                 String[] splitted = ba.split(":");
                 if(splitted[0].equals(address)) {
                     return true;

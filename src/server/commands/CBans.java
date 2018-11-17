@@ -20,7 +20,7 @@ public class CBans implements server.ICommand {
             if(chatServerThread.user.getMode() < 3) {
                 return;
             }
-            for(String ban : ChatServer.serverSettings.bannedAddresses) {
+            for(String ban : ChatServer.serverSettings.getBannedAddresses()) {
                 bans += ">"+ ban + "\n";
             }
             
