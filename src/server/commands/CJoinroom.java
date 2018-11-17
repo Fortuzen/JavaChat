@@ -12,10 +12,13 @@ public class CJoinroom implements server.ICommand {
     public void execute(ChatServerThread chatServerThread, String msg) {
         String[] splitMsg = msg.split(" ");
         Room room = ChatServer.rooms.get(splitMsg[0]);
-        System.out.println(chatServerThread.user.getName()+ " exec /joinroom");
         // Check if the room exists
         if(room==null) {
             chatServerThread.sendMessageToUser(msg+" room doesn't exist!");
+            return;
+        }
+        if(room.users.size() >= room.roomSettings.maxUsers) {
+            chatServerThread.sendMessageToUser("Room is full!");
             return;
         }
         // Check for same names

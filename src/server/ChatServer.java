@@ -171,6 +171,12 @@ public class ChatServer {
 
         private void authenticate() {       	
             try {
+                //Check if server is full
+                if(ChatServer.users.size() >= ChatServer.serverSettings.maxUsers) {
+                    user.getCommunication().sendMessage("Server is full!");
+                    user.getSocket().close();
+                }
+
                 user.getCommunication().sendMessage("Please give your nickname and the server password (if any) in the message area below");
                 String msg = user.getCommunication().receiveMessage();
                 if(msg.isEmpty()) {
