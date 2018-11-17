@@ -12,11 +12,6 @@ public class CMotd implements server.ICommand {
     public void execute(ChatServerThread chatServerThread, String msg) {
     	User user = chatServerThread.user;
     	ChatServerThread ct = chatServerThread;
-    	Room r = user.getCurrentRoom();
-
-    	if(r==null) {
-            return;
-        }
-    		ct.sendMessageToUser("Message of the day: " + ChatServer.serverSettings.getMotd());
+   		ct.sendMessageToUser("Message of the day: " + ChatServer.serverSettings.getMotd());
     }
 }
