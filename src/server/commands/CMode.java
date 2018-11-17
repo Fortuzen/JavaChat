@@ -12,7 +12,11 @@ public class CMode implements server.ICommand {
     public void execute(ChatServerThread chatServerThread, String msg) {
     	User user = chatServerThread.user;
     	ChatServerThread ct = chatServerThread;
-    	Room r = user.getCurrentRoom();
+		Room r = user.getCurrentRoom();
+		if(msg.isEmpty()) {
+			ct.sendMessageToUser("Your mode: "+user.getMode());
+			return;
+		}
         if(r==null) {
             return;
         }

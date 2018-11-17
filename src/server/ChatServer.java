@@ -198,15 +198,20 @@ public class ChatServer {
                 //Server password if any
                 if(s_msg.length > 1 && serverSettings.getServerPassword() != "") {
                     String pass = s_msg[1];
-                    if(pass.equals(serverSettings.getServerPassword())) {
-                        user.setMode(0);
-                    } else if(pass.equals(serverSettings.getServerAdminPassword())) {
-                        user.setMode(3);
-                    } else {
+                    if(!pass.equals(serverSettings.getServerPassword())) {
                         user.getCommunication().sendMessage("Error");
                         user.getSocket().close();
                     }
                 }
+                //Check admin
+                if(s_msg.length > 1) {
+                    String pass = s_msg[1];
+                    if(pass.equals(serverSettings.getServerAdminPassword())) {
+                        System.out.println("Admin user");
+                        sendMessageToUser("You are server admin");
+                        user.setMode(3);
+                    }
+                }               
                 // Check ban
                 if(isBanned(user.getSocket().getInetAddress().getHostAddress())) {
                     if(user.getMode() < 3) {
