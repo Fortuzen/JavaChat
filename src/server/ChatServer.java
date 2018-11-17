@@ -73,6 +73,7 @@ public class ChatServer {
         commands.put("/quit", new CQuit());
         commands.put("/admins", new CAdmins());
         commands.put("/rules", new CRules());
+        commands.put("/desc", new CDesc());
         
         
         //Moderator
