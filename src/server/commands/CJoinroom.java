@@ -49,8 +49,14 @@ public class CJoinroom implements server.ICommand {
                     chatServerThread.sendMessageToUser("Wrong password!");
                     return;
                 }
+            } else {
+                if(room.roomSettings.getRoomPassword() != "") {
+                    chatServerThread.sendMessageToUser("Wrong password!");
+                    return;
+                }
             }
         }
+        
 
         // Check if user/username is banned from the room
         // Doesn't work if client connects using localhost
