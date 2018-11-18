@@ -30,10 +30,11 @@ public class CServerban implements server.ICommand {
             reason = msg.substring(index+1);
         }
         // Find and ban possible users
+        boolean banned = false;
         for(User u : ChatServer.users) {
             if(u.getSocket().getInetAddress().getHostAddress().equals(address) && u.getMode() < 3) {
                 chatServerThread.sendMessageToCurrentRoom(u.getName()+" was banned from the server! Reason: "+reason, "SERVER");
-                chatServerThread.sendMessageToUser("You were banned from the server!");
+                chatServerThread.sendMessageToUser("You banned something!");
                 u.getCurrentRoom().users.remove(u);
                 u.setCurrentRoom(null);
                 u.setMode(0);
@@ -41,15 +42,22 @@ public class CServerban implements server.ICommand {
                 String ban = address +":"+u.getName()+":"+reason;
                 System.out.println(ban);
                 ChatServer.serverSettings.getBannedAddresses().add(ban);
-                ChatServer.serverSettings.saveSettings();
+                ChatServer.serverSettings.saveBannedUsers();
+                banned = true;
                 try {
                     u.getSocket().close();
                 } catch (Exception e) {
                     //TODO: handle exception
-                }
-                
+                }             
             }
-        }       
+        }  
+        // If no users were found, ban the address
+        if(!banned) {
+            String ban = address +":"+""+":"+reason;
+            System.out.println(ban);
+            ChatServer.serverSettings.getBannedAddresses().add(ban);
+            ChatServer.serverSettings.saveBannedUsers();
+        }
     }
     @Override
 	public String getInfo() {

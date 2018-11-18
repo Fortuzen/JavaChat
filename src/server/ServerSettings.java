@@ -34,7 +34,7 @@ public class ServerSettings {
 
     // TODO: Fix paths
     private String configFilePath = "bin/server/config.ini";
-    private String banListPath = "bin/server/bans.txt";
+    private String banPath = "bin/server/bans.txt";
 
     public ServerSettings() {
 
@@ -42,7 +42,7 @@ public class ServerSettings {
 
     public void load() {
         File configFile = new File(configFilePath);
-        File banFile = new File(banListPath);
+        File banFile = new File(banPath);
 
         Scanner reader = null;
         HashMap<String,String> settings = new HashMap();
@@ -108,7 +108,7 @@ public class ServerSettings {
 
     synchronized public void saveSettings() {
         File configFile = new File(configFilePath);
-        File banFile = new File(banListPath);
+        File banFile = new File(banPath);
         PrintWriter pw = null;
         // Awful
         try {
@@ -136,6 +136,18 @@ public class ServerSettings {
             if(pw!=null) {
                 pw.close();
             }
+        }
+    }
+    synchronized public void saveBannedUsers() {
+        try {
+            File banFile = new File(banPath);
+            PrintWriter pw = new PrintWriter(banFile);
+            for(String addr : bannedAddresses) {
+                pw.println(addr);
+            }
+            pw.close();
+        } catch (Exception e) {
+            //TODO: handle exception
         }
     }
 

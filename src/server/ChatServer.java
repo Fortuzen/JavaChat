@@ -99,6 +99,8 @@ public class ChatServer {
         commands.put("/servernotice", new CServernotice());
         commands.put("/serverpassword", new CServerpassword());
         commands.put("/serverdesc", new CServerdesc());
+        commands.put("/serverban", new CServerban());
+        commands.put("/serverunban", new CServerunban());
     }
     
     /**
