@@ -186,20 +186,25 @@ public class ChatServer {
                     user.getCommunication().sendMessage("Server is full!");
                     user.getSocket().close();
                 }
-
+                //Username
                 user.getCommunication().sendMessage("Please give your nickname and the server password (if any) in the message area below");
                 String msg = user.getCommunication().receiveMessage();
                 if(msg.isEmpty()) {
                     user.getCommunication().sendMessage("Error");
                     user.getSocket().close();
                 }
-                //Username
+                
                 String[] s_msg = msg.split(" ");
                 user.setName(s_msg[0]);
                 if(user.getName().equals("SERVER")) {
                     user.getCommunication().sendMessage("Error");
                     user.getSocket().close();
                 }
+                if(isIllegalName(user.getName())) {
+                    user.getCommunication().sendMessage("Your username contains invalid characters!");
+                    user.getSocket().close();
+                }
+
                 //Server password if any
                 if(s_msg.length > 1 && serverSettings.getServerPassword() != "") {
                     String pass = s_msg[1];
@@ -304,7 +309,7 @@ public class ChatServer {
                 //TODO: handle exception
             }
         }
-            // Format address:username:(reason)
+            // Format address:(username):(reason)
         public boolean isBanned(String address) {
             for(String ba : ChatServer.serverSettings.getBannedAddresses()) {
                 String[] splitted = ba.split(":");
@@ -313,6 +318,15 @@ public class ChatServer {
                 }
             }
             return false;
+        }
+
+        public boolean isIllegalName(String name) {
+            String[] invalids = name.split(".:", 2);
+            if(invalids.length > 1) {
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 

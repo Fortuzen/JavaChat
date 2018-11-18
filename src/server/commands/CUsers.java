@@ -19,7 +19,8 @@ public class CUsers implements server.ICommand {
     	try {
         	user.getCommunication().sendMessage("** Users currently in room **");
 	        for(User u : r.users) {
-	        	user.getCommunication().sendMessage("> " + u.getName());
+				//If mode > 0, send also ip address
+	        	user.getCommunication().sendMessage("> " + u.getName() +" "+ (user.getMode() > 0 ? u.getSocket().getInetAddress().getHostAddress() : ""));
 	        }
         } catch (Exception e) {
         }

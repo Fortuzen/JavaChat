@@ -11,7 +11,7 @@ public class CServerdesc implements server.ICommand {
     @Override
     public void execute(ChatServerThread chatServerThread, String msg) {
         
-        if ((user.getMode() < 2)) {
+        if ((chatServerThread.user.getMode() < 2)) {
             chatServerThread.sendMessageToUser("You do not have the permission to use this command.");
         	return;
         }

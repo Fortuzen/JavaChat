@@ -20,8 +20,9 @@ public class CUsername implements server.ICommand {
                 u.getCommunication().sendMessage("This name is not valid");
             } else if(msg.trim().equals("")) {
                 chatServerThread.sendMessageToUser("Your username: "+u.getName());
-            } else {
-                
+            } else if(chatServerThread.isIllegalName(msg)) {
+                chatServerThread.sendMessageToUser("Invalid characters!");
+            } else {               
                 if(r != null) {
                     chatServerThread.sendMessageToCurrentRoom((u.getName() + " changed their name to " + msg), "SERVER");
                 } else {
@@ -34,6 +35,6 @@ public class CUsername implements server.ICommand {
     }
     @Override
 	public String getInfo() {
-		return "/username name - Change your username";
+		return "/username name - Show your username/Change your username";
 	}
 }
