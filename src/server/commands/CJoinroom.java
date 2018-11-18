@@ -30,6 +30,37 @@ public class CJoinroom implements server.ICommand {
             }
         }
 
+ 	
+    	
+        // Check mode and room password
+        if(splitMsg.length > 1) {
+            System.out.println(splitMsg[1]+":"+room.roomSettings.getRoomModeratorPassword());
+            String password = splitMsg[1];
+            if(password.equals(room.roomSettings.getRoomModeratorPassword())) {
+                chatServerThread.user.setMode(1);
+                chatServerThread.sendMessageToUser("You are room moderator!");
+            } else if(password.equals(room.roomSettings.getRoomAdminPassword())) {
+                chatServerThread.user.setMode(2);
+                chatServerThread.sendMessageToUser("You are room admin!");
+            } else if(password.equals(room.roomSettings.getRoomPassword())) {
+                chatServerThread.user.setMode(0); // TODO: Server admin loses privilege???
+                chatServerThread.sendMessageToUser("You are normal user!");
+            } else {
+            	chatServerThread.sendMessageToUser("Wrong password!");
+            	return;
+            }
+        }
+        if (splitMsg.length == 1) {
+        	if (room.roomSettings.getRoomPassword().equals("")) {
+                chatServerThread.user.setMode(0); // TODO: Server admin loses privilege???
+                chatServerThread.sendMessageToUser("You are normal user!");
+        	} else {
+            	chatServerThread.sendMessageToUser("Wrong password!");
+            	return;
+        	}
+        }
+
+/** OLD
         // Check mode and room password
         if(chatServerThread.user.getMode() > 2) {
             chatServerThread.sendMessageToUser("You are server admin!");
@@ -51,7 +82,7 @@ public class CJoinroom implements server.ICommand {
                 }
             }
         }
-
+*/
         // Check if user/username is banned from the room
         // Doesn't work if client connects using localhost
         // Can't ban room admin
