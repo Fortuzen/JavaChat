@@ -3,25 +3,23 @@ package server.commands;
 import server.ChatServer;
 import server.ChatServer.ChatServerThread;
 import server.Room;
+import server.User;
+
 import java.util.ArrayList;
 
-/**
- * Change server password.
- */
-public class CServerpassword implements server.ICommand {
+public class CServerdesc implements server.ICommand {
     @Override
     public void execute(ChatServerThread chatServerThread, String msg) {
-
-        if(chatServerThread.user.getMode() < 3) {
+        
+        if ((user.getMode() < 2)) {
             chatServerThread.sendMessageToUser("You do not have the permission to use this command.");
-            return;
+        	return;
         }
-        msg = msg.trim();
-        ChatServer.serverSettings.setServerPassword(msg);
-        chatServerThread.sendMessageToModeServer("Server password is now: "+msg, 3);
+    	ChatServer.serverSettings.setDescription(msg);
+    	chatServerThread.sendMessageToUser("Server description is now: " + ChatServer.serverSettings.getDescription());
     }
     @Override
 	public String getInfo() {
-		return "/serverpassword password - Change server password";
+		return "/serverdesc description - Set server description";
 	}
 }

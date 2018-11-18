@@ -9,13 +9,14 @@ import java.util.Map;
 
 public class CHelp implements server.ICommand {
     @Override
-    public void execute(ChatServerThread chatServerThread, String msg) {
-        String helptext = "All commands:\n";
-
+    public void execute(ChatServerThread chatServerThread, String msg) {      
+        chatServerThread.sendMessageToUser("All commands:");
+        // IRC/Quakenet way?
         for(Map.Entry<String,ICommand> cmd : ChatServer.commands.entrySet()) {
-            helptext += cmd.getValue().getInfo()+"\n";
+            String helptext = cmd.getValue().getInfo();
+            chatServerThread.sendMessageToUser(helptext);
         }
-        chatServerThread.sendMessageToUser(helptext);
+        
 
     }
     @Override

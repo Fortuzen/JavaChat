@@ -98,6 +98,7 @@ public class ChatServer {
         commands.put("/serverkick", new CServerkick());
         commands.put("/servernotice", new CServernotice());
         commands.put("/serverpassword", new CServerpassword());
+        commands.put("/serverdesc", new CServerdesc());
     }
     
     /**

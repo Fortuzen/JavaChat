@@ -207,7 +207,7 @@ public class ServerSettings {
     synchronized public int getMaxUsers() {
         return this.maxUsers;
     }
-    synchronized public void set(int max) {
+    synchronized public void setMaxUsers(int max) {
         this.maxUsers = max;
         saveSettings();
     }
