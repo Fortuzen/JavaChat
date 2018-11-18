@@ -67,27 +67,29 @@ public class ChatServer {
     static void initCommands() {
         // All commands here
         //User level commands
+        commands.put("/username", new CUsername());
+        commands.put("/privmsg", new CPrivmsg());
         commands.put("/joinroom",new CJoinroom());
         commands.put("/leaveroom", new CLeaveroom());
+        commands.put("/rules", new CRules());
         commands.put("/help",  new CHelp());
-        commands.put("/privmsg", new CPrivmsg());
-        commands.put("/username", new CUsername());
-        commands.put("/users",  new CUsers());
-        commands.put("/motd",  new CMotd());
         commands.put("/quit", new CQuit());
         commands.put("/admins", new CAdmins());
-        commands.put("/rules", new CRules());
+        commands.put("/users",  new CUsers());
+        commands.put("/motd",  new CMotd());
+
         commands.put("/desc", new CDesc());
         commands.put("/rooms", new CRooms());
         
         //Moderator
+        commands.put("/kick", new CKick());
         commands.put("/roomban", new CRoomban());
         commands.put("/roomunban", new CRoomunban());
-        commands.put("/bans", new CBans());
         commands.put("/roomnotice",  new CRoomnotice());
-        commands.put("/kick", new CKick());
         commands.put("/roommute", new CRoommute());
         commands.put("/roomunmute", new CRoomunmute());
+
+        commands.put("/bans", new CBans());
         commands.put("/mutes", new CMutes());
         //Room admin
         commands.put("/roommode", new CRoommode());
@@ -96,11 +98,11 @@ public class ChatServer {
         //Server admin
         commands.put("/mode", new CMode());
         commands.put("/serverkick", new CServerkick());
-        commands.put("/servernotice", new CServernotice());
-        commands.put("/serverpassword", new CServerpassword());
-        commands.put("/serverdesc", new CServerdesc());
         commands.put("/serverban", new CServerban());
         commands.put("/serverunban", new CServerunban());
+        commands.put("/serverpassword", new CServerpassword());
+        commands.put("/serverdesc", new CServerdesc());
+        commands.put("/servernotice", new CServernotice());
     }
     
     /**

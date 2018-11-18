@@ -6,7 +6,6 @@ import server.Room;
 import server.User;
 
 import java.util.ArrayList;
-// TODO: not tested
 public class CServerkick implements server.ICommand {
     @Override
     public void execute(ChatServerThread chatServerThread, String msg) {

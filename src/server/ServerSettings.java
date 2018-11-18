@@ -32,7 +32,6 @@ public class ServerSettings {
     //From bans.txt
     private List<String> bannedAddresses;
 
-    // TODO: Fix paths
     private String configFilePath = "bin/server/config.ini";
     private String banPath = "bin/server/bans.txt";
 

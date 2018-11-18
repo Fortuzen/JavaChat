@@ -28,7 +28,6 @@ public class RoomSettings {
     //From mutes.txt
     private List<String> mutedAddresses;
 
-    // TODO: Fix paths
     private String path = "bin/server/";
     private String configPath;
     private String banPath;

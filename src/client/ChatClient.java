@@ -100,7 +100,7 @@ public class ChatClient extends Application {
                 System.out.println("Connected to " + ip + " " + port);
                 communication = new DefaultCommunication(socket);
                 rec.start();
-                communication.sendMessage("Defaultname admin");
+                communication.sendMessage("Admin admin");
                 communication.sendMessage("/joinroom room1"); // TODO: remove later
                 taMessages.setText("");
 
@@ -116,7 +116,6 @@ public class ChatClient extends Application {
         });
 
         menuItem2.setOnAction(e->{ // Normal connect
-	     // Create the custom dialog.
 	        Dialog<Pair<String, String>> dialog = new Dialog<>();
 	        dialog.setTitle("Connect to a server");
         	dialog.setX(primaryStage.getX() + 260);
