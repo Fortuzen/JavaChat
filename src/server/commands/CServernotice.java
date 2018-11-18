@@ -21,6 +21,6 @@ public class CServernotice implements server.ICommand {
     }
     @Override
 	public String getInfo() {
-		return "";
+		return "/servernotice - Send a server message to all users";
 	}
 }

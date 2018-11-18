@@ -15,6 +15,6 @@ public class CMotd implements server.ICommand {
     }
     @Override
 	public String getInfo() {
-		return "";
+		return "/motd - Show server message of the day";
 	}
 }

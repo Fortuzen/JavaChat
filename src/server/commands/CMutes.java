@@ -27,6 +27,6 @@ public class CMutes implements server.ICommand {
     }
     @Override
 	public String getInfo() {
-		return "";
+		return "/mutes - Show muted users in room";
 	}
 }

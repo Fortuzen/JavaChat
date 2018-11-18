@@ -26,6 +26,6 @@ public class CRoomdesc implements server.ICommand {
     }
     @Override
 	public String getInfo() {
-		return "";
+		return "/roomdesc description - Set room description";
 	}
 }

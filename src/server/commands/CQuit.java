@@ -28,6 +28,6 @@ public class CQuit implements server.ICommand {
     }
     @Override
 	public String getInfo() {
-		return "";
+		return "/quit - Quit";
 	}
 }

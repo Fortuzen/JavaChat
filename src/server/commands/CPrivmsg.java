@@ -34,6 +34,6 @@ public class CPrivmsg implements server.ICommand {
     }
     @Override
 	public String getInfo() {
-		return "";
+		return "/privmsg user message - Send a private message to user";
 	}
 }

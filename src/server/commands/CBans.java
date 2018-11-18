@@ -35,6 +35,6 @@ public class CBans implements server.ICommand {
 
     @Override
 	public String getInfo() {
-		return "";
+		return "/bans - Show banned users";
 	}
 }

@@ -45,6 +45,6 @@ public class CServerkick implements server.ICommand {
 	}
 	@Override
 	public String getInfo() {
-		return "";
+		return "/serverkick user reason - Kick user from server";
 	}
 }

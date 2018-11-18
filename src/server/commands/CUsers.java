@@ -26,6 +26,6 @@ public class CUsers implements server.ICommand {
 	}
 	@Override
 	public String getInfo() {
-		return "";
+		return "/users - Show users in room";
 	}
 }

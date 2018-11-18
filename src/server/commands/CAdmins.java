@@ -52,6 +52,6 @@ public class CAdmins implements server.ICommand {
 	}
 	@Override
 	public String getInfo() {
-		return "";
+		return "/admins - Show admins in room";
 	}
 }
