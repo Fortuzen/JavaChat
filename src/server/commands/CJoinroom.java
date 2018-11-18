@@ -12,6 +12,7 @@ public class CJoinroom implements server.ICommand {
     public void execute(ChatServerThread chatServerThread, String msg) {
         String[] splitMsg = msg.split(" ");
         Room room = ChatServer.rooms.get(splitMsg[0]);
+    	User user = chatServerThread.user;
         // Check if the room exists
         if(room==null) {
             chatServerThread.sendMessageToUser(msg+" room doesn't exist!");
@@ -39,14 +40,20 @@ public class CJoinroom implements server.ICommand {
             if(splitMsg.length > 1) {
                 String password = splitMsg[1];
                 if(password.equals(room.roomSettings.getRoomAdminPassword())) {
-                    chatServerThread.user.setMode(2);
-                    chatServerThread.sendMessageToUser("You are room admin!");
+                	if (user.getMode() < 2) {
+                        chatServerThread.user.setMode(2);
+                        chatServerThread.sendMessageToUser("You are room admin!");
+                	}
                 } else if(password.equals(room.roomSettings.getRoomModeratorPassword())) {
-                    chatServerThread.user.setMode(1);
-                    chatServerThread.sendMessageToUser("You are room moderator!");
+                	if (user.getMode() < 1) {
+	                    chatServerThread.user.setMode(1);
+	                    chatServerThread.sendMessageToUser("You are room moderator!");
+                	}
                 } else if(password.equals(room.roomSettings.getRoomPassword())) {
-                    chatServerThread.user.setMode(0);
-                    chatServerThread.sendMessageToUser("You are normal user!");
+                	if (user.getMode() == 0) {
+	                    chatServerThread.user.setMode(0);
+	                    chatServerThread.sendMessageToUser("You are normal user");
+                	}
                 } else {
                     chatServerThread.sendMessageToUser("Wrong password!");
                     return;

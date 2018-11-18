@@ -8,7 +8,6 @@ import server.User;
 import java.util.ArrayList;
 
 //TODO: Check if name taken (in room)
-//TODO: return your name if no parameters
 public class CUsername implements server.ICommand {
     @Override
     public void execute(ChatServerThread chatServerThread, String msg) {
