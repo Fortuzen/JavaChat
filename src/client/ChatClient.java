@@ -114,43 +114,7 @@ public class ChatClient extends Application {
             	alert.showAndWait();
             }
         });
-/** OLD      
-        menuItem2.setOnAction(e->{ // Normal connect
-        	TextInputDialog dialog = new TextInputDialog("localhost:8000");
 
-        	dialog.setTitle("Connect to a server");
-        	dialog.setHeaderText("Enter server IP address and port");
-        	dialog.setContentText("IP:Port");
-
-        	Optional<String> result = dialog.showAndWait();
-        	if (result.isPresent()){
-        		String ipport = result.get();
-                int port = 0;
-                String ip = "0";
-                try {
-                    String[] splittedIP = ipport.split(":");
-                    ip = splittedIP[0];
-                    int index = ipport.indexOf(':');
-                    port = Integer.parseInt(ipport.substring(index+1));
-                    
-                	rec = new MsgRec();
-                    socket = new Socket(ip, port);
-                    System.out.println("Connected to " + ip + " " + port);
-                    communication = new DefaultCommunication(socket);
-                    rec.start();
-                    taMessages.setText("");
-                } catch (Exception error) {
-                	Alert alert = new Alert(AlertType.INFORMATION);
-                	alert.setX(primaryStage.getX() + 260);
-                	alert.setY(primaryStage.getY() + 200);
-                	alert.setTitle("Error");
-                	alert.setHeaderText(null);
-                	alert.setContentText("Could not connect to " + ip + " " + port);
-                	alert.showAndWait();
-                }
-        	}
-        });
-*/
         menuItem2.setOnAction(e->{ // Normal connect
 	     // Create the custom dialog.
 	        Dialog<Pair<String, String>> dialog = new Dialog<>();
@@ -173,7 +137,7 @@ public class ChatClient extends Application {
 	        TextField username = new TextField("");
 	        TextField password = new TextField("");
 	        // thing, column, row
-	        gridPane.add(new Label("You must give IP, port and username. \nPassword is optional."), 1, 0);
+	        gridPane.add(new Label("You must give server IP, port and username.\nPassword is optional."), 1, 0);
 	        gridPane.add(new Label("IP:"), 0, 1);
 	        gridPane.add(ip, 1, 1);
 	        gridPane.add(new Label("Port:"), 0, 2);
@@ -207,8 +171,6 @@ public class ChatClient extends Application {
 	                }
 	         }
         });
-
-        
     
         menuItem3.setOnAction(e-> { // Disconnect
         	try {
