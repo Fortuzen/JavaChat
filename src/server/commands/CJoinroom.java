@@ -40,20 +40,14 @@ public class CJoinroom implements server.ICommand {
             if(splitMsg.length > 1) {
                 String password = splitMsg[1];
                 if(password.equals(room.roomSettings.getRoomAdminPassword())) {
-                	if (user.getMode() < 2) {
                         chatServerThread.user.setMode(2);
                         chatServerThread.sendMessageToUser("You are room admin!");
-                	}
                 } else if(password.equals(room.roomSettings.getRoomModeratorPassword())) {
-                	if (user.getMode() < 1) {
 	                    chatServerThread.user.setMode(1);
 	                    chatServerThread.sendMessageToUser("You are room moderator!");
-                	}
                 } else if(password.equals(room.roomSettings.getRoomPassword())) {
-                	if (user.getMode() == 0) {
 	                    chatServerThread.user.setMode(0);
 	                    chatServerThread.sendMessageToUser("You are normal user");
-                	}
                 } else {
                     chatServerThread.sendMessageToUser("Wrong password!");
                     return;
