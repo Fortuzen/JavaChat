@@ -4,21 +4,28 @@ import java.net.Socket;
 import java.util.Optional;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -28,6 +35,7 @@ import javafx.scene.text.FontSmoothingType;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 import shared.ICommunication;
 import shared.DefaultCommunication;
 /**
@@ -106,14 +114,10 @@ public class ChatClient extends Application {
             	alert.showAndWait();
             }
         });
-        
-
-        
+/** OLD      
         menuItem2.setOnAction(e->{ // Normal connect
-
         	TextInputDialog dialog = new TextInputDialog("localhost:8000");
-        	dialog.setX(primaryStage.getX() + 260);
-        	dialog.setY(primaryStage.getY() + 200);
+
         	dialog.setTitle("Connect to a server");
         	dialog.setHeaderText("Enter server IP address and port");
         	dialog.setContentText("IP:Port");
@@ -146,6 +150,64 @@ public class ChatClient extends Application {
                 }
         	}
         });
+*/
+        menuItem2.setOnAction(e->{ // Normal connect
+	     // Create the custom dialog.
+	        Dialog<Pair<String, String>> dialog = new Dialog<>();
+	        dialog.setTitle("Connect to a server");
+        	dialog.setX(primaryStage.getX() + 260);
+        	dialog.setY(primaryStage.getY() + 200);
+	
+	        ButtonType connect = new ButtonType("Connect", ButtonData.OK_DONE);
+	        ButtonType cancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+	        dialog.getDialogPane().getButtonTypes().addAll(connect, cancel);
+	
+	        GridPane gridPane = new GridPane();
+	        gridPane.setHgap(10);
+	        gridPane.setVgap(10);
+	        gridPane.setPadding(new Insets(20, 20, 10, 10));
+	
+
+	        TextField ip = new TextField("");
+	        TextField port = new TextField("");
+	        TextField username = new TextField("");
+	        TextField password = new TextField("");
+	        // thing, column, row
+	        gridPane.add(new Label("You must give IP, port and username. \nPassword is optional."), 1, 0);
+	        gridPane.add(new Label("IP:"), 0, 1);
+	        gridPane.add(ip, 1, 1);
+	        gridPane.add(new Label("Port:"), 0, 2);
+	        gridPane.add(port, 1, 2);
+	        gridPane.add(new Label("Username:"), 0, 3);
+	        gridPane.add(username, 1, 3);
+	        gridPane.add(new Label("Server password:"), 0, 4);
+	        gridPane.add(password, 1, 4);
+	
+	        dialog.getDialogPane().setContent(gridPane);
+	        Platform.runLater(() -> ip.requestFocus());
+        	Optional<Pair<String, String>> ipport = dialog.showAndWait();
+        	
+        	if (ipport.isPresent() && !username.getText().isEmpty()) {
+	                try {
+	                	rec = new MsgRec();
+	                    socket = new Socket(ip.getText(), Integer.parseInt(port.getText()));
+	                    System.out.println("Connected to " + ip.getText() + " " + port.getText());
+	                    communication = new DefaultCommunication(socket);
+	                    communication.sendMessage(username.getText() + " " + password.getText());
+	                    rec.start();
+	                    taMessages.setText("");
+	                } catch (Exception error) {
+	                	Alert alert = new Alert(AlertType.INFORMATION);
+	                	alert.setX(primaryStage.getX() + 260);
+	                	alert.setY(primaryStage.getY() + 200);
+	                	alert.setTitle("Error");
+	                	alert.setHeaderText(null);
+	                	alert.setContentText("Could not connect to " + ip.getText() + " " + port.getText());
+	                	alert.showAndWait();
+	                }
+	         }
+        });
+
         
     
         menuItem3.setOnAction(e-> { // Disconnect
