@@ -8,7 +8,12 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class CHelp implements server.ICommand {
-    @Override
+    /**
+     * Show available commands.
+     * @param chatServerThread Thread created for user by server
+     * @param msg (not used)
+     */
+	@Override
     public void execute(ChatServerThread chatServerThread, String msg) {      
         chatServerThread.sendMessageToUser("All commands:");
         // IRC/Quakenet way?

@@ -8,7 +8,12 @@ import server.User;
 import java.util.ArrayList;
 
 public class CQuit implements server.ICommand {
-    @Override
+    /**
+     * Disconnect from server.
+     * @param chatServerThread Thread created for user by server
+     * @param msg (not used)
+     */
+	@Override
     public void execute(ChatServerThread chatServerThread, String msg) {
         // Partially from CLeaveroom.java. 
         Room room = chatServerThread.user.getCurrentRoom();

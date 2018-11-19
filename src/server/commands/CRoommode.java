@@ -8,7 +8,12 @@ import server.User;
 import java.util.ArrayList;
 
 public class CRoommode implements server.ICommand {
-    @Override
+    /**
+     * Set user mode to 0 or 1, requires mode 2.
+     * @param chatServerThread Thread created for user by server
+     * @param msg User and new mode, seperated with space
+     */
+	@Override
     public void execute(ChatServerThread chatServerThread, String msg) {
     	User user = chatServerThread.user;
     	ChatServerThread ct = chatServerThread;

@@ -8,6 +8,11 @@ import server.User;
 import java.util.ArrayList;
 
 public class CServernotice implements server.ICommand {
+    /**
+     * Send a message to every user on server, requires mode 3.
+     * @param chatServerThread Thread created for user by server
+     * @param msg Notice
+     */
     @Override
     public void execute(ChatServerThread chatServerThread, String msg) {
     	User user = chatServerThread.user;

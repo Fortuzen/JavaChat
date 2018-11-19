@@ -6,7 +6,12 @@ import server.Room;
 import java.util.ArrayList;
 
 public class CLeaveroom implements server.ICommand {
-    @Override
+    /**
+     * Leave current room.
+     * @param chatServerThread Thread created for user by server
+     * @param msg (not used)
+     */
+	@Override
     public void execute(ChatServerThread chatServerThread, String msg) {
     	Room room = chatServerThread.user.getCurrentRoom();
         if(room==null) {

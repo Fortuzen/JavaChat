@@ -8,7 +8,12 @@ import server.User;
 import java.util.ArrayList;
 
 public class CRoomban implements server.ICommand {
-    @Override
+    /**
+     * Ban user from room.
+     * @param chatServerThread Thread created for user by server
+     * @param msg User to be banned and reason for ban
+     */
+	@Override
     public void execute(ChatServerThread chatServerThread, String msg) {
         Room room = chatServerThread.user.getCurrentRoom();
         // Check mode

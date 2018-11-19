@@ -6,7 +6,9 @@ import server.Room;
 import java.util.ArrayList;
 
 /**
- * Return server's or room's description
+ * Shows all the rooms in server
+ * @param chatServerThread Thread created for user by server
+ * @param msg (not used)
  */
 public class CRooms implements server.ICommand {
     @Override

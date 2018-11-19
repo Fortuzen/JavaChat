@@ -8,6 +8,11 @@ import server.User;
 import java.util.ArrayList;
 
 public class CServerdesc implements server.ICommand {
+    /**
+     * Set server description, requires mode 2.
+     * @param chatServerThread Thread created for user by server
+     * @param msg New server description
+     */
     @Override
     public void execute(ChatServerThread chatServerThread, String msg) {
         

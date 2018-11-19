@@ -43,13 +43,24 @@ import shared.DefaultCommunication;
  * @author Toni Luukkonen
  */
 public class ChatClient extends Application {
-	
+	/**
+	 * Communication interface
+	 */
 	public static ICommunication communication = null;
+	/**
+	 * Text area for receiving messages
+	 */
     public static TextArea taMessages;
+	/**
+	 * Socket
+	 */
 	Socket socket;
+	/**
+	 * Thread for receiving messages into taMessages
+	 */
 	MsgRec rec;
-	
-    public void start(Stage primaryStage) {
+
+	public void start(Stage primaryStage) {
 		
         MenuBar menu = new MenuBar(); // Toolbar
 
@@ -217,6 +228,7 @@ public class ChatClient extends Application {
 	}
     /**
      * Main method.
+     * @param args
      */
 	public static void main(String[] args) {
 		Application.launch(args);

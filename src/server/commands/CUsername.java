@@ -9,7 +9,12 @@ import java.util.ArrayList;
 
 //TODO: Check if name taken (in room)
 public class CUsername implements server.ICommand {
-    @Override
+    /**
+     * User can change their username with this command.
+     * @param chatServerThread Thread created for user by server
+     * @param msg New username
+     */
+	@Override
     public void execute(ChatServerThread chatServerThread, String msg) {
     	Room r = chatServerThread.user.getCurrentRoom();
     	User u = chatServerThread.user;

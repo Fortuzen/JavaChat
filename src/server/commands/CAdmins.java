@@ -8,7 +8,12 @@ import server.User;
 import java.util.ArrayList;
 
 public class CAdmins implements server.ICommand {
-    @Override
+    /**
+     * Show server and room admins.
+     * @param chatServerThread Thread created for user by server
+     * @param msg (not used)
+     */
+	@Override
     public void execute(ChatServerThread chatServerThread, String msg) {
     	User user = chatServerThread.user;
     	ChatServerThread ct = chatServerThread;

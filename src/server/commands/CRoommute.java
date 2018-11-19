@@ -7,7 +7,12 @@ import server.User;
 import java.util.ArrayList;
 
 public class CRoommute implements server.ICommand {
-    @Override
+    /**
+     * Mute user from talking in a room, requires mode 1.
+     * @param chatServerThread Thread created for user by server
+     * @param msg User to mute
+     */
+	@Override
     public void execute(ChatServerThread chatServerThread, String msg) {
         Room room = chatServerThread.user.getCurrentRoom();
         // Check mode

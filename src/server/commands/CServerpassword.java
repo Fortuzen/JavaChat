@@ -6,7 +6,9 @@ import server.Room;
 import java.util.ArrayList;
 
 /**
- * Change server password.
+ * Change server password, requires mode 3.
+ * @param chatServerThread Thread created for user by server
+ * @param msg New password
  */
 public class CServerpassword implements server.ICommand {
     @Override

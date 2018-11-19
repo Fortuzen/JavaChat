@@ -15,17 +15,6 @@ public class MsgRec extends Thread {
 							continue;
 						}
 
-						// TODO: Is this good solution?
-						/*
-						Platform.runLater(new Runnable() {
-							@Override
-							public void run() {
-								// update your JavaFX controls here
-								ChatClient.taMessages.appendText(msg+"\n");
-								ChatClient.taMessages.setScrollTop(Double.MAX_VALUE);
-							}
-						});*/
-
 						Platform.runLater(() -> { 	ChatClient.taMessages.appendText(msg+"\n");
 													ChatClient.taMessages.setScrollTop(Double.MAX_VALUE);});
 
