@@ -25,6 +25,6 @@ public class CRoompassword implements server.ICommand {
     }
     @Override
 	public String getInfo() {
-		return "/roompassword password - Set room password";
+		return "/roompassword <password> - Set room's password";
 	}
 }

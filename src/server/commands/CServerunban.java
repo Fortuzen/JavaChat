@@ -33,6 +33,6 @@ public class CServerunban implements server.ICommand {
     }
     @Override
 	public String getInfo() {
-		return "/serverunban (ip) - Remove server ban";
+		return "/serverunban <ip> - Unban ip address";
 	}
 }

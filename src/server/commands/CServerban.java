@@ -61,6 +61,6 @@ public class CServerban implements server.ICommand {
     }
     @Override
 	public String getInfo() {
-		return "/serverban ipaddress - Ban address from server";
+		return "/serverban <ipaddress> - Ban address from the server";
 	}
 }

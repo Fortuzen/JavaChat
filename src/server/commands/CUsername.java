@@ -23,17 +23,22 @@ public class CUsername implements server.ICommand {
                 chatServerThread.sendMessageToUser("Invalid characters!");
             } else {               
                 if(r != null) {
-                    chatServerThread.sendMessageToCurrentRoom((u.getName() + " changed their name to " + msg), "SERVER");
+                    if(r.getUser(msg) == null) {
+                        chatServerThread.sendMessageToCurrentRoom((u.getName() + " changed their name to " + msg), "SERVER");
+                        u.setName(msg);
+                    } else {
+                        chatServerThread.sendMessageToUser("Name already taken!");
+                    }
                 } else {
                     chatServerThread.sendMessageToUser(u.getName() + " changed their name to " + msg);
-                }
-                u.setName(msg);
+                    u.setName(msg);
+                }               
             }
         } catch (Exception e) {
         }
     }
     @Override
 	public String getInfo() {
-		return "/username name - Show your username/Change your username";
+		return "/username [name] - Show your username/Change your username";
 	}
 }

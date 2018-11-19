@@ -17,6 +17,6 @@ public class CRules implements server.ICommand {
     }
     @Override
 	public String getInfo() {
-		return "/rules - Show server and room rules";
+		return "/rules - Show server's and room's rules";
 	}
 }
