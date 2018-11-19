@@ -39,6 +39,6 @@ public class CKick implements server.ICommand {
     }
     @Override
 	public String getInfo() {
-		return "/kick username reason - Kick user from room";
+		return "/kick <username> [reason] - Kick user from room";
 	}
 }
