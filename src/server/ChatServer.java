@@ -77,9 +77,10 @@ public class ChatServer {
         commands.put("/admins", new CAdmins());
         commands.put("/users",  new CUsers());
         commands.put("/motd",  new CMotd());
-
         commands.put("/desc", new CDesc());
         commands.put("/rooms", new CRooms());
+        commands.put("/roomlogin", new CRoomlogin());
+        commands.put("/serverlogin", new CServerlogin());
         
         //Moderator
         commands.put("/kick", new CKick());
@@ -156,8 +157,13 @@ public class ChatServer {
                         String[] splittedMsg = msg.split(" ");
                         cmd = commands.get(splittedMsg[0]);  
                         int index = msg.indexOf(' ');
-                        if(index != -1)
-                            msgbody = msg.substring(index+1);                     
+                        if(index != -1) {
+                            msgbody = msg.substring(index+1);    
+                        }
+                        if(cmd == null) {
+                            sendMessageToUser("Invalid command!");
+                            continue;
+                        }               
                     } else {
                         msgbody = msg;
                     }
