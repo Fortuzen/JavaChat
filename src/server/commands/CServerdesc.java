@@ -25,6 +25,6 @@ public class CServerdesc implements server.ICommand {
     }
     @Override
 	public String getInfo() {
-		return "/serverdesc description - Set server description";
+		return "/serverdesc <description> - Set server's description";
 	}
 }

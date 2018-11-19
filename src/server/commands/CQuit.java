@@ -33,6 +33,6 @@ public class CQuit implements server.ICommand {
     }
     @Override
 	public String getInfo() {
-		return "/quit - Quit";
+		return "/quit - Disconnect from the server";
 	}
 }

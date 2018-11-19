@@ -26,6 +26,6 @@ public class CRooms implements server.ICommand {
     }
     @Override
 	public String getInfo() {
-		return "/rooms - Show all the rooms";
+		return "/rooms - Show all the rooms in the server";
 	}
 }

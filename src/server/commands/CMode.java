@@ -72,6 +72,6 @@ public class CMode implements server.ICommand {
 	}
 	@Override
 	public String getInfo() {
-		return "/mode username priviligelevel - Give user privilege, 0 = user, 1 = room moderator, 2 = room administrator, 3 = server administrator";
+		return "/mode [username] [mode] - Get mode/Change user's mode, 0 = user, 1 = room moderator, 2 = room administrator, 3 = server administrator";
 	}
 }

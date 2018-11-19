@@ -24,6 +24,6 @@ public class CServerpassword implements server.ICommand {
     }
     @Override
 	public String getInfo() {
-		return "/serverpassword password - Change server password";
+		return "/serverpassword <password> - Change server password";
 	}
 }

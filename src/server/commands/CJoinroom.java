@@ -81,6 +81,6 @@ public class CJoinroom implements server.ICommand {
     }
     @Override
 	public String getInfo() {
-		return "/joinroom roomname password - Join a room";
+		return "/joinroom <roomname> [password] - Join a room";
 	}
 }

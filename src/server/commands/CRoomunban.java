@@ -40,6 +40,6 @@ public class CRoomunban implements server.ICommand {
     }
     @Override
 	public String getInfo() {
-		return "/roomunban (ip/username) - Remove room ban from user";
+		return "/roomunban <ip|username> - Remove room ban from user";
 	}
 }

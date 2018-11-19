@@ -40,6 +40,6 @@ public class CRoomunmute implements server.ICommand {
     }
     @Override
 	public String getInfo() {
-		return "/roomunmute username - Remove room mute from user";
+		return "/roomunmute <username|ip> - Unmute user in the room";
 	}
 }

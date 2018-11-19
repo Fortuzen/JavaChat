@@ -26,6 +26,6 @@ public class CRoomnotice implements server.ICommand {
     }
     @Override
 	public String getInfo() {
-		return "/roomnotice notice - Send a message to everyone in room";
+		return "/roomnotice <notice> - Send a message to everyone in room";
 	}
 }

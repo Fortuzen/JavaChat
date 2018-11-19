@@ -22,6 +22,6 @@ public class CDesc implements server.ICommand {
     }
     @Override
 	public String getInfo() {
-		return "/desc - Get room/server description";
+		return "/desc - Get room's/server's description";
 	}
 }

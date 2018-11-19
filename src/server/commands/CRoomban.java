@@ -55,6 +55,6 @@ public class CRoomban implements server.ICommand {
     }
     @Override
 	public String getInfo() {
-		return "/roomban user - Ban user from room";
+		return "/roomban <user> - Ban user from room";
 	}
 }

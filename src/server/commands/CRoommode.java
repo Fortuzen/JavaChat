@@ -64,6 +64,6 @@ public class CRoommode implements server.ICommand {
 	}
 	@Override
 	public String getInfo() {
-		return "/roommode username priviligelevel - Give user privilege, 0 = user, 1 = room moderator";
+		return "/roommode <username> <priviligelevel> - Change user's mode, 0 = user, 1 = room moderator";
 	}
 }
