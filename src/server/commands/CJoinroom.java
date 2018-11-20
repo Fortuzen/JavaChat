@@ -35,9 +35,7 @@ public class CJoinroom implements server.ICommand {
                 return;
             }
         }
-
- 	
-    	
+   	
         // Check mode and room password
         if(chatServerThread.user.getMode() > 2) {
             chatServerThread.sendMessageToUser("You are server admin!");

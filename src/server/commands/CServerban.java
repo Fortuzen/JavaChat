@@ -1,6 +1,7 @@
 package server.commands;
 
 import server.ChatServer;
+import server.Messages;
 import server.ChatServer.ChatServerThread;
 import server.Room;
 import server.User;
@@ -18,10 +19,11 @@ public class CServerban implements server.ICommand {
 
         // Check mode
         if(chatServerThread.user.getMode() < 3) {
-            //Message
+            chatServerThread.sendMessageToUser(Messages.permissionDeniedMessage());
             return;
         }
         if(msg.isEmpty()) {
+            chatServerThread.sendMessageToUser("Give ip address!");
             return;
         }
         //Determine if username or address
@@ -39,7 +41,7 @@ public class CServerban implements server.ICommand {
         for(User u : ChatServer.users) {
             if(u.getSocket().getInetAddress().getHostAddress().equals(address) && u.getMode() < 3) {
                 chatServerThread.sendMessageToCurrentRoom(u.getName()+" was banned from the server! Reason: "+reason, "SERVER");
-                chatServerThread.sendMessageToUser("You banned something!");
+                chatServerThread.sendMessageToUser(u.getName()+" was banned!");
                 u.getCurrentRoom().users.remove(u);
                 u.setCurrentRoom(null);
                 u.setMode(0);
@@ -62,6 +64,7 @@ public class CServerban implements server.ICommand {
             System.out.println(ban);
             ChatServer.serverSettings.getBannedAddresses().add(ban);
             ChatServer.serverSettings.saveBannedUsers();
+            chatServerThread.sendMessageToUser(address+" was banned!");
         }
     }
     @Override

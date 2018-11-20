@@ -1,6 +1,7 @@
 package server.commands;
 
 import server.ChatServer;
+import server.Messages;
 import server.ChatServer.ChatServerThread;
 import server.Room;
 import server.User;
@@ -16,8 +17,12 @@ public class CRoommute implements server.ICommand {
     public void execute(ChatServerThread chatServerThread, String msg) {
         Room room = chatServerThread.user.getCurrentRoom();
         // Check mode
-        if(!(chatServerThread.user.getMode() > 0) || room == null) {
+        if(!(chatServerThread.user.getMode() > 0)) {
+            chatServerThread.sendMessageToUser(Messages.permissionDeniedMessage());
             return;
+        }
+        if(room == null) {
+            chatServerThread.sendMessageToUser(Messages.notInRoomMessage());
         }
 
         int index = msg.indexOf(" ");
@@ -31,12 +36,14 @@ public class CRoommute implements server.ICommand {
 
         User toBeMuted = room.getUser(username);
         if(toBeMuted == null) {
+            chatServerThread.sendMessageToUser("User not found!");
             return;
         }
 
         address = toBeMuted.getSocket().getInetAddress().getHostAddress();
         // Can only mute lower modes; And can't mute yourself
         if(toBeMuted.getMode()>=chatServerThread.user.getMode()) {
+            chatServerThread.sendMessageToUser(Messages.permissionDeniedMessage());
             return;
         }
         String mute = address +":"+username;

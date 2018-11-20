@@ -1,6 +1,7 @@
 package server.commands;
 
 import server.ChatServer;
+import server.Messages;
 import server.ChatServer.ChatServerThread;
 import server.Room;
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ public class CServerpassword implements server.ICommand {
     public void execute(ChatServerThread chatServerThread, String msg) {
 
         if(chatServerThread.user.getMode() < 3) {
-            chatServerThread.sendMessageToUser("You do not have the permission to use this command.");
+            chatServerThread.sendMessageToUser(Messages.permissionDeniedMessage());
             return;
         }
         msg = msg.trim();

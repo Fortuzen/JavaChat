@@ -1,6 +1,7 @@
 package server.commands;
 
 import server.ChatServer;
+import server.Messages;
 import server.ChatServer.ChatServerThread;
 import server.Room;
 import server.User;
@@ -20,10 +21,11 @@ public class CKick implements server.ICommand {
     	Room room = user.getCurrentRoom();
         
         if(room==null) {
+            ct.sendMessageToUser(Messages.notInRoomMessage());
             return;
         }
         if ((user.getMode() < 1)) {
-       		ct.sendMessageToUser("You do not have the permission to use this command.");
+       		ct.sendMessageToUser(Messages.permissionDeniedMessage());
         	return;
         }
     	

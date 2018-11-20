@@ -4,6 +4,7 @@ import server.ChatServer;
 import server.ChatServer.ChatServerThread;
 import server.Room;
 import server.User;
+import server.Messages;
 
 import java.util.ArrayList;
 
@@ -13,6 +14,7 @@ public class CRoomlogin implements server.ICommand {
         Room room = chatServerThread.user.getCurrentRoom();
         User user = chatServerThread.user;
         if(room == null) {
+            chatServerThread.sendMessageToUser(Messages.notInRoomMessage());
             return;
         }
         

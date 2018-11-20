@@ -1,6 +1,7 @@
 package server.commands;
 
 import server.ChatServer;
+import server.Messages;
 import server.ChatServer.ChatServerThread;
 import server.Room;
 import server.User;
@@ -17,7 +18,12 @@ public class CRoomban implements server.ICommand {
     public void execute(ChatServerThread chatServerThread, String msg) {
         Room room = chatServerThread.user.getCurrentRoom();
         // Check mode
-        if(!(chatServerThread.user.getMode() > 0) || room == null) {
+        if(!(chatServerThread.user.getMode() > 0)) {
+            chatServerThread.sendMessageToUser(Messages.permissionDeniedMessage());
+            return;
+        }
+        if(room == null) {
+            chatServerThread.sendMessageToUser(Messages.notInRoomMessage());
             return;
         }
         
@@ -34,11 +40,13 @@ public class CRoomban implements server.ICommand {
 
         User toBeBanned = room.getUser(username);
         if(toBeBanned==null) {
+            chatServerThread.sendMessageToUser("User not found!");
             return;
         }
         address = toBeBanned.getSocket().getInetAddress().getHostAddress();
         // Can only ban lower modes; And can't ban yourself
         if(toBeBanned.getMode()>=chatServerThread.user.getMode()) {
+            chatServerThread.sendMessageToUser(Messages.permissionDeniedMessage());
             return;
         }
         String ban = address +":"+username+":"+reason;

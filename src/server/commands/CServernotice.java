@@ -1,6 +1,7 @@
 package server.commands;
 
 import server.ChatServer;
+import server.Messages;
 import server.ChatServer.ChatServerThread;
 import server.Room;
 import server.User;
@@ -18,6 +19,7 @@ public class CServernotice implements server.ICommand {
     	User user = chatServerThread.user;
         
     	if(user.getMode() < 3) {
+            chatServerThread.sendMessageToUser(Messages.permissionDeniedMessage());
             return;
         }
 

@@ -1,6 +1,7 @@
 package server.commands;
 
 import server.ChatServer;
+import server.Messages;
 import server.ChatServer.ChatServerThread;
 import server.Room;
 import java.util.ArrayList;
@@ -14,12 +15,14 @@ public class CBans implements server.ICommand {
 	@Override
     public void execute(ChatServerThread chatServerThread, String msg) {
         if(chatServerThread.user.getMode()<1) {
+            chatServerThread.sendMessageToUser(Messages.permissionDeniedMessage());
             return;
         }
         Room room = chatServerThread.user.getCurrentRoom();
         String bans = "";
         if(room==null) {
             if(chatServerThread.user.getMode() < 3) { // Show server bans only to mode 3 users
+                chatServerThread.sendMessageToUser(Messages.permissionDeniedMessage());
                 return;
             }
             for(String ban : ChatServer.serverSettings.getBannedAddresses()) {

@@ -1,6 +1,7 @@
 package server.commands;
 
 import server.ChatServer;
+import server.Messages;
 import server.ChatServer.ChatServerThread;
 import server.Room;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ public class CLeaveroom implements server.ICommand {
     public void execute(ChatServerThread chatServerThread, String msg) {
     	Room room = chatServerThread.user.getCurrentRoom();
         if(room==null) {
+            chatServerThread.sendMessageToUser(Messages.notInRoomMessage());
             return;
         }
         chatServerThread.sendMessageToCurrentRoom((chatServerThread.user.getName() + " left the room " + room.roomSettings.getName()), "SERVER");

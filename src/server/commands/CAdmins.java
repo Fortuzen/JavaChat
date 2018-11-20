@@ -1,6 +1,7 @@
 package server.commands;
 
 import server.ChatServer;
+import server.Messages;
 import server.ChatServer.ChatServerThread;
 import server.Room;
 import server.User;
@@ -19,6 +20,7 @@ public class CAdmins implements server.ICommand {
     	ChatServerThread ct = chatServerThread;
     	Room r = user.getCurrentRoom();
         if(r==null) {
+			chatServerThread.sendMessageToUser(Messages.notInRoomMessage());
             return;
         }
         
@@ -57,6 +59,6 @@ public class CAdmins implements server.ICommand {
 	}
 	@Override
 	public String getInfo() {
-		return "/admins - Show admins in the room";
+		return "/admins - Show admins/moderators in the room";
 	}
 }

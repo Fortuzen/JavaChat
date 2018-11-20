@@ -1,6 +1,7 @@
 package server.commands;
 
 import server.ChatServer;
+import server.Messages;
 import server.ChatServer.ChatServerThread;
 import server.Room;
 import server.User;
@@ -17,15 +18,17 @@ public class CRoommode implements server.ICommand {
     public void execute(ChatServerThread chatServerThread, String msg) {
     	User user = chatServerThread.user;
     	ChatServerThread ct = chatServerThread;
-    	Room r = user.getCurrentRoom();
+		Room r = user.getCurrentRoom();
+        if ((user.getMode() < 2)) {
+       		ct.sendMessageToUser(Messages.permissionDeniedMessage());
+        	return;
+		}
+		
         if(r==null) {
+			ct.sendMessageToUser(Messages.notInRoomMessage());
             return;
         }
-        if ((user.getMode() < 2)) {
-       		ct.sendMessageToUser("You do not have the permission to use this command.");
-        	return;
-        }
-        	
+       	
         int modelevel = 100;
         String[] splittedMsg = msg.split(" ");
         String modeReciever = splittedMsg[0];
@@ -64,6 +67,6 @@ public class CRoommode implements server.ICommand {
 	}
 	@Override
 	public String getInfo() {
-		return "/roommode <username> <priviligelevel> - Change user's mode, 0 = user, 1 = room moderator";
+		return "/roommode <username> <mode> - Change user's mode, 0 = user, 1 = room moderator";
 	}
 }

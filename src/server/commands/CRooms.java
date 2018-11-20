@@ -17,7 +17,7 @@ public class CRooms implements server.ICommand {
         for(Room r : ChatServer.rooms.values()) {
             rooms += r.roomSettings.getName();
             if(r.roomSettings.getRoomPassword() != "") {
-                rooms += " (Needs password!)";
+                rooms += " (Password protected!)";
             }
             rooms += "\n";
         }
@@ -26,6 +26,6 @@ public class CRooms implements server.ICommand {
     }
     @Override
 	public String getInfo() {
-		return "/rooms - Show all the rooms in the server";
+		return "/rooms - Show all rooms in the server";
 	}
 }

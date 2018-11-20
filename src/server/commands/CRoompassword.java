@@ -1,6 +1,7 @@
 package server.commands;
 
 import server.ChatServer;
+import server.Messages;
 import server.ChatServer.ChatServerThread;
 import server.Room;
 import server.User;
@@ -17,16 +18,17 @@ public class CRoompassword implements server.ICommand {
     	User user = chatServerThread.user;
     	ChatServerThread ct = chatServerThread;
     	Room room = user.getCurrentRoom();
-        
+         if ((user.getMode() < 2)) {
+       		ct.sendMessageToUser(Messages.permissionDeniedMessage());
+        	return;
+        }       
         if(room==null) {
+            chatServerThread.sendMessageToUser(Messages.notInRoomMessage());
             return;
         }
-        if ((user.getMode() < 2)) {
-       		ct.sendMessageToUser("You do not have the permission to use this command.");
-        	return;
-        }
+
     	room.roomSettings.setRoomPassword(msg);
-    		ct.sendMessageToUser("Room password is now " + room.roomSettings.getRoomPassword());
+    	ct.sendMessageToUser("Room password is now " + room.roomSettings.getRoomPassword());
     }
     @Override
 	public String getInfo() {

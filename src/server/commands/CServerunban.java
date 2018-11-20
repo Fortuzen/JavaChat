@@ -1,6 +1,7 @@
 package server.commands;
 
 import server.ChatServer;
+import server.Messages;
 import server.ChatServer.ChatServerThread;
 import server.Room;
 import server.User;
@@ -17,11 +18,12 @@ public class CServerunban implements server.ICommand {
     public void execute(ChatServerThread chatServerThread, String msg) {
         // Check mode
         if(chatServerThread.user.getMode() < 3) {
-            // Message
+            chatServerThread.sendMessageToUser(Messages.permissionDeniedMessage());
             return;
         }
         //Check if address is banned
         if(!chatServerThread.isBanned(msg)) {
+            chatServerThread.sendMessageToUser("Address is not banned!");
             return;
         }
         for(String banned : ChatServer.serverSettings.getBannedAddresses()) {

@@ -4,6 +4,7 @@ import server.ChatServer;
 import server.ChatServer.ChatServerThread;
 import server.Room;
 import server.User;
+import server.Messages;
 
 import java.util.ArrayList;
 public class CServerkick implements server.ICommand {
@@ -17,15 +18,15 @@ public class CServerkick implements server.ICommand {
     	User user = chatServerThread.user;
     	ChatServerThread ct = chatServerThread;
     	Room room = user.getCurrentRoom();
-        
+        if ((user.getMode() < 3)) {
+       		ct.sendMessageToUser(Messages.permissionDeniedMessage());
+        	return;
+        }        
         if(room==null) {
+			chatServerThread.sendMessageToUser(Messages.notInRoomMessage());
             return;
         }
-        if ((user.getMode() < 3)) {
-       		ct.sendMessageToUser("You do not have the permission to use this command.");
-        	return;
-        }
-    	
+   	
         String reason = "";
         String[] splittedMsg = msg.split(" ");
         String kickReciever = splittedMsg[0];

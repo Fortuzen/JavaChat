@@ -1,6 +1,7 @@
 package server.commands;
 
 import server.ChatServer;
+import server.Messages;
 import server.ChatServer.ChatServerThread;
 import server.Room;
 import server.User;
@@ -18,14 +19,16 @@ public class CRoomdesc implements server.ICommand {
     	User user = chatServerThread.user;
     	ChatServerThread ct = chatServerThread;
     	Room room = user.getCurrentRoom();
-        
-        if(room==null) {
-            return;
-        }
         if ((user.getMode() < 2)) {
-       		ct.sendMessageToUser("You do not have the permission to use this command.");
+            ct.sendMessageToUser(Messages.permissionDeniedMessage());
         	return;
         }
+             
+        if(room==null) {
+            ct.sendMessageToUser(Messages.notInRoomMessage());
+            return;
+        }
+
     	room.roomSettings.setDescription(msg);
     	ct.sendMessageToUser("Room description is now: " + room.roomSettings.getDescription());
     }

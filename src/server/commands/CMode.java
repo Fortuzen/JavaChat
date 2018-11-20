@@ -1,6 +1,7 @@
 package server.commands;
 
 import server.ChatServer;
+import server.Messages;
 import server.ChatServer.ChatServerThread;
 import server.Room;
 import server.User;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 
 public class CMode implements server.ICommand {
     /**
-     * Change user mode, requires mode 3.
+     * Get mode/Change user mode, requires mode 3.
      * @param chatServerThread Thread created for user by server
      * @param msg User and new mode level, seperated with space
      */
@@ -23,10 +24,11 @@ public class CMode implements server.ICommand {
 			return;
 		}
         if(r==null) {
+			chatServerThread.sendMessageToUser(Messages.notInRoomMessage());
             return;
         }
         if (!(user.getMode() == 3)) {
-       		ct.sendMessageToUser("You do not have the permission to use this command.");
+       		ct.sendMessageToUser(Messages.permissionDeniedMessage());
         	return;
         }
         	
@@ -57,7 +59,7 @@ public class CMode implements server.ICommand {
 	                    		case 3: modelevelString = "server administrator.";
 	                    		break;
                     		}
-                    		user.getCommunication().sendMessage("User " + u.getName() + " is now " + modelevelString);
+                    		ct.sendMessageToUser("User " + u.getName() + " is now " + modelevelString);
                     	} catch (Exception ex) {
                     		System.out.println("Could not send message.");
                     	}
@@ -72,6 +74,6 @@ public class CMode implements server.ICommand {
 	}
 	@Override
 	public String getInfo() {
-		return "/mode [username] [mode] - Get mode/Change user's mode, 0 = user, 1 = room moderator, 2 = room administrator, 3 = server administrator";
+		return "/mode [<username> <mode>] - Get mode/Change user's mode, 0 = user, 1 = room moderator, 2 = room administrator, 3 = server administrator";
 	}
 }

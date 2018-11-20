@@ -7,10 +7,10 @@ import server.User;
 
 import java.util.ArrayList;
 
-//TODO: Check if name taken (in room)
+
 public class CUsername implements server.ICommand {
     /**
-     * User can change their username with this command.
+     * Get username/User can change their username with this command.
      * @param chatServerThread Thread created for user by server
      * @param msg New username
      */
@@ -18,14 +18,13 @@ public class CUsername implements server.ICommand {
     public void execute(ChatServerThread chatServerThread, String msg) {
     	Room r = chatServerThread.user.getCurrentRoom();
     	User u = chatServerThread.user;
-        System.out.println(msg.length());
         try {
             if (msg.equals("SERVER")) {
                 u.getCommunication().sendMessage("This name is not valid");
             } else if(msg.trim().equals("")) {
                 chatServerThread.sendMessageToUser("Your username: "+u.getName());
             } else if(chatServerThread.isIllegalName(msg)) {
-                chatServerThread.sendMessageToUser("Invalid characters!");
+                chatServerThread.sendMessageToUser("Your name contains invalid characters!");
             } else {               
                 if(r != null) {
                     if(r.getUser(msg) == null) {

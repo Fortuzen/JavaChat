@@ -1,6 +1,7 @@
 package server.commands;
 
 import server.ChatServer;
+import server.Messages;
 import server.ChatServer.ChatServerThread;
 import server.Room;
 import server.User;
@@ -17,7 +18,7 @@ public class CServerdesc implements server.ICommand {
     public void execute(ChatServerThread chatServerThread, String msg) {
         
         if ((chatServerThread.user.getMode() < 2)) {
-            chatServerThread.sendMessageToUser("You do not have the permission to use this command.");
+            chatServerThread.sendMessageToUser(Messages.permissionDeniedMessage());
         	return;
         }
     	ChatServer.serverSettings.setDescription(msg);

@@ -4,7 +4,7 @@ import server.ChatServer;
 import server.ChatServer.ChatServerThread;
 import server.Room;
 import server.User;
-
+import server.Messages;
 import java.util.ArrayList;
 
 public class CUsers implements server.ICommand {
@@ -19,16 +19,18 @@ public class CUsers implements server.ICommand {
     	Room r = user.getCurrentRoom();
 
     	if(r==null) {
+			chatServerThread.sendMessageToUser(Messages.notInRoomMessage());
             return;
         }
-    	try {
-        	user.getCommunication().sendMessage("** Users currently in room **");
-	        for(User u : r.users) {
-				//If mode > 0, send also ip address
-	        	user.getCommunication().sendMessage("> " + u.getName() +" "+ (user.getMode() > 0 ? u.getSocket().getInetAddress().getHostAddress() : ""));
-	        }
-        } catch (Exception e) {
-        }
+    	
+		chatServerThread.sendMessageToUser("** Users currently in room **");
+		for(User u : r.users) {
+			//If mode > 0, send also ip address
+			chatServerThread.sendMessageToUser(
+					"> " + u.getName() +" "+ (user.getMode() > 0 ? u.getSocket().getInetAddress().getHostAddress() : "")
+				);
+		}
+ 
 	}
 	@Override
 	public String getInfo() {
