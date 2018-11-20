@@ -96,6 +96,7 @@ public class ChatServer {
         commands.put("/roommode", new CRoommode());
         commands.put("/roompassword", new CRoompassword());
         commands.put("/roomdesc", new CRoomdesc());
+        commands.put("/roommotd", new CRoommotd());
         //Server admin
         commands.put("/mode", new CMode());
         commands.put("/serverkick", new CServerkick());
@@ -104,6 +105,7 @@ public class ChatServer {
         commands.put("/serverpassword", new CServerpassword());
         commands.put("/serverdesc", new CServerdesc());
         commands.put("/servernotice", new CServernotice());
+        commands.put("/servermotd", new CServermotd());
     }
     
     /**
