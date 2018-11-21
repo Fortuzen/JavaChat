@@ -9,17 +9,21 @@ import java.util.ArrayList;
 
 public class CMotd implements server.ICommand {
     /**
-     * Show server message of the day.
+     * Show server/room message of the day.
      * @param chatServerThread Thread created for user by server
      * @param msg (not used)
      */
 	@Override
     public void execute(ChatServerThread chatServerThread, String msg) {
-    	ChatServerThread ct = chatServerThread;
+        ChatServerThread ct = chatServerThread;
+        if(ct.user.getCurrentRoom() != null) {
+            ct.sendMessageToUser("Message of the day: " + ct.user.getCurrentRoom().roomSettings.getMotd());
+            return;
+        }
    		ct.sendMessageToUser("Message of the day: " + ChatServer.serverSettings.getMotd());
     }
     @Override
 	public String getInfo() {
-		return "/motd - Show server message of the day";
+		return "/motd - Show server/room message of the day";
 	}
 }
