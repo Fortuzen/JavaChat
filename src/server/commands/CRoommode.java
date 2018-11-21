@@ -52,7 +52,8 @@ public class CRoommode implements server.ICommand {
 	                    		case 1: modelevelString = "room moderator.";
 	                    		break;
                     		}
-                    		user.getCommunication().sendMessage("User " + u.getName() + " is now " + modelevelString);
+							user.getCommunication().sendMessage("User " + u.getName() + " is now " + modelevelString);
+							u.getCommunication().sendMessage("You are now "+modelevelString+"!");
                     	} catch (Exception ex) {
                     		System.out.println("Could not send message.");
                     	}

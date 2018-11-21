@@ -23,7 +23,7 @@ public class CServernotice implements server.ICommand {
             return;
         }
 
-        chatServerThread.sendMessageToAll("**"+msg+"**");
+        chatServerThread.sendMessageToAll("** SERVER NOTIFICATION: "+msg+"**");
     	
     }
     @Override

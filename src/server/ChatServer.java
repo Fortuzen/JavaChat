@@ -218,13 +218,19 @@ public class ChatServer {
                 }
 
                 //Server password if any
-                if(s_msg.length > 1 && serverSettings.getServerPassword() != "") {
-                    String pass = s_msg[1];
-                    if(!pass.equals(serverSettings.getServerPassword())) {
-                        user.getCommunication().sendMessage("Error");
+                if(serverSettings.getServerPassword() != "") {
+                    if(s_msg.length > 1) {
+                        String pass = s_msg[1];
+                        if(!pass.equals(serverSettings.getServerPassword())) {
+                            user.getCommunication().sendMessage("Wrong password");
+                            user.getSocket().close();
+                        }
+                    } else {
+                        user.getCommunication().sendMessage("This server is password protected!");
                         user.getSocket().close();
                     }
                 }
+
                 //Check admin
                 if(s_msg.length > 1) {
                     String pass = s_msg[1];
@@ -252,21 +258,22 @@ public class ChatServer {
         }
 
         public void sendMessageToCurrentRoom(String msg, String MsgSender) {
-            if(user.getCurrentRoom() == null) {
+            Room room = user.getCurrentRoom();
+            if(room == null) {
+                sendMessageToUser("You are not in room1 Use /joinroom to join a room!");
                 return;
             }
-
             try {
                 if ((MsgSender.equals("SERVER"))) {
                     System.out.println("Message to be sent: "+msg);
-                    for(User u : user.getCurrentRoom().users) {
+                    for(User u : room.users) {
                         u.getCommunication().sendMessage("** " + msg + " **");
                     }
                 } else {
                     // Check if user is muted
-                    if(user.getCurrentRoom().isMuted(user.getSocket().getInetAddress().getHostAddress(), user.getName())) {
-                        // Can't mute room admin
-                        if(user.getMode()<2) {
+                    if(room.isMuted(user.getSocket().getInetAddress().getHostAddress(), user.getName())) {
+                        // Can't mute room moderator and up
+                        if(user.getMode()<1) {
                             sendMessageToUser("You are muted");
                             return;
                         }
@@ -274,7 +281,7 @@ public class ChatServer {
                     LocalDateTime date = new Timestamp(System.currentTimeMillis()).toLocalDateTime();
                     String timestr = "["+String.valueOf(date.getHour()) + ":" + String.valueOf(date.getMinute()) + ":"+String.valueOf(date.getSecond())+"] ";
                     System.out.println("Message to be sent: "+msg);
-                    for(User u : user.getCurrentRoom().users) {
+                    for(User u : room.users) {
                         u.getCommunication().sendMessage(timestr + MsgSender + ": " + msg);
                     }
                 }

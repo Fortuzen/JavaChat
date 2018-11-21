@@ -33,8 +33,10 @@ public class CKick implements server.ICommand {
         String[] splittedMsg = msg.split(" ");
         String kickReciever = splittedMsg[0];
         int index = msg.indexOf(' ');
-        reason = msg.substring(index+1);
-        
+        if(splittedMsg.length > 1) {
+            reason = msg.substring(index+1);
+        }
+               
         for (int i = 0; i < room.users.size(); i++) {
         	User u = room.users.get(i);
         	if (u.getName().equals(kickReciever)) {

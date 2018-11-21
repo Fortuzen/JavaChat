@@ -52,6 +52,7 @@ public class CServerban implements server.ICommand {
                 ChatServer.serverSettings.saveBannedUsers();
                 banned = true;
                 try {
+                    u.getCommunication().sendMessage("You were banned from the server!");
                     u.getSocket().close();
                 } catch (Exception e) {
                     //TODO: handle exception

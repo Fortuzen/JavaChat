@@ -42,7 +42,7 @@ public class CRoommute implements server.ICommand {
 
         address = toBeMuted.getSocket().getInetAddress().getHostAddress();
         // Can only mute lower modes; And can't mute yourself
-        if(toBeMuted.getMode()>=chatServerThread.user.getMode()) {
+        if(toBeMuted.getMode()>0) {
             chatServerThread.sendMessageToUser(Messages.permissionDeniedMessage());
             return;
         }
