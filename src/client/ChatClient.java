@@ -213,13 +213,14 @@ public class ChatClient extends Application {
         taInput.setOnKeyPressed(e -> { // Input text field
             if(!e.getCode().equals(KeyCode.ENTER)) return;
             if(taInput.getText().isEmpty()) return;
-            if(taInput.getLength() > 2000) {
+            if(taInput.getLength() > 5) {
             	Alert alert = new Alert(AlertType.INFORMATION);
             	alert.setTitle("Error");
             	alert.setHeaderText(null);
-            	alert.setContentText("Message is too long!");
+            	alert.setContentText("Message was too long!");
             	alert.showAndWait();
-                taInput.setText("");
+            	String remaining = taInput.getText(0, 5);
+                taInput.setText(remaining);
             };
             String msg = taInput.getText();   
             try {
