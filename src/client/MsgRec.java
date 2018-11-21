@@ -12,15 +12,18 @@ public class MsgRec extends Thread {
 		            while(true) {
 						String msg = ChatClient.communication.receiveMessage();
 						if(msg == null) {
-							continue;
+							break;
 						}
 
 						Platform.runLater(() -> { 	ChatClient.taMessages.appendText(msg+"\n");
 													ChatClient.taMessages.setScrollTop(Double.MAX_VALUE);});
 
-		            }
+					}
+					System.gc(); // Collect garbage
+					System.out.println("MsgRec thread closing...");
 		        } catch (Exception er) {
-					System.out.println("MsgRec disconnect");
+					System.out.println("MsgRec thread closing through exception");
+					System.gc(); // Collect garbage
 		        }
     }
 }

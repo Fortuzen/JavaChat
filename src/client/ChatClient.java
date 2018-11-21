@@ -54,7 +54,7 @@ public class ChatClient extends Application {
 	/**
 	 * Socket
 	 */
-	Socket socket;
+	public static Socket socket;
 	/**
 	 * Thread for receiving messages into taMessages
 	 */
