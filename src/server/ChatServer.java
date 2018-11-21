@@ -217,8 +217,18 @@ public class ChatServer {
                     user.getSocket().close();
                 }
 
-                //Server password if any
-                if(serverSettings.getServerPassword() != "") {
+                //Check admin
+                if(s_msg.length > 1) {
+                    String pass = s_msg[1];
+                    if(pass.equals(serverSettings.getServerAdminPassword())) {
+                        System.out.println("Admin user");
+                        sendMessageToUser("You are server admin");
+                        user.setMode(3);
+                    }
+                } 
+
+                //Server password if any. Don't check password if user has given admin password
+                if(serverSettings.getServerPassword() != "" && user.getMode() < 3) {
                     if(s_msg.length > 1) {
                         String pass = s_msg[1];
                         if(!pass.equals(serverSettings.getServerPassword())) {
@@ -230,16 +240,7 @@ public class ChatServer {
                         user.getSocket().close();
                     }
                 }
-
-                //Check admin
-                if(s_msg.length > 1) {
-                    String pass = s_msg[1];
-                    if(pass.equals(serverSettings.getServerAdminPassword())) {
-                        System.out.println("Admin user");
-                        sendMessageToUser("You are server admin");
-                        user.setMode(3);
-                    }
-                }               
+          
                 // Check ban
                 if(isBanned(user.getSocket().getInetAddress().getHostAddress())) {
                     if(user.getMode() < 3) {
