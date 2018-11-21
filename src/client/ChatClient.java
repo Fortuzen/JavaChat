@@ -17,6 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollBar;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
@@ -89,6 +90,7 @@ public class ChatClient extends Application {
         TextArea taInput = new TextArea();
         taInput.setStyle("-fx-font-size: 14px; -fx-padding: 5 3 5 3;");
         taInput.setPrefRowCount(5);
+        taInput.setWrapText(true);
         
         BorderPane border = new BorderPane();
         border.setTop(menu);
