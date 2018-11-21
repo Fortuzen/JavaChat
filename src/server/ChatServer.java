@@ -174,7 +174,11 @@ public class ChatServer {
                         cmd.execute(this,msgbody);
                         continue;
                     }
-                    System.out.println("Commands done");
+                    // Cut message if it is too long
+                    if(msgbody.length() > ChatServer.serverSettings.getMaxMessageLength()) {
+                        msgbody = msgbody.substring(0, ChatServer.serverSettings.getMaxMessageLength());
+                    }
+
                     //Default command
                     sendMessageToCurrentRoom(msgbody, user.getName());
                 }

@@ -26,6 +26,7 @@ public class ServerSettings {
 
     private int maxUsers;
     private int port;
+    private int maxMessageLength;
     
     private boolean logging;
 
@@ -96,6 +97,7 @@ public class ServerSettings {
         
             maxUsers = Integer.parseInt(settings.getOrDefault("maxUsers", "256"));
             port = Integer.parseInt(settings.getOrDefault("port", "8000"));
+            maxMessageLength = Integer.parseInt(settings.getOrDefault("maxMessageLength", "2000"));
             
             logging = Boolean.parseBoolean(settings.getOrDefault("logging", "true"));
 
@@ -121,6 +123,7 @@ public class ServerSettings {
             pw.println("roomNames"+"="+arrayToString(roomNames, ","));
             pw.println("maxUsers"+"="+this.maxUsers);
             pw.println("port"+"="+this.port);
+            pw.println("port"+"="+this.maxMessageLength);
             pw.println("logging"+"="+this.logging);
 
             pw.close();
@@ -225,6 +228,15 @@ public class ServerSettings {
 
     synchronized public int getPort() {
         return this.port;
+    }
+
+    synchronized public int getMaxMessageLength() {
+        return this.maxMessageLength;
+    }
+
+    synchronized public void setMaxMessageLength(int max) {
+        this.maxMessageLength = max;
+        saveSettings();
     }
   
     synchronized public List<String> getBannedAddresses() {
