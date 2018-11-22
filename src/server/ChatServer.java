@@ -265,7 +265,7 @@ public class ChatServer {
         public void sendMessageToCurrentRoom(String msg, String MsgSender) {
             Room room = user.getCurrentRoom();
             if(room == null) {
-                sendMessageToUser("You are not in room1 Use /joinroom to join a room!");
+                sendMessageToUser("You are not in room! Use /joinroom to join a room!");
                 return;
             }
             try {
@@ -345,12 +345,14 @@ public class ChatServer {
         }
 
         public boolean isIllegalName(String name) {
-            String[] invalids = name.split(".:", 2);
-            if(invalids.length > 1) {
-                return true;
-            } else {
-                return false;
+            String invalidChars = " .:=";
+            for(int i=0;i<name.length();i++) {
+                String c = name.charAt(i);
+                if(invalidChars.contains(c)) {
+                    return true;
+                }
             }
+            return false;
         }
     }
 

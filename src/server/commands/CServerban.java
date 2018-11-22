@@ -22,8 +22,8 @@ public class CServerban implements server.ICommand {
             chatServerThread.sendMessageToUser(Messages.permissionDeniedMessage());
             return;
         }
-        if(msg.isEmpty()) {
-            chatServerThread.sendMessageToUser("Give ip address!");
+        if(msg.isEmpty() || !msg.contains(".")) {
+            chatServerThread.sendMessageToUser("Give valid ip address!");
             return;
         }
         //Determine if username or address
@@ -60,7 +60,7 @@ public class CServerban implements server.ICommand {
             }
         }  
         // If no users were found, ban the address
-        if(!banned) {
+        if(!banned && address.contains(".")) {
             String ban = address +":"+""+":"+reason;
             System.out.println(ban);
             ChatServer.serverSettings.getBannedAddresses().add(ban);
