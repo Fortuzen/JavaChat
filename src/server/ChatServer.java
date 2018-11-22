@@ -345,7 +345,7 @@ public class ChatServer {
         }
 
         public boolean isIllegalName(String name) {
-            String invalidChars = " .:=";
+            String invalidChars = " .:=/\\\'\"";
             for(int i=0;i<name.length();i++) {
                 String c = name.charAt(i);
                 if(invalidChars.contains(c)) {
