@@ -123,7 +123,7 @@ public class ServerSettings {
             pw.println("roomNames"+"="+arrayToString(roomNames, ","));
             pw.println("maxUsers"+"="+this.maxUsers);
             pw.println("port"+"="+this.port);
-            pw.println("port"+"="+this.maxMessageLength);
+            pw.println("maxMessageLength"+"="+this.maxMessageLength);
             pw.println("logging"+"="+this.logging);
 
             pw.close();
