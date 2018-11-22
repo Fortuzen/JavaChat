@@ -191,7 +191,7 @@ public class ChatServer {
                     user.setCurrentRoom(null);
                 }
                 users.remove(user);
-                System.out.println(user.getName() + " left the server!");
+                System.out.println(user.getName()+":"+user.getSocket().getInetAddress().getHostAddress() + " left the server!");
             }
         }
 
@@ -285,7 +285,7 @@ public class ChatServer {
                     }
                     LocalDateTime date = new Timestamp(System.currentTimeMillis()).toLocalDateTime();
                     String timestr = "["+String.valueOf(date.getHour()) + ":" + String.valueOf(date.getMinute()) + ":"+String.valueOf(date.getSecond())+"] ";
-                    System.out.println("Message to be sent: "+msg);
+                    //System.out.println("Message to be sent: "+msg);
                     for(User u : room.users) {
                         u.getCommunication().sendMessage(timestr + MsgSender + ": " + msg);
                     }
