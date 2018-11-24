@@ -121,6 +121,8 @@ public class ChatServer {
         ServerSocket server = null;
         try {
             server = new ServerSocket(serverSettings.getPort());
+            String address = server.getInetAddress().getHostAddress();
+            System.out.format("Server listening on %s:%d %n", address, ChatServer.serverSettings.getPort());
             while(true) {
                 Socket clientSocket = server.accept();
                 new ChatServerThread(clientSocket).start();
