@@ -144,6 +144,13 @@ public class ChatServer {
         public void run() {
             try {
                 authenticate();
+                // Send server info to user
+                sendMessageToUser("**"+ChatServer.serverSettings.getName()+"**");
+                sendMessageToUser(ChatServer.serverSettings.getDescription());
+                sendMessageToUser("Server message of the day: \n" + serverSettings.getMotd());
+                sendMessageToUser("Type /help to see available commands.");
+                System.out.println(user.getName()+":"+user.getSocket().getInetAddress().getHostAddress()+" joined the server");   
+
                 while(true) {
                     if(user.getSocket().isClosed()) {
                         break;
@@ -255,10 +262,7 @@ public class ChatServer {
                     }
                 }
                 //Success, welcome
-                users.add(user);                    
-                user.getCommunication().sendMessage("Server message of the day: " + serverSettings.getMotd());
-                user.getCommunication().sendMessage("Type /help to see available commands.");
-                System.out.println(user.getName()+":"+user.getSocket().getInetAddress().getHostAddress()+" joined the server");                
+                users.add(user);             
             } catch (Exception e) {
                 System.out.println(e);
             }
