@@ -167,7 +167,7 @@ public class ChatClient extends Application {
 	                try {
 	                	rec = new MsgRec();
 						socket = new Socket(ip.getText(), Integer.parseInt(port.getText()));
-						String connectMsg = "Connected to " + ip.getText() + " " + port.getText();
+						String connectMsg = "Connected to " + ip.getText() + ":" + port.getText();
 						System.out.println(connectMsg);
 
 	                    communication = new DefaultCommunication(socket);
