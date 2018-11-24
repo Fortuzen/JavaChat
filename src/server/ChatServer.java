@@ -121,14 +121,13 @@ public class ChatServer {
         ServerSocket server = null;
         try {
             server = new ServerSocket(serverSettings.getPort());
-            String address = server.getInetAddress().getHostAddress();
-            System.out.format("Server listening on port %d %n", address, ChatServer.serverSettings.getPort());
+            System.out.format("Server listening on port %d %n", ChatServer.serverSettings.getPort());
             while(true) {
                 Socket clientSocket = server.accept();
                 new ChatServerThread(clientSocket).start();
             }
         } catch (Exception e) {
-            //TODO: handle exception
+            System.out.println(e);
         } finally {
 
         }
@@ -145,10 +144,10 @@ public class ChatServer {
             try {
                 authenticate();
                 // Send server info to user
-                sendMessageToUser("**"+ChatServer.serverSettings.getName()+"**");
-                sendMessageToUser(ChatServer.serverSettings.getDescription());
-                sendMessageToUser("Server message of the day: \n" + serverSettings.getMotd());
-                sendMessageToUser("Type /help to see available commands.");
+                //sendMessageToUser("**"+ChatServer.serverSettings.getName()+"**");
+                //sendMessageToUser(ChatServer.serverSettings.getDescription());
+                //sendMessageToUser("Server message of the day: \n" + serverSettings.getMotd());
+                //sendMessageToUser("Type /help to see available commands.");
                 System.out.println(user.getName()+":"+user.getSocket().getInetAddress().getHostAddress()+" joined the server");   
 
                 while(true) {
