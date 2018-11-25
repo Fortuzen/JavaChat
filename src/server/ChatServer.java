@@ -145,8 +145,8 @@ public class ChatServer {
                 authenticate();
                 // Send server info to user
                 sendMessageToUser("**"+ChatServer.serverSettings.getName()+"**");
-                sendMessageToUser(ChatServer.serverSettings.getDescription());
-                sendMessageToUser("Server message of the day: \n" + serverSettings.getMotd());
+                sendMessageToUser("**Server description: \n"+ChatServer.serverSettings.getDescription());
+                sendMessageToUser("**Server message of the day: \n" + serverSettings.getMotd());
                 sendMessageToUser("Type /help to see available commands.");
                 System.out.println(user.getName()+":"+user.getSocket().getInetAddress().getHostAddress()+" joined the server");   
 
@@ -211,7 +211,7 @@ public class ChatServer {
                     user.getSocket().close();
                 }
                 //Username
-                user.getCommunication().sendMessage("Please give your nickname and the server password (if any) in the message area below");
+                user.getCommunication().sendMessage("Please give your nickname and the server password (if any)");
                 String msg = user.getCommunication().receiveMessage();
                 if(msg.isEmpty()) {
                     user.getCommunication().sendMessage("Error");
