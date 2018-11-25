@@ -51,7 +51,7 @@ public class ChatClient extends Application {
 	/**
 	 * Text area for receiving messages
 	 */
-    public static TextArea taMessages;
+	public static TextArea taMessages;
 	/**
 	 * Socket
 	 */
@@ -82,11 +82,13 @@ public class ChatClient extends Application {
         MenuItem menu2Item2 = new MenuItem("About");
         menu2.getItems().add(menu2Item2);
         
+        // Text area for receiving messages from the server
         taMessages = new TextArea("\nPlease connect to a server to start chatting with other people.");
         taMessages.setEditable(false);
         taMessages.setWrapText(true);
         taMessages.setStyle("-fx-font-size: 14px;");
-        
+       
+        // Text area for sending messages
         TextArea taInput = new TextArea();
         taInput.setStyle("-fx-font-size: 14px; -fx-padding: 5 3 5 3;");
         taInput.setPrefRowCount(5);
@@ -104,7 +106,8 @@ public class ChatClient extends Application {
         primaryStage.centerOnScreen();
         primaryStage.show();
         
-        menuItem.setOnAction(e->{ // Quick connect
+        // Quick connect with username "Admin" and admin privilege, and join room1
+        menuItem.setOnAction(e->{ 
     		String ip = "localhost";
     		int port = 8000;
             try {
@@ -114,7 +117,7 @@ public class ChatClient extends Application {
                 communication = new DefaultCommunication(socket);
                 rec.start();
                 communication.sendMessage("Admin admin");
-                communication.sendMessage("/joinroom room1"); // TODO: remove later
+                communication.sendMessage("/joinroom room1");
                 taMessages.setText("");
 
             } catch (Exception error) {
@@ -127,8 +130,8 @@ public class ChatClient extends Application {
             	alert.showAndWait();
             }
         });
-
-        menuItem2.setOnAction(e->{ // Normal connect
+        // Normal connect
+        menuItem2.setOnAction(e->{
 	        Dialog<Pair<String, String>> dialog = new Dialog<>();
 	        dialog.setTitle("Connect to a server");
         	dialog.setX(primaryStage.getX() + 260);
@@ -183,8 +186,9 @@ public class ChatClient extends Application {
 	                }
 	         }
         });
-    
-        menuItem3.setOnAction(e-> { // Disconnect
+        
+        // Disconnect
+        menuItem3.setOnAction(e-> { 
         	try {
 				communication.sendMessage("/quit");
         		socket.close();
@@ -193,7 +197,8 @@ public class ChatClient extends Application {
 			}
         });
         
-        menuItem4.setOnAction(e-> { // Exit
+        // Exit
+        menuItem4.setOnAction(e-> { 
         	try {
 				communication.sendMessage("/quit");
         		socket.close();
@@ -202,7 +207,8 @@ public class ChatClient extends Application {
     		System.exit(0);
         });
         
-        menu2Item2.setOnAction(e-> { // About
+        // About
+        menu2Item2.setOnAction(e-> { 
         	Alert alert = new Alert(AlertType.INFORMATION);
         	alert.setX(primaryStage.getX() + 260);
         	alert.setY(primaryStage.getY() + 200);
@@ -211,8 +217,9 @@ public class ChatClient extends Application {
         	alert.setContentText("Made by some people. Copyright 2018");
         	alert.showAndWait();
         });
-
-        taInput.setOnKeyPressed(e -> { // Input text field
+        
+        // Input text field
+        taInput.setOnKeyPressed(e -> { 
             if(!e.getCode().equals(KeyCode.ENTER)) return;
             if(taInput.getText().isEmpty()) return;
             if(taInput.getLength() > 2000) {
