@@ -43,7 +43,9 @@ public class CServerban implements server.ICommand {
         while(it.hasNext()) {
             User u = it.next();
             if(u.getSocket().getInetAddress().getHostAddress().equals(address) && u.getMode() < 3) {
-                chatServerThread.sendMessageToCurrentRoom(u.getName()+" was banned from the server! Reason: "+reason, "SERVER");
+                if(chatServerThread.user.getCurrentRoom() != null) {
+                    chatServerThread.sendMessageToCurrentRoom(u.getName()+" was banned from the server! Reason: "+reason, "SERVER");
+                }               
                 chatServerThread.sendMessageToUser(u.getName()+" was banned!");
                 if(u.getCurrentRoom() != null) {
                     u.getCurrentRoom().users.remove(u);

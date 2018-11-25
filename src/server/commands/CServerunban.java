@@ -32,7 +32,6 @@ public class CServerunban implements server.ICommand {
                 ChatServer.serverSettings.getBannedAddresses().remove(banned);
                 ChatServer.serverSettings.saveBannedUsers();
                 chatServerThread.sendMessageToUser(splitBanned[0]+" was unbanned from the server!");
-                break;
             }
         }
 
