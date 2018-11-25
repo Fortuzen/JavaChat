@@ -40,7 +40,6 @@ public class CServerkick implements server.ICommand {
         	User u = it.next();
         	if (u.getName().equals(kickReciever)) {
             	chatServerThread.sendMessageToCurrentRoom((u.getName() + " was kicked from the server for " + reason), "SERVER");
-    			it.remove();
     			u.setCurrentRoom(null);
     	        try {
 					u.getCommunication().sendMessage("You were kicked from the server!");

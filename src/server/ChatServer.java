@@ -314,7 +314,7 @@ public class ChatServer {
                     }
                 }
             } catch (Exception e) {
-                //TODO: handle exception
+                System.out.println("sendMessageToRoom: " + e);
             }
 
         }
