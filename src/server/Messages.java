@@ -1,6 +1,6 @@
 package server;
 /**
- * Messages which are used often.
+ * Messages. Messages which are used often.
  * 
  */
 public class Messages {

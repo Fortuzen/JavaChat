@@ -9,7 +9,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.Integer;
-
+/**
+ * Class containing settings for the room
+ */
 public class RoomSettings {
 
     //From config.ini
@@ -35,7 +37,7 @@ public class RoomSettings {
     public RoomSettings() {
 
     }
-
+    // Load settings from the files or create new files
     public void load(String roomName) {
         path += roomName+"/";
         configPath = path+"config.ini";
@@ -104,6 +106,7 @@ public class RoomSettings {
             if(reader != null) {
                 reader.close();
             }
+            // Put loaded values to variables or put default values if something was not found
             name = settings.getOrDefault("name", roomName);
             description = settings.getOrDefault("description", "DefaultDescription");
             roomPassword = settings.getOrDefault("roomPassword", "");
@@ -118,7 +121,9 @@ public class RoomSettings {
             saveSettings();
         }       
     }
-
+    /**
+     * Save settings
+     */
     synchronized public void saveSettings() {
         File configFile = new File(configPath);
         File banFile = new File(banPath);
@@ -157,7 +162,9 @@ public class RoomSettings {
             }
         }
     }
-
+    /**
+     * Save banned users.
+     */
     synchronized public void saveBannedUsers() {
         try {
             File banFile = new File(banPath);
@@ -170,7 +177,9 @@ public class RoomSettings {
             //TODO: handle exception
         }
     }
-
+    /**
+     * Save muted users.
+     */
     synchronized public void saveMutedUsers() {
         try {
             File muteFile = new File(mutePath);

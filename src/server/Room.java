@@ -3,7 +3,9 @@ package server;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Collections;
-
+/**
+ * Room class. 
+ */
 public class Room {
     public RoomSettings roomSettings;
     public List<User> users;
@@ -18,7 +20,10 @@ public class Room {
 
         users = Collections.synchronizedList(new ArrayList<User>());
     }
-    // Ban format:  address:username:(reason)
+    /**
+     * Check if user/address is banned
+     * address:username:(reason)
+     */
     public boolean isBanned(String address, String username) {
         for(String ba : roomSettings.getBannedAddresses()) {
             String[] splitted = ba.split(":");
@@ -31,6 +36,9 @@ public class Room {
         }
         return false;
     }
+    /**
+     * Check if address is banned
+     */
     public boolean isAddressBanned(String address) {
         for(String ba : roomSettings.getBannedAddresses()) {
             String[] splitted = ba.split(":");
@@ -40,6 +48,9 @@ public class Room {
         }
         return false;
     }
+    /**
+     * Check if username is banned
+     */
     public boolean isUsernameBanned(String username) {
         for(String ba : roomSettings.getBannedAddresses()) {
             String[] splitted = ba.split(":");
@@ -49,7 +60,9 @@ public class Room {
         }
         return false;
     }
-
+    /**
+     * Check if user/address is muted
+     */
     public boolean isMuted(String address, String username) {
         for(String ba : roomSettings.getMutedAddresses()) {
             String[] splitted = ba.split(":");
@@ -62,7 +75,9 @@ public class Room {
         }
         return false;
     }
-
+    /**
+     * Get user from the room using name.
+     */
     public User getUser(String name) {
         for(User u : users) {
             if(u.getName().equals(name)) {
