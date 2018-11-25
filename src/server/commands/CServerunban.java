@@ -7,6 +7,7 @@ import server.Room;
 import server.User;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class CServerunban implements server.ICommand {
     /**
@@ -26,16 +27,15 @@ public class CServerunban implements server.ICommand {
             chatServerThread.sendMessageToUser("Address is not banned!");
             return;
         }
-        for(String banned : ChatServer.serverSettings.getBannedAddresses()) {
-            String[] splitBanned = banned.split(":");
+        Iterator<String> it = ChatServer.serverSettings.getBannedAddresses().iterator();
+        while(it.hasNext()) {
+            String[] splitBanned = it.next().split(":");
             if(splitBanned[0].equals(msg)) {
-                ChatServer.serverSettings.getBannedAddresses().remove(banned);
+                it.remove();
                 ChatServer.serverSettings.saveBannedUsers();
                 chatServerThread.sendMessageToUser(splitBanned[0]+" was unbanned from the server!");
             }
         }
-
-
     }
     @Override
 	public String getInfo() {
