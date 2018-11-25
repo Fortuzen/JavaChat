@@ -238,7 +238,17 @@ public class ChatClient extends Application {
             	alert.showAndWait();
             } 
             taInput.setText("");
-        });
+		});
+		
+		primaryStage.setOnCloseRequest(event -> {
+			try {
+				communication.sendMessage("/quit");
+				socket.close();
+			} catch (Exception e) {
+				//TODO: handle exception
+			}
+
+		});
 	}
     /**
      * Main method.

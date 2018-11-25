@@ -20,11 +20,13 @@ public class MsgRec extends Thread {
 
 					}
 					Platform.runLater(() -> { 	ChatClient.taMessages.appendText("Disconnected!\n");
-					ChatClient.taMessages.setScrollTop(Double.MAX_VALUE);});					
+												ChatClient.taMessages.setScrollTop(Double.MAX_VALUE);});					
 
 					System.gc(); // Collect garbage
 					System.out.println("MsgRec thread closing...");
 		        } catch (Exception er) {
+					Platform.runLater(() -> { 	ChatClient.taMessages.appendText("Disconnected!\n");
+												ChatClient.taMessages.setScrollTop(Double.MAX_VALUE);});
 					System.out.println("MsgRec thread closing through exception");
 					System.gc(); // Collect garbage
 		        }
