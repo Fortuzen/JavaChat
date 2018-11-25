@@ -40,7 +40,7 @@ public class CKick implements server.ICommand {
         for (int i = 0; i < room.users.size(); i++) {
         	User u = room.users.get(i);
         	if (u.getName().equals(kickReciever)) {
-            	chatServerThread.sendMessageToCurrentRoom((u.getName() + " was kicked from the room for " + reason), "SERVER");
+            	chatServerThread.sendMessageToCurrentRoom((u.getName() + " was kicked from the room for: " + reason), "SERVER");
                 room.users.remove(u);
                 u.setCurrentRoom(null);
                 if(u.getMode() < 3) {
