@@ -4,7 +4,9 @@ import java.net.Socket;
 
 import shared.ICommunication;
 import shared.DefaultCommunication;
-
+/**
+ * Class for the user.
+ */
 public class User {
     private Socket socket;
     private String name;

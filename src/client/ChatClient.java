@@ -169,12 +169,16 @@ public class ChatClient extends Application {
         	if (ipport.isPresent() && !username.getText().isEmpty()) {
 	                try {
 	                	rec = new MsgRec();
-	                    socket = new Socket(ip.getText(), Integer.parseInt(port.getText()));
-	                    System.out.println("Connected to " + ip.getText() + " " + port.getText());
+						socket = new Socket(ip.getText(), Integer.parseInt(port.getText()));
+						String connectMsg = "Connected to " + ip.getText() + ":" + port.getText();
+						System.out.println(connectMsg);
+
 	                    communication = new DefaultCommunication(socket);
 	                    communication.sendMessage(username.getText() + " " + password.getText());
 	                    rec.start();
-	                    taMessages.setText("");
+						taMessages.setText("");
+						taMessages.appendText(connectMsg+"\n");
+						taMessages.setScrollTop(Double.MAX_VALUE);
 	                } catch (Exception error) {
 	                	Alert alert = new Alert(AlertType.INFORMATION);
 	                	alert.setX(primaryStage.getX() + 260);
@@ -241,7 +245,17 @@ public class ChatClient extends Application {
             	alert.showAndWait();
             } 
             taInput.setText("");
-        });
+		});
+		
+		primaryStage.setOnCloseRequest(event -> {
+			try {
+				communication.sendMessage("/quit");
+				socket.close();
+			} catch (Exception e) {
+				//TODO: handle exception
+			}
+
+		});
 	}
     /**
      * Main method.

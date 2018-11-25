@@ -30,7 +30,7 @@ public class ChatServer {
     public static Map<String,ICommand> commands;
     // Map of all rooms
     public static Map<String, Room> rooms;
-    //
+    // Server's settings
     public static ServerSettings serverSettings;
 
     /**
@@ -53,6 +53,9 @@ public class ChatServer {
         initCommands();
         System.out.println("Server init done");
     }
+    /**
+     * Create rooms
+     */
     static void initRooms() {
         for(String roomName : serverSettings.getRoomNames()) {
             Room room = new Room();
@@ -62,7 +65,7 @@ public class ChatServer {
         }
     }
     /**
-     * 
+     * Create commands and add them to the map
      */
     static void initCommands() {
         // All commands here
@@ -117,21 +120,27 @@ public class ChatServer {
         ChatServer cs = new ChatServer();
         cs.listen();
     }
+    /**
+     * Create server and listen.
+     */
     public void listen() {
         ServerSocket server = null;
         try {
             server = new ServerSocket(serverSettings.getPort());
+            System.out.format("Server listening on port %d %n", ChatServer.serverSettings.getPort());
             while(true) {
                 Socket clientSocket = server.accept();
                 new ChatServerThread(clientSocket).start();
             }
         } catch (Exception e) {
-            //TODO: handle exception
+            System.out.println(e);
         } finally {
 
         }
     }
-
+    /**
+     * Thread for the connected user. 
+     */
     public class ChatServerThread extends Thread {
         public User user;
 
@@ -141,11 +150,22 @@ public class ChatServer {
 
         public void run() {
             try {
+                // Check if user can join
                 authenticate();
+                // Send server info to user
+                sendMessageToUser("**"+ChatServer.serverSettings.getName()+"**");
+                sendMessageToUser("**Server description: \n"+ChatServer.serverSettings.getDescription());
+                sendMessageToUser("**Server message of the day: \n" + serverSettings.getMotd());
+                sendMessageToUser("Type /help to see available commands.");
+
+                System.out.println(user.getName()+":"+user.getSocket().getInetAddress().getHostAddress()+" joined the server");   
+
+                // Start communication loop
                 while(true) {
                     if(user.getSocket().isClosed()) {
                         break;
                     }
+
                     String msg = user.getCommunication().receiveMessage();
                     if(msg.isEmpty() || msg.equals("\n")) {
                         continue;
@@ -153,8 +173,7 @@ public class ChatServer {
                     //Handle possible command
                     ICommand cmd = null;
                     String msgbody = "";
-
-                    
+                  
                     if(msg.charAt(0) == '/') {                     
                         String[] splittedMsg = msg.split(" ");
                         cmd = commands.get(splittedMsg[0]);  
@@ -169,7 +188,7 @@ public class ChatServer {
                     } else {
                         msgbody = msg;
                     }
-                                     
+                    // if msg was command, execute it       
                     if(cmd!=null) {
                         cmd.execute(this,msgbody);
                         continue;
@@ -179,7 +198,7 @@ public class ChatServer {
                         msgbody = msgbody.substring(0, ChatServer.serverSettings.getMaxMessageLength());
                     }
 
-                    //Default command
+                    // If msg was not command, it is message for other users.
                     sendMessageToCurrentRoom(msgbody, user.getName());
                 }
             } catch (Exception e) {
@@ -194,7 +213,10 @@ public class ChatServer {
                 System.out.println(user.getName()+":"+user.getSocket().getInetAddress().getHostAddress() + " left the server!");
             }
         }
-
+        /**
+         * Check if user is allowed to join the server.
+         * Order: userlimit, username, admin, password, banned
+         */
         private void authenticate() {       	
             try {
                 //Check if server is full
@@ -203,7 +225,7 @@ public class ChatServer {
                     user.getSocket().close();
                 }
                 //Username
-                user.getCommunication().sendMessage("Please give your nickname and the server password (if any) in the message area below");
+                user.getCommunication().sendMessage("Please give your nickname and the server password (if any)");
                 String msg = user.getCommunication().receiveMessage();
                 if(msg.isEmpty()) {
                     user.getCommunication().sendMessage("Error");
@@ -253,15 +275,14 @@ public class ChatServer {
                     }
                 }
                 //Success, welcome
-                users.add(user);                    
-                user.getCommunication().sendMessage("Server message of the day: " + serverSettings.getMotd());
-                user.getCommunication().sendMessage("Type /help to see available commands.");
-                System.out.println(user.getName()+":"+user.getSocket().getInetAddress().getHostAddress()+" joined the server");                
+                users.add(user);             
             } catch (Exception e) {
                 System.out.println(e);
             }
         }
-
+        /**
+         * Send message to every user in the room.
+         */
         public void sendMessageToCurrentRoom(String msg, String MsgSender) {
             Room room = user.getCurrentRoom();
             if(room == null) {
@@ -295,6 +316,9 @@ public class ChatServer {
             }
 
         }
+        /**
+         * Send message directly to the user.
+         */
         public void sendMessageToUser(String msg) {
             try {
                 user.getCommunication().sendMessage(msg);
@@ -302,7 +326,9 @@ public class ChatServer {
                 //TODO: handle exception
             }       	
         }
-        // Not moderator
+        /**
+         * Send message to everyone with mode minmode in the room.
+         */
         public void sendMessageToModeRoom(String msg, int minMode) {
             try {
                 for(User u : user.getCurrentRoom().users) {
@@ -313,7 +339,9 @@ public class ChatServer {
                 //TODO: handle exception
             } 
         }
-        // Not moderator
+        /**
+         * Send message to everyone with mode minmode in the server.
+         */
         public void sendMessageToModeServer(String msg, int minMode) {
             try {
                 for(User u : ChatServer.users) {
@@ -333,7 +361,10 @@ public class ChatServer {
                 //TODO: handle exception
             }
         }
-            // Format address:(username):(reason)
+        /**
+         * Check if address is banned.
+         * address:(username):(reason)
+         */
         public boolean isBanned(String address) {
             for(String ba : ChatServer.serverSettings.getBannedAddresses()) {
                 String[] splitted = ba.split(":");
@@ -343,7 +374,9 @@ public class ChatServer {
             }
             return false;
         }
-
+        /**
+         * Check if username does not contain illegal characters.
+         */
         public boolean isIllegalName(String name) {
             String invalidChars = " .:=/\\\'\"";
             for(int i=0;i<name.length();i++) {

@@ -15,7 +15,7 @@ public class CHelp implements server.ICommand {
      */
 	@Override
     public void execute(ChatServerThread chatServerThread, String msg) {      
-        chatServerThread.sendMessageToUser("All commands (<> compulsory, [] optional):");
+        chatServerThread.sendMessageToUser("All commands (<> compulsory, [] optional, | or):");
         // IRC/Quakenet way?
         for(Map.Entry<String,ICommand> cmd : ChatServer.commands.entrySet()) {
             String helptext = cmd.getValue().getInfo();
