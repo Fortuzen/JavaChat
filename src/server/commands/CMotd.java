@@ -17,10 +17,10 @@ public class CMotd implements server.ICommand {
     public void execute(ChatServerThread chatServerThread, String msg) {
         ChatServerThread ct = chatServerThread;
         if(ct.user.getCurrentRoom() != null) {
-            ct.sendMessageToUser("Message of the day: " + ct.user.getCurrentRoom().roomSettings.getMotd());
+            ct.sendMessageToUser("**Message of the day: \n" + ct.user.getCurrentRoom().roomSettings.getMotd());
             return;
         }
-   		ct.sendMessageToUser("Message of the day: " + ChatServer.serverSettings.getMotd());
+   		ct.sendMessageToUser("**Message of the day: \n" + ChatServer.serverSettings.getMotd());
     }
     @Override
 	public String getInfo() {

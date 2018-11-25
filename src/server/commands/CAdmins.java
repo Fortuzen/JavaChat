@@ -28,10 +28,10 @@ public class CAdmins implements server.ICommand {
         for(User u : r.users) {
 			i++;
 			if (i == 1) {
-				ct.sendMessageToUser("** Server administrators in current room **");
+				ct.sendMessageToUser("** Server administrators in current room **:");
 			}			
         	if (u.getMode() == 3) {
-				ct.sendMessageToUser(u.getName());
+				ct.sendMessageToUser(">"+u.getName());
         	}
         }
         
@@ -39,11 +39,11 @@ public class CAdmins implements server.ICommand {
         for(User u : r.users) {
 			i++;
 			if (i == 1) {
-				ct.sendMessageToUser("** Room administrators in current room **");
+				ct.sendMessageToUser("** Room administrators in current room **:");
 			}			
         	if (u.getMode() == 2) {
 
-				ct.sendMessageToUser(u.getName());
+				ct.sendMessageToUser(">"+u.getName());
         	}
         }
         
@@ -51,10 +51,10 @@ public class CAdmins implements server.ICommand {
         for(User u : r.users) {
 			i++;
 			if (i == 1) {
-				ct.sendMessageToUser("** Room moderators in current room **");
+				ct.sendMessageToUser("** Room moderators in current room **:");
 			}			
         	if (u.getMode() == 1) {
-				ct.sendMessageToUser(u.getName());
+				ct.sendMessageToUser(">"+u.getName());
         	}
         }
 	}

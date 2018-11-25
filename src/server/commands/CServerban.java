@@ -7,6 +7,7 @@ import server.Room;
 import server.User;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class CServerban implements server.ICommand {
     /**
@@ -36,9 +37,11 @@ public class CServerban implements server.ICommand {
             address = msg.substring(0,index);
             reason = msg.substring(index+1);
         }
-        // Find and ban possible users
+        // Find, ban and kick possible users on the server
         boolean banned = false;
-        for(User u : ChatServer.users) {
+        Iterator<User> it = ChatServer.users.iterator();
+        while(it.hasNext()) {
+            User u = it.next();
             if(u.getSocket().getInetAddress().getHostAddress().equals(address) && u.getMode() < 3) {
                 chatServerThread.sendMessageToCurrentRoom(u.getName()+" was banned from the server! Reason: "+reason, "SERVER");
                 chatServerThread.sendMessageToUser(u.getName()+" was banned!");
@@ -53,6 +56,7 @@ public class CServerban implements server.ICommand {
                 banned = true;
                 try {
                     u.getCommunication().sendMessage("You were banned from the server!");
+                    it.remove();
                     u.getSocket().close();
                 } catch (Exception e) {
                     //TODO: handle exception
@@ -70,6 +74,6 @@ public class CServerban implements server.ICommand {
     }
     @Override
 	public String getInfo() {
-		return "/serverban <ipaddress> - Ban address from the server";
+		return "/serverban <ipaddress> [reason] - Ban address from the server";
 	}
 }

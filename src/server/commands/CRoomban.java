@@ -51,7 +51,7 @@ public class CRoomban implements server.ICommand {
         }
         String ban = address +":"+username+":"+reason;
         System.out.println(ban);
-        chatServerThread.sendMessageToCurrentRoom(toBeBanned.getName()+" was banned from the server! Reason: "+reason, "SERVER");
+        chatServerThread.sendMessageToCurrentRoom(toBeBanned.getName()+" was banned from the room! Reason: "+reason, "SERVER");
         
         room.roomSettings.getBannedAddresses().add(ban);
         room.roomSettings.saveBannedUsers();

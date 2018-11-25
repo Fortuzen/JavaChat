@@ -7,6 +7,7 @@ import server.User;
 import server.Messages;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 public class CServerkick implements server.ICommand {
     /**
      * Kick user from server, requires mode 3.
@@ -34,16 +35,17 @@ public class CServerkick implements server.ICommand {
 		if(splittedMsg.length > 1) {
 			reason = msg.substring(index+1);
 		}
-        
-        for (int i = 0; i < room.users.size(); i++) {
-        	User u = room.users.get(i);
+        Iterator<User> it = room.users.iterator();
+        while (it.hasNext()) {
+        	User u = it.next();
         	if (u.getName().equals(kickReciever)) {
             	chatServerThread.sendMessageToCurrentRoom((u.getName() + " was kicked from the server for " + reason), "SERVER");
-    			room.users.remove(u);
+    			it.remove();
     			u.setCurrentRoom(null);
     	        try {
+					u.getCommunication().sendMessage("You were kicked from the server!");
+					it.remove();
     	            u.getSocket().close();
-    	            ChatServer.users.remove(u);
     	        } catch (Exception e) {
     	            //TODO: handle exception
     	        }      

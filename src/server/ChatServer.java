@@ -305,7 +305,9 @@ public class ChatServer {
                         }
                     }
                     LocalDateTime date = new Timestamp(System.currentTimeMillis()).toLocalDateTime();
-                    String timestr = "["+String.valueOf(date.getHour()) + ":" + String.valueOf(date.getMinute()) + ":"+String.valueOf(date.getSecond())+"] ";
+                    String timestr =    "["+String.format("%02d",String.valueOf(date.getHour())) +
+                                        ":" + String.format("%02d",String.valueOf(date.getMinute())) +
+                                        ":"+ String.format("%02d",String.valueOf(date.getSecond()))+"] ";
                     //System.out.println("Message to be sent: "+msg);
                     for(User u : room.users) {
                         u.getCommunication().sendMessage(timestr + MsgSender + ": " + msg);
