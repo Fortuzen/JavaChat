@@ -35,7 +35,7 @@ public class CRoomunban implements server.ICommand {
         for(String banned : room.roomSettings.getBannedAddresses()) {
             String[] splitBanned = banned.split(":");
             if(splitBanned[0].equals(msg) || splitBanned[1].equals(msg)) {
-                room.roomSettings.getBannedAddresses().remove(banned);
+                room.roomSettings.getBannedAddresses().remove(banned); // Not a problem since we only remove one
                 room.roomSettings.saveBannedUsers();
                 address = splitBanned[0];
                 username = splitBanned[1];

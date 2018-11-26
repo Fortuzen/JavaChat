@@ -61,7 +61,7 @@ public class ChatServer {
             Room room = new Room();
             System.out.println("Init room: "+roomName);
             room.initRoom(roomName);
-            rooms.put(roomName,room);
+            rooms.put(room.roomSettings.getName(),room);
         }
     }
     /**
