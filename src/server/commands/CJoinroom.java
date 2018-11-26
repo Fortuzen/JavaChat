@@ -15,8 +15,8 @@ public class CJoinroom implements server.ICommand {
      */
 	@Override
     public void execute(ChatServerThread chatServerThread, String msg) {
-        //String[] splitMsg = msg.split(" ");
-        Room room = ChatServer.rooms.get(msg);
+        String[] splitMsg = msg.split(" ");
+        Room room = ChatServer.rooms.get(splitMsg[0]);
     	User user = chatServerThread.user;
         // Check if the room exists
         if(room==null) {
