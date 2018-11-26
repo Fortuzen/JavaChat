@@ -155,6 +155,7 @@ public class ChatServer {
                 // Send server info to user
                 sendMessageToUser("**"+ChatServer.serverSettings.getName()+"**");
                 sendMessageToUser("**Server description: \n"+ChatServer.serverSettings.getDescription());
+                sendMessageToUser("**Server rules: \n"+ChatServer.serverSettings.getRules());
                 sendMessageToUser("**Server message of the day: \n" + serverSettings.getMotd());
                 sendMessageToUser("Type /help to see available commands.");
 
