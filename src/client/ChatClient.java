@@ -55,7 +55,7 @@ public class ChatClient extends Application {
 	/**
 	 * Socket
 	 */
-	public static Socket socket;
+	static Socket socket;
 	/**
 	 * Thread for receiving messages into taMessages
 	 */
@@ -130,6 +130,7 @@ public class ChatClient extends Application {
             	alert.showAndWait();
             }
         });
+        
         // Normal connect
         menuItem2.setOnAction(e->{
 	        Dialog<Pair<String, String>> dialog = new Dialog<>();
@@ -218,7 +219,7 @@ public class ChatClient extends Application {
         	alert.setY(primaryStage.getY() + 200);
         	alert.setTitle("About");
         	alert.setHeaderText("The Chat");
-        	alert.setContentText("Made by some people. Copyright 2018");
+        	alert.setContentText("Made by Antti and Toni L");
         	alert.showAndWait();
         });
         
