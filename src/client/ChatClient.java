@@ -219,7 +219,7 @@ public class ChatClient extends Application {
         	alert.setY(primaryStage.getY() + 200);
         	alert.setTitle("About");
         	alert.setHeaderText("The Chat");
-        	alert.setContentText("Made by Antti and Toni L");
+        	alert.setContentText("Made by Antti and Toni");
         	alert.showAndWait();
         });
         
