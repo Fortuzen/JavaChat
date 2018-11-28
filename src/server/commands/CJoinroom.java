@@ -75,10 +75,11 @@ public class CJoinroom implements server.ICommand {
         room.users.add(chatServerThread.user);
         chatServerThread.user.setCurrentRoom(room);
         chatServerThread.sendMessageToCurrentRoom((chatServerThread.user.getName() + " joined room: " + room.roomSettings.getName()), "SERVER");
-        chatServerThread.sendMessageToUser("**" + room.roomSettings.getName() + "**");
-        chatServerThread.sendMessageToUser("**Room description: \n" + room.roomSettings.getDescription());
-        chatServerThread.sendMessageToUser("**Room rules: \n"+ room.roomSettings.getRules());
-        chatServerThread.sendMessageToUser("**Message of the Day: \n"+room.roomSettings.getMotd());
+        chatServerThread.sendMessageToUser("** Room name: " + room.roomSettings.getName());
+        chatServerThread.sendMessageToUser("** Room description: " + room.roomSettings.getDescription());
+        chatServerThread.sendMessageToUser("** Room rules: "+ room.roomSettings.getRules());
+        chatServerThread.sendMessageToUser("** Message of the Day: "+room.roomSettings.getMotd());
+        chatServerThread.sendMessageToUser(" ");
     }
     @Override
 	public String getInfo() {
