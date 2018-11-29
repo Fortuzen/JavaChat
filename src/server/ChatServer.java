@@ -152,11 +152,12 @@ public class ChatServer {
                 // Check if user can join
                 authenticate();
                 // Send server info to user
-                sendMessageToUser("**"+ChatServer.serverSettings.getName()+"**");
-                sendMessageToUser("**Server description: \n"+ChatServer.serverSettings.getDescription());
-                sendMessageToUser("**Server rules: \n"+ChatServer.serverSettings.getRules());
-                sendMessageToUser("**Server message of the day: \n" + serverSettings.getMotd());
+                sendMessageToUser("** "+ "Server name: " + ChatServer.serverSettings.getName());
+                sendMessageToUser("** Server description: "+ChatServer.serverSettings.getDescription());
+                sendMessageToUser("** Server rules: "+ChatServer.serverSettings.getRules());
+                sendMessageToUser("** Server message of the day: " + serverSettings.getMotd());
                 sendMessageToUser("Type /help to see available commands.");
+                sendMessageToUser(" ");
 
                 System.out.println(user.getName()+":"+user.getSocket().getInetAddress().getHostAddress()+" joined the server");   
 

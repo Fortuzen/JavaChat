@@ -15,9 +15,9 @@ public class CDesc implements server.ICommand {
     public void execute(ChatServerThread chatServerThread, String msg) {
         Room room = chatServerThread.user.getCurrentRoom();
         if(room != null) {
-            chatServerThread.sendMessageToUser("**Room description:\n" + room.roomSettings.getDescription());
+            chatServerThread.sendMessageToUser("** Room description: " + room.roomSettings.getDescription() + " **");
         } else {
-            chatServerThread.sendMessageToUser("**Server description:\n" + ChatServer.serverSettings.getDescription());
+            chatServerThread.sendMessageToUser("** Server description: " + ChatServer.serverSettings.getDescription() + " **");
         }
     }
     @Override
