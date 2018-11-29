@@ -39,8 +39,13 @@ public class CRoommute implements server.ICommand {
             chatServerThread.sendMessageToUser("User not found!");
             return;
         }
-
         address = toBeMuted.getSocket().getInetAddress().getHostAddress();
+        
+        // Check if user is already muted
+        if(room.isMuted(address, username)) {
+            chatServerThread.sendMessageToUser("User is already muted!");
+            return;
+        }
         // Can only mute lower modes; And can't mute yourself
         if(toBeMuted.getMode()>0) {
             chatServerThread.sendMessageToUser(Messages.permissionDeniedMessage());
