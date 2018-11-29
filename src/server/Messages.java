@@ -16,5 +16,8 @@ public class Messages {
     public static String permissionDeniedMessage() {
         return "You do not have permission to use this command!";
     }
-    
+
+    public static String wrongPasswordMessage() {
+        return "Wrong password!";
+    }    
 }

@@ -116,7 +116,6 @@ public class ChatServer {
      */
     public static void main(String[] args) {
         initServer();
-        initCommands();
         ChatServer cs = new ChatServer();
         cs.listen();
     }

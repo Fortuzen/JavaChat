@@ -10,14 +10,14 @@ import java.util.ArrayList;
 
 public class CServerdesc implements server.ICommand {
     /**
-     * Set server description, requires mode 2.
+     * Set server description, requires mode 3.
      * @param chatServerThread Thread created for user by server
      * @param msg New server description
      */
     @Override
     public void execute(ChatServerThread chatServerThread, String msg) {
         
-        if ((chatServerThread.user.getMode() < 2)) {
+        if ((chatServerThread.user.getMode() < 3)) {
             chatServerThread.sendMessageToUser(Messages.permissionDeniedMessage());
         	return;
         }

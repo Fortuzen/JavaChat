@@ -17,7 +17,7 @@ public class CRoommute implements server.ICommand {
     public void execute(ChatServerThread chatServerThread, String msg) {
         Room room = chatServerThread.user.getCurrentRoom();
         // Check mode
-        if(!(chatServerThread.user.getMode() > 0)) {
+        if(chatServerThread.user.getMode() < 1) {
             chatServerThread.sendMessageToUser(Messages.permissionDeniedMessage());
             return;
         }

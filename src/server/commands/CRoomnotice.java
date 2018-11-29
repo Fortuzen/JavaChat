@@ -19,7 +19,7 @@ public class CRoomnotice implements server.ICommand {
     	User user = chatServerThread.user;
     	Room room = user.getCurrentRoom();
         
-    	if(!(user.getMode() > 0)) {
+    	if(user.getMode() < 1) {
             chatServerThread.sendMessageToUser(Messages.permissionDeniedMessage());
             return;
         }
@@ -27,7 +27,7 @@ public class CRoomnotice implements server.ICommand {
             chatServerThread.sendMessageToUser(Messages.notInRoomMessage());
         }
     	
-    	chatServerThread.sendMessageToCurrentRoom("Room notification: " + msg, "SERVER");
+    	chatServerThread.sendMessageToCurrentRoom("ROOM NOTIFICATION: " + msg, "SERVER");
     }
     @Override
 	public String getInfo() {

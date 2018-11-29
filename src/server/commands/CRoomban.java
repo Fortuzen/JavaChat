@@ -18,7 +18,7 @@ public class CRoomban implements server.ICommand {
     public void execute(ChatServerThread chatServerThread, String msg) {
         Room room = chatServerThread.user.getCurrentRoom();
         // Check mode
-        if(!(chatServerThread.user.getMode() > 0)) {
+        if(chatServerThread.user.getMode() < 1) {
             chatServerThread.sendMessageToUser(Messages.permissionDeniedMessage());
             return;
         }
@@ -63,6 +63,6 @@ public class CRoomban implements server.ICommand {
     }
     @Override
 	public String getInfo() {
-		return "/roomban <user> - Ban user from room";
+		return "/roomban <user> [reason] - Ban user from room";
 	}
 }
