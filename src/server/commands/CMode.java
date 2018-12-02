@@ -7,13 +7,10 @@ import server.Room;
 import server.User;
 
 import java.util.ArrayList;
-
+/**
+ * Get mode/Change user mode, requires mode 3.
+ */
 public class CMode implements server.ICommand {
-    /**
-     * Get mode/Change user mode, requires mode 3.
-     * @param chatServerThread Thread created for user by server
-     * @param msg User and new mode level, seperated with space
-     */
     @Override
     public void execute(ChatServerThread chatServerThread, String msg) {
     	User user = chatServerThread.user;

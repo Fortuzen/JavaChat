@@ -7,12 +7,12 @@ import server.Room;
 import server.User;
 
 import java.util.ArrayList;
+
+/**
+ * Set room password, requires mode 2
+ */
 public class CRoompassword implements server.ICommand {
-    /**
-     * Set room password, requires mode 2
-     * @param chatServerThread Thread created for user by server
-     * @param msg New room password
-     */
+
 	@Override
     public void execute(ChatServerThread chatServerThread, String msg) {
     	User user = chatServerThread.user;

@@ -6,13 +6,10 @@ import server.Room;
 import server.User;
 
 import java.util.ArrayList;
-
+/**
+ * Join a room.
+ */
 public class CJoinroom implements server.ICommand {
-    /**
-     * Join a room.
-     * @param chatServerThread Thread created for user by server
-     * @param msg Room to join and it's password, seperated with space
-     */
 	@Override
     public void execute(ChatServerThread chatServerThread, String msg) {
         String[] splitMsg = msg.split(" ");

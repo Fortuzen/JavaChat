@@ -7,13 +7,11 @@ import server.Room;
 import server.User;
 
 import java.util.ArrayList;
-
+/**
+ * Unban user from room, requires mode 1.
+ */
 public class CRoomunban implements server.ICommand {
-    /**
-     * Unban user from room, requires mode 1.
-     * @param chatServerThread Thread created for user by server
-     * @param msg User to unban
-     */
+
 	@Override
     public void execute(ChatServerThread chatServerThread, String msg) {
         Room room = chatServerThread.user.getCurrentRoom();

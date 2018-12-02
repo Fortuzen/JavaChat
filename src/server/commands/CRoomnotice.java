@@ -7,13 +7,11 @@ import server.Room;
 import server.User;
 
 import java.util.ArrayList;
-
+/**
+ * Sends a notification to every user in the room, requires mode 1.
+ */
 public class CRoomnotice implements server.ICommand {
-    /**
-     * Sends a notification to every user in the room, requires mode 1.
-     * @param chatServerThread Thread created for user by server
-     * @param msg Notice
-     */
+
 	@Override
     public void execute(ChatServerThread chatServerThread, String msg) {
     	User user = chatServerThread.user;

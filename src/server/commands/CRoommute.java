@@ -6,14 +6,12 @@ import server.ChatServer.ChatServerThread;
 import server.Room;
 import server.User;
 import java.util.ArrayList;
-
+/**
+ * Mute user from talking in a room, requires mode 1.
+ * Note: mutes EVERYONE who uses same ip
+ */
 public class CRoommute implements server.ICommand {
-    /**
-     * Mute user from talking in a room, requires mode 1.
-     * Note: mutes EVERYONE who uses same ip
-     * @param chatServerThread Thread created for user by server
-     * @param msg User to mute
-     */
+
 	@Override
     public void execute(ChatServerThread chatServerThread, String msg) {
         Room room = chatServerThread.user.getCurrentRoom();

@@ -6,13 +6,10 @@ import server.Room;
 import server.User;
 
 import java.util.ArrayList;
-
+/**
+ * Send a private message to user.
+ */
 public class CPrivmsg implements server.ICommand {
-    /**
-     * Send a private message to user.
-     * @param chatServerThread Thread created for user by server
-     * @param msg Message receiver and the message, seperated with space
-     */
 	@Override
     public void execute(ChatServerThread chatServerThread, String msg) {
     	Room r = chatServerThread.user.getCurrentRoom();

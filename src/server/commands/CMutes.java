@@ -7,14 +7,9 @@ import server.Room;
 import java.util.ArrayList;
 
 /**
- * 
+ * Show muted users in room, requires mode 1.
  */
 public class CMutes implements server.ICommand {
-    /**
-     * Show muted users in room, requires mode 1.
-     * @param chatServerThread Thread created for user by server
-     * @param msg (not used)
-     */
 	@Override
     public void execute(ChatServerThread chatServerThread, String msg) {
         if(chatServerThread.user.getMode()<1) {

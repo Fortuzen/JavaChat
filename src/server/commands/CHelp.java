@@ -6,13 +6,10 @@ import server.ChatServer.ChatServerThread;
 import server.Room;
 import java.util.ArrayList;
 import java.util.Map;
-
+/**
+ * Show available commands.
+ */
 public class CHelp implements server.ICommand {
-    /**
-     * Show available commands.
-     * @param chatServerThread Thread created for user by server
-     * @param msg (not used)
-     */
 	@Override
     public void execute(ChatServerThread chatServerThread, String msg) {      
         chatServerThread.sendMessageToUser("** All commands (<> compulsory, [] optional, | or) **");

@@ -6,13 +6,10 @@ import server.Room;
 import server.User;
 
 import java.util.ArrayList;
-
+/**
+ * Show server/room message of the day.
+ */
 public class CMotd implements server.ICommand {
-    /**
-     * Show server/room message of the day.
-     * @param chatServerThread Thread created for user by server
-     * @param msg (not used)
-     */
 	@Override
     public void execute(ChatServerThread chatServerThread, String msg) {
         ChatServerThread ct = chatServerThread;
