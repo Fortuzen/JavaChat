@@ -74,7 +74,7 @@ public class ChatClient extends Application {
         MenuItem menuItem2 = new MenuItem("Connect to a server");
         MenuItem menuItem3 = new MenuItem("Disconnect");
         MenuItem menuItem4 = new MenuItem("Exit");
-        menu1.getItems().add(menuItem);
+//        menu1.getItems().add(menuItem); UNCOMMENT FOR FASTER ADMIN TESTING
         menu1.getItems().add(menuItem2);
         menu1.getItems().add(menuItem3);
         menu1.getItems().add(menuItem4);
@@ -107,6 +107,7 @@ public class ChatClient extends Application {
         primaryStage.show();
         
         // Quick connect with username "Admin" and admin privilege, and join room1
+        // Uncomment line 77 to use
         menuItem.setOnAction(e->{ 
     		String ip = "localhost";
     		int port = 8000;
