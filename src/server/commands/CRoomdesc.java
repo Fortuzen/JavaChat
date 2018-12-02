@@ -7,13 +7,10 @@ import server.Room;
 import server.User;
 
 import java.util.ArrayList;
-
+/**
+ * Set room description, requires mode 2.
+ */
 public class CRoomdesc implements server.ICommand {
-    /**
-     * Set room description, requires mode 2.
-     * @param chatServerThread Thread created for user by server
-     * @param msg New room description
-     */
 	@Override
     public void execute(ChatServerThread chatServerThread, String msg) {
     	User user = chatServerThread.user;

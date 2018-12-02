@@ -4,13 +4,10 @@ import server.ChatServer;
 import server.ChatServer.ChatServerThread;
 import server.Room;
 import java.util.ArrayList;
-
+/**
+ * Shows room's and server's description.
+ */
 public class CDesc implements server.ICommand {
-    /**
-     * Shows room's and server's description.
-     * @param chatServerThread Thread created for user by server
-     * @param msg (not used)
-     */
 	@Override
     public void execute(ChatServerThread chatServerThread, String msg) {
         Room room = chatServerThread.user.getCurrentRoom();

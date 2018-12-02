@@ -7,13 +7,11 @@ import server.Room;
 import server.User;
 
 import java.util.ArrayList;
-
+/**
+ * Remove user's room mute, requires mode 1.
+ */
 public class CRoomunmute implements server.ICommand {
-    /**
-     * Remove user's room mute, requires mode 1.
-     * @param chatServerThread Thread created for user by server
-     * @param msg address:username
-     */
+
     @Override
     public void execute(ChatServerThread chatServerThread, String msg) {
         Room room = chatServerThread.user.getCurrentRoom();

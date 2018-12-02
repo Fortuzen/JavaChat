@@ -7,7 +7,9 @@ import server.User;
 import server.Messages;
 
 import java.util.ArrayList;
-
+/**
+ * Login as a room moderator or admin
+ */
 public class CRoomlogin implements server.ICommand {
     @Override
     public void execute(ChatServerThread chatServerThread, String msg) {

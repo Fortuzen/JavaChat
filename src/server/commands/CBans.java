@@ -5,13 +5,10 @@ import server.Messages;
 import server.ChatServer.ChatServerThread;
 import server.Room;
 import java.util.ArrayList;
-
+/**
+ * Show bans from room or server, depending on the user who's using the command.
+ */
 public class CBans implements server.ICommand {
-    /**
-     * Show bans from room or server, depending on the user who's using the command.
-     * @param chatServerThread Thread created for user by server
-     * @param msg (not used)
-     */
 	@Override
     public void execute(ChatServerThread chatServerThread, String msg) {
         if(chatServerThread.user.getMode()<1) {

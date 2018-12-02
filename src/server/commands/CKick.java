@@ -7,13 +7,10 @@ import server.Room;
 import server.User;
 
 import java.util.ArrayList;
-
+/**
+ * Kick user from room, requires mode 1.
+ */
 public class CKick implements server.ICommand {
-    /**
-     * Kick user from room, requires mode 1.
-     * @param chatServerThread Thread created for user by server
-     * @param msg User and reason for kick
-     */
 	@Override
     public void execute(ChatServerThread chatServerThread, String msg) {
     	User user = chatServerThread.user;
