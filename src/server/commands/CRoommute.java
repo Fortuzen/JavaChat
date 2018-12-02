@@ -10,6 +10,7 @@ import java.util.ArrayList;
 public class CRoommute implements server.ICommand {
     /**
      * Mute user from talking in a room, requires mode 1.
+     * Note: mutes EVERYONE who uses same ip
      * @param chatServerThread Thread created for user by server
      * @param msg User to mute
      */
