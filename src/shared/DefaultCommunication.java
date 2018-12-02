@@ -4,7 +4,10 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-
+/**
+ * This class handles message sending and receiving using
+ * BufferedReader and PrintWriter.
+ */
 public class DefaultCommunication implements ICommunication {
     BufferedReader input;
     PrintWriter output;

@@ -7,13 +7,11 @@ import server.User;
 
 import java.util.ArrayList;
 
-
+/**
+ * Get username/User can change their username with this command.
+ */
 public class CUsername implements server.ICommand {
-    /**
-     * Get username/User can change their username with this command.
-     * @param chatServerThread Thread created for user by server
-     * @param msg New username
-     */
+
 	@Override
     public void execute(ChatServerThread chatServerThread, String msg) {
     	Room r = chatServerThread.user.getCurrentRoom();

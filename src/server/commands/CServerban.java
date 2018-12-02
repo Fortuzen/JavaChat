@@ -8,13 +8,11 @@ import server.User;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-
+/**
+ * Ban user from server, requires mode 3.
+ */
 public class CServerban implements server.ICommand {
-    /**
-     * Ban user from server, requires mode 3.
-     * @param chatServerThread Thread created for user by server
-     * @param msg User to be banned and reason for ban, seperated with space.
-     */
+
     @Override
     public void execute(ChatServerThread chatServerThread, String msg) {
 

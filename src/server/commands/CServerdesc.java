@@ -7,13 +7,11 @@ import server.Room;
 import server.User;
 
 import java.util.ArrayList;
-
+/**
+ * Set server description, requires mode 3.
+ */
 public class CServerdesc implements server.ICommand {
-    /**
-     * Set server description, requires mode 3.
-     * @param chatServerThread Thread created for user by server
-     * @param msg New server description
-     */
+
     @Override
     public void execute(ChatServerThread chatServerThread, String msg) {
         

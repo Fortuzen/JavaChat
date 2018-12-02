@@ -6,7 +6,9 @@ import server.Room;
 import server.User;
 
 import java.util.ArrayList;
-
+/**
+ * Login as a server admin (mode 3)
+ */
 public class CServerlogin implements server.ICommand {
     @Override
     public void execute(ChatServerThread chatServerThread, String msg) {  

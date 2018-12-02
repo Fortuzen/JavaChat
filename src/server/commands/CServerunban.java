@@ -8,13 +8,11 @@ import server.User;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-
+/**
+ * Unban user from server, requires mode 3.
+ */
 public class CServerunban implements server.ICommand {
-    /**
-     * Unban user from server, requires mode 3.
-     * @param chatServerThread Thread created for user by server
-     * @param msg User to be unbanned
-     */
+
     @Override
     public void execute(ChatServerThread chatServerThread, String msg) {
         // Check mode

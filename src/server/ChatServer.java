@@ -21,7 +21,6 @@ import java.time.LocalDateTime;
 import java.sql.Timestamp;
 /**
  * ChatServer. Main class.
- * @author Antti Neuvonen
  */
 public class ChatServer {
     // List of users in the server

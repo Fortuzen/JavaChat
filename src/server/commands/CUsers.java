@@ -7,12 +7,11 @@ import server.User;
 import server.Messages;
 import java.util.ArrayList;
 
+/**
+ * Command that lists all the users in the current room.
+ */
 public class CUsers implements server.ICommand {
-    /**
-     * Command that lists all the users in the current room.
-     * @param chatServerThread Thread created for user by server
-     * @param msg (Not used)
-     */
+
     @Override
     public void execute(ChatServerThread chatServerThread, String msg) {
     	User user = chatServerThread.user;

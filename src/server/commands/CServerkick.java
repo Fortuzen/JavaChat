@@ -8,12 +8,11 @@ import server.Messages;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+/**
+ * Kick user from server, requires mode 3.
+ */
 public class CServerkick implements server.ICommand {
-    /**
-     * Kick user from server, requires mode 3.
-     * @param chatServerThread Thread created for user by server
-     * @param msg User and reason for kick, seperated with space
-     */
+
     @Override
     public void execute(ChatServerThread chatServerThread, String msg) {
     	User user = chatServerThread.user;

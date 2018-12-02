@@ -5,13 +5,11 @@ import server.ChatServer.ChatServerThread;
 import server.Room;
 import server.User;
 import server.Messages;
-
+/**
+ * Change server's message of the day
+ */
 public class CServermotd implements server.ICommand {
-    /**
-     * Change server's message of the day
-     * @param chatServerThread Thread created for user by server
-     * @param msg text for the message of the day
-     */
+
     @Override
     public void execute(ChatServerThread chatServerThread, String msg) {
         //Check permissions
