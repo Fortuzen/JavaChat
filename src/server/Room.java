@@ -23,6 +23,9 @@ public class Room {
     /**
      * Check if user/address is banned
      * address:username:(reason)
+     * @param address ip address
+     * @param username user's name
+     * @return is user/address banned
      */
     public boolean isBanned(String address, String username) {
         for(String ba : roomSettings.getBannedAddresses()) {
@@ -38,6 +41,8 @@ public class Room {
     }
     /**
      * Check if address is banned
+     * @param address ip address
+     * @return is address banned
      */
     public boolean isAddressBanned(String address) {
         for(String ba : roomSettings.getBannedAddresses()) {
@@ -50,6 +55,8 @@ public class Room {
     }
     /**
      * Check if username is banned
+     * @param username user's name
+     * @return is user banned
      */
     public boolean isUsernameBanned(String username) {
         for(String ba : roomSettings.getBannedAddresses()) {
@@ -62,6 +69,9 @@ public class Room {
     }
     /**
      * Check if user/address is muted
+     * @param address ip addres
+     * @param username username
+     * @return is user muted
      */
     public boolean isMuted(String address, String username) {
         for(String ba : roomSettings.getMutedAddresses()) {
@@ -77,6 +87,8 @@ public class Room {
     }
     /**
      * Get user from the room using name.
+     * @param name user's name
+     * @return User or null
      */
     public User getUser(String name) {
         for(User u : users) {

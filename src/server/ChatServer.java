@@ -112,6 +112,7 @@ public class ChatServer {
     
     /**
      * Main method. 
+     * @param args Launch parameters. Not in use.
      */
     public static void main(String[] args) {
         initServer();
@@ -282,6 +283,8 @@ public class ChatServer {
         }
         /**
          * Send message to every user in the room.
+         * @param msg Message to be sent
+         * @param MsgSender Who sent the message
          */
         public void sendMessageToCurrentRoom(String msg, String MsgSender) {
             Room room = user.getCurrentRoom();
@@ -320,6 +323,7 @@ public class ChatServer {
         }
         /**
          * Send message directly to the user.
+         * @param msg Message to be sent
          */
         public void sendMessageToUser(String msg) {
             try {
@@ -330,6 +334,8 @@ public class ChatServer {
         }
         /**
          * Send message to everyone with mode minmode in the room.
+         * @param msg Message to be sent
+         * @param minMode Mode that someone must have to receive the message
          */
         public void sendMessageToModeRoom(String msg, int minMode) {
             try {
@@ -343,6 +349,8 @@ public class ChatServer {
         }
         /**
          * Send message to everyone with mode minmode in the server.
+         * @param msg Message to be sent
+         * @param minMode Mode that someone must have to receive the message
          */
         public void sendMessageToModeServer(String msg, int minMode) {
             try {
@@ -366,6 +374,8 @@ public class ChatServer {
         /**
          * Check if address is banned.
          * address:(username):(reason)
+         * @param address ip address
+         * @return was the address banned
          */
         public boolean isBanned(String address) {
             for(String ba : ChatServer.serverSettings.getBannedAddresses()) {
@@ -378,6 +388,8 @@ public class ChatServer {
         }
         /**
          * Check if username does not contain illegal characters.
+         * @param name Name to be checked for illegal characters
+         * @return was the name illegal
          */
         public boolean isIllegalName(String name) {
             String invalidChars = " .:=/\\\'\"";
